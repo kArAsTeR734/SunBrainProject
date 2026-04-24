@@ -1,0 +1,52 @@
+.general {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  margin: 25px;
+  padding: 15px;
+  border-radius: 4px;
+}
+.general__header {
+  color: rgb(23, 26, 31);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 48px;
+  text-align: center;
+  padding-bottom: 10px;
+}
+.general__avatar {
+  display: flex;
+  width: 100%;
+  border-radius: 5px;
+}
+.general__avatar_img {
+  width: 300px;
+  height: 300px;
+}
+.general__info {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.general__info_item {
+  padding-bottom: 10px;
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: left;
+}
+
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.avatar-actions {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+/*# sourceMappingURL=studentAccountInfo.css.map */

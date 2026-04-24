@@ -1,0 +1,16 @@
+.calendar {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #FF8000 #f3f7fb;
+  background: rgba(#FFE0C1, 0.2);
+  padding: 20px;
+  border-radius: 12px;
+
+  &__wrapper {
+    display: flex;
+    gap: 16px;
+    padding-bottom: 8px;
+
+    align-items: flex-start;
+  }
+}

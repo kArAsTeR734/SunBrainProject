@@ -1,0 +1,30 @@
+.calendar__item {
+  min-width: 216px;
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: center;
+  border-left: 1px solid #ddd;
+}
+
+.calendar__data {
+  color: #ff5c00;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22.89px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.calendar__day {
+  color: rgb(146, 146, 146);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  padding: 5px 0 5px 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/*# sourceMappingURL=calendarItem.css.map */

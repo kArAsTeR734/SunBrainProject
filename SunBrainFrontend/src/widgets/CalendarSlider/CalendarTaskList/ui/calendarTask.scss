@@ -1,0 +1,68 @@
+.calendar__task-item {
+  width: 100%;
+  display: block;
+  min-width: 190px;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #f9f9f9;
+    border-color: #FF8000;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.calendar__task-wrapper {
+  padding: 20px;
+  background-color: #fff;
+  border-top: 1px solid #FF8000;
+  transition: 0.2s linear;
+
+  &:hover {
+    box-shadow: 0 10px 20px rgba(255, 92, 0);
+  }
+}
+
+.calendar__task-subject {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 12px;
+  color: #FFFFFF;
+  background: #1C1C1C;
+  padding: 7px;
+  margin: 0 3px 3px 0;
+}
+
+.calendar__task-title {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1C1C1C;
+  margin-top: 20px;
+}
+
+.calendar__task-theme {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 10px;
+  color: #808080;
+}
+
+.calendar__task-deadline {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1C1C1C;
+  margin-top: 10px;
+  font-family: Montserrat, sans-serif;
+}

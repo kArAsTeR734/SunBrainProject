@@ -1,0 +1,38 @@
+.theme-wrapper {
+  width: 576px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #1c1c1c;
+  padding: 20px 0 20px 20px;
+  margin: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #FF8000;
+    color: #fff;
+  }
+
+  &-number{
+    color: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 17px;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  &-title {
+    color: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 17px;
+    text-align: left;
+    padding-left: 10px;
+    text-transform: uppercase;
+    flex-grow: 2;
+  }
+}

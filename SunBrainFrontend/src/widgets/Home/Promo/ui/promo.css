@@ -1,0 +1,30 @@
+.promo {
+  min-height: 694px;
+  padding: 100px 0 100px 0;
+}
+
+.title {
+  color: rgb(255, 92, 0);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 48px;
+  text-align: center;
+}
+
+.subtitle {
+  margin-top: 35px;
+  color: rgba(255, 92, 0, 0.9);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: center;
+}
+
+.actionButtons {
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*# sourceMappingURL=promo.css.map */

@@ -1,0 +1,15 @@
+.account {
+  min-height: 662px;
+  max-width: 999999px;
+  padding: 50px 0 36px 0;
+}
+.account__wrapper {
+  background-color: #f7f7f7;
+  display: flex;
+}
+.account__special--info {
+  display: flex;
+  flex-direction: column;
+}
+
+/*# sourceMappingURL=studentAccount.css.map */

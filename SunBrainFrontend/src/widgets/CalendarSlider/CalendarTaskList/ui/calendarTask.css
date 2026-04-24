@@ -1,0 +1,60 @@
+.calendar__task-item {
+  width: 216px;
+  min-height: 70px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1px;
+  padding: 10px;
+}
+
+.calendar__task-wrapper {
+  padding: 20px;
+  background-color: #fff;
+  border-top: 1px solid #ff8000;
+  transition: 0.2s linear;
+}
+.calendar__task-wrapper:hover {
+  box-shadow: 0 10px 20px rgb(255, 92, 0);
+}
+
+.calendar__task-subject {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 12px;
+  color: #ffffff;
+  background: #1c1c1c;
+  padding: 7px;
+  margin: 0 3px 3px 0;
+}
+
+.calendar__task-title {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1c1c1c;
+  margin-top: 20px;
+}
+
+.calendar__task-theme {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 10px;
+  color: #808080;
+}
+
+.calendar__task-deadline {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1c1c1c;
+  margin-top: 10px;
+  font-family: Montserrat, sans-serif;
+}
+
+/*# sourceMappingURL=calendarTask.css.map */

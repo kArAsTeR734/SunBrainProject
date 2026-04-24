@@ -1,0 +1,53 @@
+.button {
+  width: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+.button__sign-in {
+  background-color: #ff8000;
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+.button__auth {
+  width: 300px;
+  height: 55px;
+  background-color: #ff4000;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.button__pass-test {
+  box-shadow: 0 2px 10px 0 rgba(101, 192, 237, 0.5);
+  background: rgb(156, 188, 28);
+  width: 298px;
+  height: 56px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 124px;
+}
+.button__have-account {
+  box-shadow: 0 2px 10px 0 rgba(101, 192, 237, 0.5);
+  background: #1c4fbc;
+  width: 298px;
+  height: 56px;
+}
+.button__pass-test--student {
+  box-shadow: 0 2px 10px 0 rgba(101, 192, 237, 0.5);
+  background: linear-gradient(
+    133.91deg,
+    rgb(24, 161, 204) 16.258%,
+    rgb(146, 209, 255) 95.918%
+  );
+}
+.button--logout {
+  background: #1c4fbc;
+}
+
+/*# sourceMappingURL=button.css.map */

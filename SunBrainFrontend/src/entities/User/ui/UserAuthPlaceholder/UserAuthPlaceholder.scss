@@ -1,0 +1,19 @@
+.auth-placeholder{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+  height: 50vh;
+  &__title{
+    font-weight: 600;
+    font-size: 32px;
+    text-align: center;
+  }
+  &__link{
+    color: #fff;
+    border-radius: 12px;
+    background-color: #1c4fbc;
+    padding: 12px;
+  }
+}

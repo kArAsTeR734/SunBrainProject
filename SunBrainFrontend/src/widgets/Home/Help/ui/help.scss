@@ -1,0 +1,32 @@
+.help{
+  min-height: 355px;
+  padding-bottom: 35px;
+
+  &__body{
+    display: flex;
+    column-gap: 35px;
+  }
+
+  &__title{
+    color: rgb(255, 128, 0);
+    font-size: 24px;
+    font-weight: 600;
+    text-align: left;
+  }
+  &__description{
+    max-width: 540px;
+    color: rgb(0, 0, 0);
+    line-height: 28px;
+  }
+
+  &__about{
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
+  }
+
+  &__image{
+    display: flex;
+    justify-content: flex-end;
+  }
+}

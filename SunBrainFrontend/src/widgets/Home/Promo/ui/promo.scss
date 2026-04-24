@@ -1,0 +1,30 @@
+.promo{
+  padding-block: 60px;
+  &__body{
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+  }
+
+  &__title{
+    color: var(--color-primary);
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 48px;
+    text-align: center;
+  }
+
+  &__subtitle{
+    color: var(--color-primary);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    text-align: center;
+  }
+
+  &__actions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

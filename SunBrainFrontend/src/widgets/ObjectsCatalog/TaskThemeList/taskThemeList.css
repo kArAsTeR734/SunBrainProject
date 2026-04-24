@@ -1,0 +1,18 @@
+.themes {
+  padding: 50px 0 30px 0;
+}
+.themes__header {
+  color: #ff8000;
+  text-decoration: underline;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22.89px;
+  text-align: left;
+}
+.themes__list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+/*# sourceMappingURL=taskThemeList.css.map */

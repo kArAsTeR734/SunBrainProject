@@ -1,0 +1,51 @@
+.knowledge-test-subjects {
+  padding: 48px 0 64px;
+}
+
+.knowledge-test-subjects__title {
+  font-size: 34px;
+  line-height: 42px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.knowledge-test-subjects__subtitle {
+  color: #4f4f4f;
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 36px;
+}
+
+.knowledge-test-subjects__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.knowledge-test-subjects__item {
+  display: flex;
+  flex-direction: column;
+}
+
+.knowledge-test-subjects__item .card {
+  margin-bottom: 14px;
+}
+
+.knowledge-test-subjects__item-meta {
+  color: #1f1f1f;
+  font-size: 16px;
+  line-height: 22px;
+  padding: 0 16px;
+}
+
+@media (max-width: 860px) {
+  .knowledge-test-subjects__title {
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .knowledge-test-subjects__subtitle {
+    font-size: 17px;
+    line-height: 24px;
+  }
+}

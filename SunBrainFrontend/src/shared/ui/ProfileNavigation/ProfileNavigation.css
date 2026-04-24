@@ -1,0 +1,30 @@
+.profile-navigation {
+  min-height: 85px;
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+}
+.profile-navigation__links {
+  display: flex;
+  column-gap: 16px;
+  margin-left: 15px;
+  align-items: center;
+  width: 100%;
+}
+.profile-navigation__link {
+  text-decoration: none;
+  color: #191919;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22.89px;
+  text-align: center;
+}
+.profile-navigation__theme {
+  color: #ff8000;
+  font-size: 32px;
+  font-weight: 400;
+  text-align: left;
+  margin-top: 10px;
+}
+
+/*# sourceMappingURL=ProfileNavigation.css.map */

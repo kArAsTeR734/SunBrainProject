@@ -1,0 +1,15 @@
+.homework__taskList {
+  background-color: rgba(255, 233, 209, 0.4);
+  max-height: 99999px;
+  padding: 30px 0;
+}
+.homework__taskList_header {
+  font-family: Montserrat, sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+  margin-bottom: 30px;
+  color: #ff4000;
+}
+
+/*# sourceMappingURL=homeworkTaskList.css.map */

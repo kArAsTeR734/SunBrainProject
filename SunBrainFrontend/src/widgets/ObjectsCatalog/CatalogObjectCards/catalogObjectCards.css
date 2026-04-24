@@ -1,0 +1,9 @@
+.catalog-cards {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 62px 0 34px 0;
+}
+
+/*# sourceMappingURL=catalogObjectCards.css.map */

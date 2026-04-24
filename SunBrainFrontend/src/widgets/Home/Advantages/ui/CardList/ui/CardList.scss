@@ -1,0 +1,24 @@
+.card-list{
+  display: flex;
+  margin-top: 35px;
+  column-gap: 20px;
+}
+.advantage-card{
+  display: flex;
+  flex-direction: column;
+  &__title{
+    color: var(--color-accent);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 29px;
+    text-align: left;
+  }
+
+  &__description{
+    margin-top: 5px;
+    color: var(--text-color);
+    font-size: 16px;
+    line-height: 20px;
+    text-align: left
+  }
+}

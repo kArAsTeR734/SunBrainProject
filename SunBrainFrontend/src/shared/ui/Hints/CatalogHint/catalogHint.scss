@@ -1,0 +1,32 @@
+.catalog-hint{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  position: relative;
+  &__img{
+    width: 64px;
+    height: 64px;
+  }
+  &__number{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: #0051FF;
+    width: 20px;
+    height: 20px;
+    top: -3px;
+    left: 53px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 22.89px;
+  }
+  &__title{
+    padding-left: 26px;
+    color: rgb(122, 114, 114);
+    font-size: 16px;
+    font-weight: 500;
+  }
+}

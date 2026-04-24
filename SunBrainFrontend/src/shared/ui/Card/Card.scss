@@ -1,0 +1,24 @@
+.card{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 390px;
+  height: 210px;
+  background-color: #fff;
+  margin-bottom: 75px;
+  border-radius: 20px;
+  color: #000000;
+  transition: 0.3s all;
+  &:hover{
+    background-color: #FF8000;
+    color: #fff;
+  }
+  &__title{
+    color: inherit;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}

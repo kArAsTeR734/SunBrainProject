@@ -1,0 +1,25 @@
+.calendar__item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #f3f7fb;
+  padding-bottom: 12px;
+}
+
+.calendar__date {
+  color: #FF5C00;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.calendar__day {
+  color: #929292;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

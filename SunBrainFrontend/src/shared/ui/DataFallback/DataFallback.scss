@@ -1,0 +1,32 @@
+.data-fallback {
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #d8d8d8;
+  background-color: #fafafa;
+  margin-block: 70px;
+}
+
+.data-fallback__title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f1f1f;
+}
+
+.data-fallback__description {
+  margin-top: 8px;
+  color: #666666;
+  font-size: 15px;
+}
+
+.data-fallback__action {
+  margin-top: 14px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: none;
+  background-color: #ff8000;
+  color: #ffffff;
+  cursor: pointer;
+}
+

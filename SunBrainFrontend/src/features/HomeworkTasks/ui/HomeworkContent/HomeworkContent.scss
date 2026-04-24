@@ -1,0 +1,54 @@
+.md-paragraph {
+  margin: 12px 0;
+  line-height: 1.65;
+  width: 100%;
+}
+
+.md-paragraph .katex {
+  line-height: 1.4 !important;
+}
+
+.md-paragraph .katex-display {
+  margin: 0.7em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.md-paragraph .katex .mfrac .frac-line {
+  border-bottom-width: 0.1em !important;
+  margin: 0.08em 0 !important;
+}
+
+.md-paragraph .katex .mfrac .frac-num {
+  padding-bottom: 0.18em !important;
+}
+
+.md-paragraph .katex .mfrac .frac-den {
+  padding-top: 0.18em !important;
+}
+
+.md-paragraph .katex .mord{
+  margin-top: 2em !important;
+}
+
+.md-img--inline {
+  display: inline-block !important;
+  width: auto !important;
+  height: 1.2em !important;
+  max-width: none !important;
+  vertical-align: -0.2em;
+  margin: 0 0.15em !important;
+  object-fit: contain;
+}
+
+.md-img--block {
+  display: block !important;
+  width: min(100%, 400px) !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: 400px;
+  margin: 18px auto !important;
+  vertical-align: baseline;
+  border-radius: 8px;
+  object-fit: contain;
+}

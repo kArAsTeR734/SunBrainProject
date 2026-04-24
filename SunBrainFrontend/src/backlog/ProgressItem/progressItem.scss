@@ -1,0 +1,28 @@
+.item {
+  width: 100%;
+  height: 56px;
+  margin-top: 10px;
+
+  &_subject {
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 26px;
+    text-align: left;
+  }
+  &__progress--container{
+    margin-top: 10px;
+    width: 100%;
+    background: #ddd;
+    border-radius: 10px;
+  }
+
+  &__progress{
+    border-radius: 10px;
+    height: 20px;
+    background: #76b852;
+    width: 70%;
+    max-width: inherit;
+    transition: width 0.5s;
+  }
+}

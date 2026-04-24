@@ -1,0 +1,11 @@
+.calendar-cell {
+  flex: 0 0 220px;
+  min-height: 200px;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+}
