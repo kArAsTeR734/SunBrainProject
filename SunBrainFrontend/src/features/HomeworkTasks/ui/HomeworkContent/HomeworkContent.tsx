@@ -11,6 +11,16 @@ interface Props {
 }
 
 export const MarkdownContent: FC<Props> = memo(({ content }) => {
+
+  const normalizeSolution = (text: string) => {
+    return text
+      .replace(/\\n/g, "\n")
+      .replace(/\r\n/g, "\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+  };
+
+  const solution = normalizeSolution(content);
   return (
     <ReactMarkdown
       remarkPlugins={[remarkMath]}
@@ -47,7 +57,7 @@ export const MarkdownContent: FC<Props> = memo(({ content }) => {
         },
       }}
     >
-      {content}
+      {solution}
     </ReactMarkdown>
   );
 });

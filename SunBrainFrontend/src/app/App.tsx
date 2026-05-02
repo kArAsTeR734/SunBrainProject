@@ -9,7 +9,7 @@ function App() {
   return (
     <React.Suspense fallback={<div>Загрузка...</div>}>
       <AppInitializer />
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </React.Suspense>
   );
 }

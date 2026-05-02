@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   text-decoration: none;
+  font-size: 18px;
 
   &:focus {
     outline: none;
@@ -21,7 +22,7 @@ img {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 

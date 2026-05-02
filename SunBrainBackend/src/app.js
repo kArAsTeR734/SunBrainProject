@@ -17,6 +17,11 @@ import aiRouter from "./routes/ai-routes.js";
 
 const app = express();
 
+const envOrigins = (process.env.CORS_ORIGIN || '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
 const allowedOrigins = [
     'http://localhost:3000',
     'http://localhost:3001',
@@ -25,14 +30,15 @@ const allowedOrigins = [
     'http://localhost:3031',
     'http://localhost:3030',
     'http://localhost:5173',
-    'http://localhost:8080'
+    'http://localhost:8080',
+    ...envOrigins
 ];
 
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin) return callback(null, true);
 
-        if (allowedOrigins.indexOf(origin) === -1) {
+        if (!allowedOrigins.includes(origin)) {
             const msg = `CORS политика не разрешает доступ с origin: ${origin}`;
             return callback(new Error(msg), false);
         }
