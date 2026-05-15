@@ -2,7 +2,7 @@ services:
   frontend:
     build:
       context: ./SunBrainFrontend
-      dockerfile: Dockerfile.dev
+      dockerfile: ./SunBrainBackend/Dockerfile.dev.dev
     container_name: sunbrain_frontend
     ports:
       - "3000:3000"
@@ -12,13 +12,12 @@ services:
     depends_on:
       - backend
     environment:
-      - VITE_API_URL=http://localhost:5000
-    command: npm run dev -- --host 0.0.0.0 --port 3000
+      - VITE_API_URL=http://api.sunbrain.crazedns.ru
 
   backend:
     build:
       context: ./SunBrainBackend
-      dockerfile: Dockerfile.dev
+      dockerfile: ./SunBrainBackend/Dockerfile.dev.dev
     container_name: sunbrain_backend
     ports:
       - "5000:5000"

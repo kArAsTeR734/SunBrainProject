@@ -1,28 +1,14 @@
 services:
-  proxy:
-    image: caddy:2.8-alpine
-    container_name: sunbrain_proxy
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - frontend
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
-
   frontend:
     build:
       context: ./SunBrainFrontend
       dockerfile: Dockerfile.prod
       args:
-        VITE_API_URL: /api
+        VITE_API_URL: https://api.sunbrain.crazedns.ru
     container_name: sunbrain_frontend
     restart: unless-stopped
-    expose:
-      - "80"
+    ports:
+      - "3000:80"
     depends_on:
       - backend
 
@@ -34,14 +20,10 @@ services:
     restart: unless-stopped
     env_file:
       - ./SunBrainBackend/.env.production
-    environment:
-      CLIENT_URL: https://sunbrain.ru
-      CORS_ORIGIN: https://sunbrain.ru,https://www.sunbrain.ru
-    expose:
-      - "5000"
+    ports:
+      - "5000:5000"
     depends_on:
-      db:
-        condition: service_healthy
+      - db
 
   db:
     image: postgres:18-alpine
@@ -53,16 +35,6 @@ services:
       POSTGRES_PASSWORD: root
     volumes:
       - postgres18_data:/var/lib/postgresql
-    expose:
-      - "5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d SunBrain_dev"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-      start_period: 10s
 
 volumes:
   postgres18_data:
-  caddy_data:
-  caddy_config:
