@@ -4,7 +4,7 @@ services:
       context: ./SunBrainFrontend
       dockerfile: Dockerfile.prod
       args:
-        VITE_API_URL: https://api.sunbrain.crazedns.ru
+        VITE_API_URL: http://api.sunbrain.crazedns.ru
     container_name: sunbrain_frontend
     restart: unless-stopped
     ports:
