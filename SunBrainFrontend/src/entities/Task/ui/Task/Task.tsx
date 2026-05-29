@@ -8,11 +8,7 @@ interface TaskProps {
   onAnswerSubmit: (_id: number, _answer: string) => void;
 }
 
-export const TestTask: React.FC<TaskProps> = ({
-  id,
-  question,
-  onAnswerSubmit,
-}) => {
+export const TestTask: React.FC<TaskProps> = ({ id, question, onAnswerSubmit }) => {
   const [textAnswer, setTextAnswer] = useState<string>('');
 
   const handleTextSubmit = () => {

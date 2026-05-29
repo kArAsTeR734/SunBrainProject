@@ -5,9 +5,7 @@ export interface SubjectReturnType {
   subjectTheme: string;
 }
 
-export function getSubjectIdFromLocation(
-  pathname: string,
-): SubjectReturnType | null {
+export function getSubjectIdFromLocation(pathname: string): SubjectReturnType | null {
   const segments = pathname.split('/').filter(Boolean);
 
   if (segments[1] !== 'homework') {

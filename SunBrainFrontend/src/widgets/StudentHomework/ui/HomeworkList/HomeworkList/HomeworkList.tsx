@@ -5,13 +5,7 @@ import { HomeworkCard } from '@entities/Homework';
 import { DataFallback } from '@shared/ui';
 
 export const HomeworkList = () => {
-  const {
-    data: homeworks,
-    isFetching,
-    isLoading,
-    isError,
-    refetch,
-  } = useHomework();
+  const { data: homeworks, isFetching, isLoading, isError, refetch } = useHomework();
 
   if (isLoading || isFetching) {
     return (
@@ -35,12 +29,7 @@ export const HomeworkList = () => {
   }
 
   if (!homeworks?.length) {
-    return (
-      <DataFallback
-        state="empty"
-        title="У вас пока нет назначенных домашних заданий."
-      />
-    );
+    return <DataFallback state="empty" title="У вас пока нет назначенных домашних заданий." />;
   }
 
   return (

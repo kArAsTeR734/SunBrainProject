@@ -8,12 +8,7 @@ import { useEffect, useState } from 'react';
 
 export const PositionList = () => {
   const { user } = useAppSelector((state) => state.userReducer);
-  const {
-    data: leaderboard,
-    isLoading,
-    isFetching,
-    refetch,
-  } = useLeaderboard(user?.id ?? 0);
+  const { data: leaderboard, isLoading, isFetching, refetch } = useLeaderboard(user?.id ?? 0);
   const [userOnTop, setUserOnTop] = useState<boolean>(false);
 
   useEffect(() => {
@@ -43,9 +38,7 @@ export const PositionList = () => {
     <div className="position__items">
       {leaderboard.topUsers.map(({ position, fullName, points }) => (
         <div className="position__item" key={position}>
-          <div className={clsx('position__item-placement', 'first')}>
-            {position}.
-          </div>
+          <div className={clsx('position__item-placement', 'first')}>{position}.</div>
           <p className="position__item-info">{fullName}</p>
           <p className="position__item-score">{points} баллов</p>
         </div>

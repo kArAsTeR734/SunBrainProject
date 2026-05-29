@@ -6,9 +6,7 @@ interface ApiResponse<T> {
   message?: string;
 }
 
-export async function request<T>(
-  promise: Promise<AxiosResponse<ApiResponse<T>>>,
-): Promise<T> {
+export async function request<T>(promise: Promise<AxiosResponse<ApiResponse<T>>>): Promise<T> {
   const response = await promise;
 
   if (!response.data.success) {

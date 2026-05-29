@@ -3,11 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './KnowledgeTest.scss';
 import { KnowledgeTestSubjectId } from '@features/Test/models/types.ts';
 import { PATHS } from '@app/providers/routes/config.tsx';
-import {
-  getKnowledgeTestSubjectById,
-  TestNavigation,
-  TestResults,
-} from '@features/Test';
+import { getKnowledgeTestSubjectById, TestNavigation, TestResults } from '@features/Test';
 import { TestTask } from '@/entities/Task';
 import { DataFallback } from '@shared/ui';
 import { useTestData } from '@features/Test/models/hooks/useTestData.ts';

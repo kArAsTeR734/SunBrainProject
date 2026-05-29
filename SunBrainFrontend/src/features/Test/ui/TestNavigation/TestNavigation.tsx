@@ -20,8 +20,7 @@ export const TestNavigation: React.FC<TaskNavigationProps> = ({
   isFinishing = false,
 }) => {
   const currentTaskListIndex = tasks.findIndex((task) => task.isCurrent);
-  const prevTaskId =
-    currentTaskListIndex > 0 ? tasks[currentTaskListIndex - 1].id : null;
+  const prevTaskId = currentTaskListIndex > 0 ? tasks[currentTaskListIndex - 1].id : null;
   const nextTaskId =
     currentTaskListIndex >= 0 && currentTaskListIndex < tasks.length - 1
       ? tasks[currentTaskListIndex + 1].id
@@ -67,11 +66,7 @@ export const TestNavigation: React.FC<TaskNavigationProps> = ({
           Вперёд
         </button>
 
-        <button
-          className="finish-button"
-          onClick={onFinish}
-          disabled={isFinishing}
-        >
+        <button className="finish-button" onClick={onFinish} disabled={isFinishing}>
           {isFinishing ? 'Завершение...' : 'Завершить тест'}
         </button>
       </div>

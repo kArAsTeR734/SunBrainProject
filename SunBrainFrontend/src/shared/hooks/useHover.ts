@@ -1,8 +1,6 @@
 import { MutableRefObject, useEffect, useState } from 'react';
 
-export const useHover = <T extends HTMLElement>(
-  ref: MutableRefObject<T | null>,
-) => {
+export const useHover = <T extends HTMLElement>(ref: MutableRefObject<T | null>) => {
   const [isHovering, setHovering] = useState(false);
 
   const on = () => setHovering(true);

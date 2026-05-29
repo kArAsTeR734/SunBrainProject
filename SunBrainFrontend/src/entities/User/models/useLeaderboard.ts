@@ -11,8 +11,7 @@ export const useLeaderboard = (userId: number) => {
     queryKey: ['leaderboard'],
     queryFn: async () => {
       try {
-        const leaderboard =
-          await LeaderboardService.getProfileLeaderboard(userId);
+        const leaderboard = await LeaderboardService.getProfileLeaderboard(userId);
 
         if (!leaderboard) {
           return null;

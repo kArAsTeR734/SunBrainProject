@@ -10,10 +10,7 @@ export const ProfileHeaderData = () => {
     <>
       <div className="user-actions">
         {!isAuth ? (
-          <Button
-            onClick={() => navigate('/login')}
-            className="button button__sign-in"
-          >
+          <Button onClick={() => navigate('/login')} className="button button__sign-in">
             Войти
           </Button>
         ) : (

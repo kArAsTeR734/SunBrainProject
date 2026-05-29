@@ -31,8 +31,6 @@ export const KNOWLEDGE_TEST_SUBJECTS: KnowledgeTestSubject[] = [
   },
 ];
 
-export const getKnowledgeTestSubjectById = (
-  id: string,
-): KnowledgeTestSubject | undefined => {
+export const getKnowledgeTestSubjectById = (id: string): KnowledgeTestSubject | undefined => {
   return KNOWLEDGE_TEST_SUBJECTS.find((subject) => subject.id === id);
 };

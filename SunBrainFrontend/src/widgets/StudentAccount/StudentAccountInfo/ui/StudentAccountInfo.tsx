@@ -13,16 +13,10 @@ export const StudentAccountInfo = () => {
     <>
       <div className="general">
         <h2 className="general__header">Общая информация</h2>
-        <AvatarUpload
-          currentAvatar={user?.avatarUrl ?? ''}
-          onUpload={handleUpload}
-          size={150}
-        />
+        <AvatarUpload currentAvatar={user?.avatarUrl ?? ''} onUpload={handleUpload} size={150} />
         <div className="general__info">
           <div className="general__info_item">ФИО: {user?.fullName ?? ''}</div>
-          <div className="general__info_item">
-            Адрес электронной почты: {user?.email ?? ''}
-          </div>
+          <div className="general__info_item">Адрес электронной почты: {user?.email ?? ''}</div>
         </div>
       </div>
     </>

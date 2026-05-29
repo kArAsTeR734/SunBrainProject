@@ -33,8 +33,7 @@ export const LoginForm = () => {
       await login(loginData);
       navigate('/student/account');
     } catch (error: any) {
-      const serverMessage =
-        error?.response?.data?.message || 'Неверный логин или пароль';
+      const serverMessage = error?.response?.data?.message || 'Неверный логин или пароль';
 
       setError('email', {
         type: 'server',
@@ -58,9 +57,7 @@ export const LoginForm = () => {
               <TextField
                 {...register('email', emailValidation)}
                 error={shouldShowError('email')}
-                helperText={
-                  shouldShowError('email') ? getErrorMessage('email') : ''
-                }
+                helperText={shouldShowError('email') ? getErrorMessage('email') : ''}
                 label="Email"
                 id="email"
                 name="email"
@@ -70,9 +67,7 @@ export const LoginForm = () => {
               <TextField
                 {...register('password', passwordValidation)}
                 error={shouldShowError('password')}
-                helperText={
-                  shouldShowError('password') ? getErrorMessage('password') : ''
-                }
+                helperText={shouldShowError('password') ? getErrorMessage('password') : ''}
                 label="Пароль"
                 name="password"
                 id="password"
@@ -80,17 +75,11 @@ export const LoginForm = () => {
                 type="password"
               />
               <div className="login__actions">
-                <Button
-                  type="submit"
-                  className={clsx('button', 'button__auth')}
-                >
+                <Button type="submit" className={clsx('button', 'button__auth')}>
                   Войти
                 </Button>
                 <div className="login__actions_divider">Или</div>
-                <Button
-                  type="button"
-                  className={clsx('button', 'button__auth')}
-                >
+                <Button type="button" className={clsx('button', 'button__auth')}>
                   <Link to="/registration">Зарегистрироваться</Link>
                 </Button>
               </div>

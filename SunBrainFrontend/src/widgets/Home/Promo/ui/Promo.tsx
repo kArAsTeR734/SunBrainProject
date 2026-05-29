@@ -19,24 +19,17 @@ export const Promo = () => {
       <div className="container">
         <div className="promo__body">
           <h1 className="promo__title">
-            Твой личный путь к ЕГЭ – AI создаст план, а ты <br /> достигнешь
-            цели!
+            Твой личный путь к ЕГЭ – AI создаст план, а ты <br /> достигнешь цели!
           </h1>
           <p className="promo__subtitle">
-            Измените свои привычки в учебе с помощью индивидуальных идей <br />{' '}
-            искусственного интеллекта.
+            Измените свои привычки в учебе с помощью индивидуальных идей <br /> искусственного
+            интеллекта.
           </p>
           <div className="promo__actions">
-            <Button
-              className={clsx('button', 'button__pass-test')}
-              onClick={handleClickTest}
-            >
+            <Button className={clsx('button', 'button__pass-test')} onClick={handleClickTest}>
               Пройти вступительный тест
             </Button>
-            <Button
-              className={clsx('button', 'button__have-account')}
-              onClick={handleClickAccount}
-            >
+            <Button className={clsx('button', 'button__have-account')} onClick={handleClickAccount}>
               У меня уже есть аккаунт
             </Button>
           </div>

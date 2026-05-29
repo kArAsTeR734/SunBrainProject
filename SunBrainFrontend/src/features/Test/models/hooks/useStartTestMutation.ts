@@ -1,9 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { KnowledgeTestService } from '@/api/services/KnowledgeTestService.ts';
-import {
-  KnowledgeTestSubjectId,
-  StartTestResponse,
-} from '@features/Test/models/types.ts';
+import { KnowledgeTestSubjectId, StartTestResponse } from '@features/Test/models/types.ts';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from '@app/providers/routes/config.tsx';
 import { setTestSessionData } from '@features/Test';

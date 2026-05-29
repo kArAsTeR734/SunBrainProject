@@ -9,9 +9,7 @@ interface AITaskGeneratorProps {
   className?: string;
 }
 
-const AITaskGenerator: React.FC<AITaskGeneratorProps> = ({
-  className = '',
-}) => {
+const AITaskGenerator: React.FC<AITaskGeneratorProps> = ({ className = '' }) => {
   return (
     <div className={`ai-task-generator ${className}`}>
       <h3>Генератор заданий с ИИ</h3>

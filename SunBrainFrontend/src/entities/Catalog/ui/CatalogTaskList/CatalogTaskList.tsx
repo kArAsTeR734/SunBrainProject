@@ -5,17 +5,10 @@ import { DataFallback, TaskItem, TaskList } from '@shared/ui';
 export const CatalogTaskList = () => {
   const { themeId } = useParams();
   const navigate = useNavigate();
-  const {
-    data: catalogTasks,
-    isLoading,
-    isError,
-    refetch,
-  } = useCatalogTasks(Number(themeId));
+  const { data: catalogTasks, isLoading, isError, refetch } = useCatalogTasks(Number(themeId));
   console.log(catalogTasks);
   if (isLoading) {
-    return (
-      <DataFallback state="loading" title="Загружаем задания по теме..." />
-    );
+    return <DataFallback state="loading" title="Загружаем задания по теме..." />;
   }
 
   if (isError) {

@@ -16,9 +16,7 @@ const useBreadcrumbs = () => {
       const handle = match.handle as AppRouteHandle;
 
       const label =
-        typeof handle.breadcrumb === 'function'
-          ? handle.breadcrumb(match)
-          : handle.breadcrumb;
+        typeof handle.breadcrumb === 'function' ? handle.breadcrumb(match) : handle.breadcrumb;
 
       return {
         label,

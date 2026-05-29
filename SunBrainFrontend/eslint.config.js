@@ -1,50 +1,44 @@
 import js from '@eslint/js';
-import globals from 'globals';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
+import reactPlugin from 'eslint-plugin-react';
+import hooksPlugin from 'eslint-plugin-react-hooks';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import eslintPluginPrettier from 'eslint-plugin-prettier';
 
 export default tseslint.config(
-  {
-    ignores: ['dist', 'node_modules'],
-  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     files: ['**/*.{ts,tsx}'],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: {
-        ...globals.browser,
-        ...globals.node
-      },
-      parser:tseslint.parser,
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-    },
     plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
+      react: reactPlugin,
+      'react-hooks': hooksPlugin,
+      prettier: eslintPluginPrettier,
     },
-    rules: {
-      ...js.configs.recommended.rules,
-      ...reactHooks.configs.recommended.rules,
-      "no-unused-vars": [
-        "error",
-        {
-          "argsIgnorePattern": "^_",
-          "varsIgnorePattern": "^_",
-          "caughtErrorsIgnorePattern": "^_"
-        }
-      ]
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+      },
     },
     settings: {
-      'import/resolver': {
-        typescript: {
-          project: './tsconfig.json',
-        },
-      },
+      react: { version: 'detect' },
     },
-  }
+    rules: {
+      ...reactPlugin.configs.recommended.rules,
+      ...hooksPlugin.configs.recommended.rules,
+
+      'prettier/prettier': 'error',
+
+      'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
+
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/no-explicit-any': 'warn',
+
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      eqeqeq: ['error', 'always'],
+    },
+  },
+  eslintConfigPrettier,
 );

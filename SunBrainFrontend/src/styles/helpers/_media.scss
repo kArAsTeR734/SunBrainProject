@@ -1,0 +1,40 @@
+$laptop:1440.98;
+$tablet:1023.98;
+$mobile:767.98;
+
+@mixin laptop-above {
+  @media (width > $laptop) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (width <= $laptop) {
+    @content;
+  }
+}
+
+@mixin tablet-above {
+  @media (width > $tablet) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (width <= $tablet) {
+    @content;
+  }
+}
+
+@mixin mobile-above {
+  @media (width > $mobile) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (width <= $mobile) {
+    @content;
+  }
+}
+

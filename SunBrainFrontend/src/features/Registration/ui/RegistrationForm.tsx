@@ -53,17 +53,12 @@ export const RegistrationForm = () => {
         <div className="container">
           <h2 className="registration__header">Регистрация</h2>
           <div className="registration__wrapper">
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="registration__form"
-            >
+            <form onSubmit={handleSubmit(onSubmit)} className="registration__form">
               <TextField
                 {...register('email', emailValidation)}
                 type="email"
                 error={shouldShowError('email')}
-                helperText={
-                  shouldShowError('email') ? getErrorMessage('email') : ''
-                }
+                helperText={shouldShowError('email') ? getErrorMessage('email') : ''}
                 label="Логин"
                 id="email"
                 name="email"
@@ -73,9 +68,7 @@ export const RegistrationForm = () => {
                 {...register('fullName', fullNameValidation)}
                 type="text"
                 error={shouldShowError('fullName')}
-                helperText={
-                  shouldShowError('fullName') ? getErrorMessage('fullName') : ''
-                }
+                helperText={shouldShowError('fullName') ? getErrorMessage('fullName') : ''}
                 label="Имя и Фамилия"
                 id="fullName"
                 name="fullName"
@@ -85,9 +78,7 @@ export const RegistrationForm = () => {
                 {...register('password', passwordValidation)}
                 type="password"
                 error={shouldShowError('password')}
-                helperText={
-                  shouldShowError('password') ? getErrorMessage('password') : ''
-                }
+                helperText={shouldShowError('password') ? getErrorMessage('password') : ''}
                 label="Пароль"
                 name="password"
                 id="password"
@@ -98,9 +89,7 @@ export const RegistrationForm = () => {
                 type="password"
                 error={shouldShowError('confirmPassword')}
                 helperText={
-                  shouldShowError('confirmPassword')
-                    ? getErrorMessage('confirmPassword')
-                    : ''
+                  shouldShowError('confirmPassword') ? getErrorMessage('confirmPassword') : ''
                 }
                 label="Подтверждение пароля"
                 name="confirmPassword"
@@ -109,15 +98,10 @@ export const RegistrationForm = () => {
               />
 
               <div className="registration__actions">
-                <Button className={['button', 'button__auth'].join(' ')}>
-                  Зарегистрироваться
-                </Button>
+                <Button className={['button', 'button__auth'].join(' ')}>Зарегистрироваться</Button>
                 <div className="registration__actions_divider">Или</div>
                 <Button className={clsx('button', 'button__auth')}>
-                  <Link
-                    className={clsx('button', 'button button__text')}
-                    to="/login"
-                  >
+                  <Link className={clsx('button', 'button button__text')} to="/login">
                     Уже есть аккаунт
                   </Link>
                 </Button>

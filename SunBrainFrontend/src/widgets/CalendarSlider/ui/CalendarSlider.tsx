@@ -9,13 +9,7 @@ import { DataFallback } from '@shared/ui';
 
 export const CalendarSlider = () => {
   const days = getCalendarDates();
-  const {
-    data: homeworks,
-    isLoading,
-    isFetching,
-    isError,
-    refetch,
-  } = useHomework();
+  const { data: homeworks, isLoading, isFetching, isError, refetch } = useHomework();
   const homeworksByDate = groupHomeworksByDate(homeworks ?? []);
   const calendarItems = days.flatMap((dateItem) => ({
     date: dateItem,

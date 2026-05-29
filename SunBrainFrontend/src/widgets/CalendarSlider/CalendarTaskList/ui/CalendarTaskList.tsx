@@ -9,12 +9,7 @@ interface CalendarTaskListProps {
   tasks: HomeworkListItem[];
 }
 
-const CalendarTask: FC<HomeworkListItem> = ({
-  id,
-  title,
-  subject,
-  deadline,
-}) => {
+const CalendarTask: FC<HomeworkListItem> = ({ id, title, subject, deadline }) => {
   const navigate = useNavigate();
 
   const handleClickItem = () => {
@@ -22,18 +17,12 @@ const CalendarTask: FC<HomeworkListItem> = ({
   };
 
   return (
-    <button
-      onClick={handleClickItem}
-      className="calendar__task-item"
-      type="button"
-    >
+    <button onClick={handleClickItem} className="calendar__task-item" type="button">
       <div className="calendar__task-wrapper">
         <h4 className="calendar__task-subject">{subject}</h4>
         <h3 className="calendar__task-title">Домашнее задание</h3>
         <p className="calendar__task-theme">{title}</p>
-        <h4 className="calendar__task-deadline">
-          Дедлайн: {formatHomeworksDeadline(deadline)}
-        </h4>
+        <h4 className="calendar__task-deadline">Дедлайн: {formatHomeworksDeadline(deadline)}</h4>
       </div>
     </button>
   );

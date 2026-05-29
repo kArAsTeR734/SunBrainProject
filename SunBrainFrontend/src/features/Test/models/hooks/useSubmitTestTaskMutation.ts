@@ -11,10 +11,7 @@ export const useSubmitTestTaskMutation = () => {
   return useMutation({
     mutationKey: ['test', 'submit-answer'],
     mutationFn: ({ testId, taskId, answer }: SubmitMutationParams) => {
-      return KnowledgeTestService.testSubmitAnswer(
-        { testId },
-        { taskId, answer },
-      );
+      return KnowledgeTestService.testSubmitAnswer({ testId }, { taskId, answer });
     },
     onSuccess: () => {
       console.log('Successfully submitted task');

@@ -13,9 +13,7 @@ export const Breadcrumbs = () => {
   const { subjectId, themeId, homeworkId } = useParams();
 
   const { data: homework } = useHomeworkTasks(Number(homeworkId));
-  const { data: topics } = useTopics(
-    subjectId || (homework?.topic?.code ?? ''),
-  );
+  const { data: topics } = useTopics(subjectId || (homework?.topic?.code ?? ''));
 
   const activeSubjectId = subjectId || homework?.topic.code;
   const crumbs = [];
@@ -57,9 +55,7 @@ export const Breadcrumbs = () => {
               {link.label}
             </Link>
 
-            {index < crumbs.length - 1 && (
-              <ArrowForwardIcon className="breadcrumbs__separator" />
-            )}
+            {index < crumbs.length - 1 && <ArrowForwardIcon className="breadcrumbs__separator" />}
           </React.Fragment>
         ))}
       </nav>

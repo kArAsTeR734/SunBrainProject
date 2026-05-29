@@ -4,10 +4,7 @@ import { CheckAnswerResponse } from '@entities/Homework/model/types.ts';
 import { CatalogItemsResponse } from '@entities/Task/model/types.ts';
 
 export class TaskService {
-  static async checkTaskAnswer(
-    taskId: number,
-    answer: string,
-  ): Promise<CheckAnswerResponse> {
+  static async checkTaskAnswer(taskId: number, answer: string): Promise<CheckAnswerResponse> {
     return request(api.post(`/api/tasks/${taskId}/check`, { answer }));
   }
 

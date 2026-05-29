@@ -12,9 +12,7 @@ export class AuthorizationService {
     return request(authApi.post('/api/auth/login', data));
   }
 
-  public static async register(
-    data: RegistrationRequest,
-  ): Promise<AuthResponse> {
+  public static async register(data: RegistrationRequest): Promise<AuthResponse> {
     return request(authApi.post('/api/auth/register', data));
   }
 

@@ -20,15 +20,9 @@ export const DataFallback = ({
   return (
     <div className={`data-fallback data-fallback--${state}`}>
       <p className="data-fallback__title">{title}</p>
-      {description && (
-        <p className="data-fallback__description">{description}</p>
-      )}
+      {description && <p className="data-fallback__description">{description}</p>}
       {onAction && (
-        <button
-          className="data-fallback__action"
-          type="button"
-          onClick={onAction}
-        >
+        <button className="data-fallback__action" type="button" onClick={onAction}>
           {actionLabel}
         </button>
       )}

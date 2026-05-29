@@ -11,12 +11,11 @@ interface Props {
 }
 
 export const MarkdownContent: FC<Props> = memo(({ content }) => {
-
   const normalizeSolution = (text: string) => {
     return text
-      .replace(/\\n/g, "\n")
-      .replace(/\r\n/g, "\n")
-      .replace(/\n{3,}/g, "\n\n")
+      .replace(/\\n/g, '\n')
+      .replace(/\r\n/g, '\n')
+      .replace(/\n{3,}/g, '\n\n')
       .trim();
   };
 
@@ -35,11 +34,7 @@ export const MarkdownContent: FC<Props> = memo(({ content }) => {
           }
 
           if (kind === 'formula:inline') {
-            const inlineClassName = [
-              'md-img',
-              'md-img--inline',
-              props.className,
-            ]
+            const inlineClassName = ['md-img', 'md-img--inline', props.className]
               .filter(Boolean)
               .join(' ');
             return <img {...props} className={inlineClassName} alt="" />;
@@ -51,9 +46,7 @@ export const MarkdownContent: FC<Props> = memo(({ content }) => {
 
           const normalizedAlt = kind === 'image:block' ? (payload ?? '') : alt;
 
-          return (
-            <img {...props} className={imageClassName} alt={normalizedAlt} />
-          );
+          return <img {...props} className={imageClassName} alt={normalizedAlt} />;
         },
       }}
     >

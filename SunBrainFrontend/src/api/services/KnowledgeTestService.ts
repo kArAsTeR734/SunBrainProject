@@ -41,11 +41,7 @@ export class KnowledgeTestService {
     );
   }
 
-  public static async finishTest({
-    testId,
-  }: {
-    testId: number;
-  }): Promise<FinishTestResponse> {
+  public static async finishTest({ testId }: { testId: number }): Promise<FinishTestResponse> {
     return request(api.post(`/api/test/${testId}/finish`));
   }
 

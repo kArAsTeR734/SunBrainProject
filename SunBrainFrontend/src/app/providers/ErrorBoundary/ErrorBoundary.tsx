@@ -25,11 +25,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
   render() {
     if (this.state.hasError) {
       ErrorBoundary.getDerivedHasError();
-      return (
-        this.props.fallback ?? (
-          <h1>Произошла непредвиденная ошибка в приложении</h1>
-        )
-      );
+      return this.props.fallback ?? <h1>Произошла непредвиденная ошибка в приложении</h1>;
     }
     return this.props.children;
   }

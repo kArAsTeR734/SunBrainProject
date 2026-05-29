@@ -8,13 +8,7 @@ import { DataFallback } from '@shared/ui';
 
 export const TaskThemeList = () => {
   const { subjectId } = useParams<{ subjectId: SubjectId }>();
-  const {
-    data: themes,
-    isLoading,
-    isFetching,
-    isError,
-    refetch,
-  } = useTopics(subjectId ?? '');
+  const { data: themes, isLoading, isFetching, isError, refetch } = useTopics(subjectId ?? '');
   if (!subjectId) {
     return (
       <DataFallback
@@ -47,23 +41,19 @@ export const TaskThemeList = () => {
   }
 
   if (!themes?.length) {
-    return (
-      <DataFallback state="empty" title="Для этого предмета пока нет тем." />
-    );
+    return <DataFallback state="empty" title="Для этого предмета пока нет тем." />;
   }
 
   return (
     <section className="themes">
       <div className="themes__about">
         <h2 className="themes__header">
-          Задания по предмету:{' '}
-          <span className="highlight">{getSubjectTitle(subjectId)}</span>
+          Задания по предмету: <span className="highlight">{getSubjectTitle(subjectId)}</span>
         </h2>
         <p className="themes__description">
-          Задания в каталоге предназначены для самостоятельного решения,
-          просмотр решения в данном разделе{' '}
-          <span className="highlight">не предусмотрен</span>. Функция
-          самопроверки <span className="highlight">доступна</span>.
+          Задания в каталоге предназначены для самостоятельного решения, просмотр решения в данном
+          разделе <span className="highlight">не предусмотрен</span>. Функция самопроверки{' '}
+          <span className="highlight">доступна</span>.
         </p>
       </div>
 

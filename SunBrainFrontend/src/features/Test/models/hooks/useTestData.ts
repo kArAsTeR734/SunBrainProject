@@ -10,10 +10,7 @@ export const useTestData = () => {
 
   const queryClient = useQueryClient();
 
-  const queryCacheData = queryClient.getQueryData<StartTestResponse>([
-    'test',
-    testId,
-  ]);
+  const queryCacheData = queryClient.getQueryData<StartTestResponse>(['test', testId]);
   const sessionData = getTestSessionData<StartTestResponse>(testId);
 
   const data = queryCacheData ?? sessionData;

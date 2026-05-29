@@ -8,10 +8,7 @@ interface HomeworkCardProps {
   action?: ReactNode;
 }
 
-export const HomeworkCard: React.FC<HomeworkCardProps> = ({
-  homework,
-  action,
-}) => {
+export const HomeworkCard: React.FC<HomeworkCardProps> = ({ homework, action }) => {
   const deadline = formatHomeworksDeadline(homework.deadline);
   return (
     <div className="homework-card">

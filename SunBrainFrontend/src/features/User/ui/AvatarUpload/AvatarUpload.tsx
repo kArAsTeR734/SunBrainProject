@@ -7,11 +7,7 @@ interface AvatarUploadProps {
   size?: number;
 }
 
-export const AvatarUpload = ({
-  currentAvatar,
-  onUpload,
-  size = 120,
-}: AvatarUploadProps) => {
+export const AvatarUpload = ({ currentAvatar, onUpload, size = 120 }: AvatarUploadProps) => {
   const [preview, setPreview] = useState<string>(currentAvatar || '');
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);

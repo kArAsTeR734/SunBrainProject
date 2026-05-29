@@ -9,8 +9,7 @@ export const useCheckTask = (taskId: number) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ['checkAnswer'],
-    mutationFn: ({ answer }: UseSubmitTaskParams) =>
-      TaskService.checkTaskAnswer(taskId, answer),
+    mutationFn: ({ answer }: UseSubmitTaskParams) => TaskService.checkTaskAnswer(taskId, answer),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['leaderboard'] });
     },

@@ -23,21 +23,11 @@ const stringifyAnswer = (answer: string | null) => {
   return answer;
 };
 
-export const TestResults = ({
-  onRestart,
-  onReview,
-  isFinishing = false,
-}: TestResultsProps) => {
+export const TestResults = ({ onRestart, onReview, isFinishing = false }: TestResultsProps) => {
   const queryTestId = useMySearchParams('testId');
   const testId = Number(queryTestId);
   const isValidTestId = Number.isFinite(testId) && testId > 0;
-  const {
-    data: reviewData,
-    isLoading,
-    isFetching,
-    isError,
-    refetch,
-  } = useTestReview(testId);
+  const { data: reviewData, isLoading, isFetching, isError, refetch } = useTestReview(testId);
 
   if (!isValidTestId) {
     return (
@@ -55,11 +45,7 @@ export const TestResults = ({
     return (
       <DataFallback
         state="loading"
-        title={
-          isFinishing
-            ? 'Завершаем тест и считаем результаты...'
-            : 'Загружаем результаты...'
-        }
+        title={isFinishing ? 'Завершаем тест и считаем результаты...' : 'Загружаем результаты...'}
         description="Обычно это занимает несколько секунд."
       />
     );
@@ -88,14 +74,11 @@ export const TestResults = ({
     );
   }
 
-  const answers = [...reviewData.answers].sort(
-    (a, b) => a.orderIndex - b.orderIndex,
-  );
+  const answers = [...reviewData.answers].sort((a, b) => a.orderIndex - b.orderIndex);
   const totalTasks = reviewData.totalTasks || answers.length;
   const correctTasks = reviewData.correctTasks;
   const incorrectTasks = totalTasks - correctTasks;
-  const scorePercent =
-    totalTasks > 0 ? Math.round((correctTasks / totalTasks) * 100) : 0;
+  const scorePercent = totalTasks > 0 ? Math.round((correctTasks / totalTasks) * 100) : 0;
 
   return (
     <section className="results-container">
@@ -133,8 +116,7 @@ export const TestResults = ({
               <span className="answer-task-id">№ {answer.taskNumber}</span>
               <div className="answer-comparison">
                 <p className="user-answer">
-                  Ваш ответ:{' '}
-                  <strong>{stringifyAnswer(answer.userAnswer)}</strong>
+                  Ваш ответ: <strong>{stringifyAnswer(answer.userAnswer)}</strong>
                 </p>
                 {!answer.isCorrect && (
                   <p className="correct-answer">
@@ -143,14 +125,10 @@ export const TestResults = ({
                 )}
                 <p className="correct-answer">
                   Сложность:{' '}
-                  <strong>
-                    {DIFFICULTY_LABELS[answer.difficulty] ?? answer.difficulty}
-                  </strong>
+                  <strong>{DIFFICULTY_LABELS[answer.difficulty] ?? answer.difficulty}</strong>
                 </p>
               </div>
-              <span className="answer-status">
-                {answer.isCorrect ? 'Верно' : 'Ошибка'}
-              </span>
+              <span className="answer-status">{answer.isCorrect ? 'Верно' : 'Ошибка'}</span>
             </button>
           ))}
         </div>

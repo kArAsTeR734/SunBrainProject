@@ -35,12 +35,7 @@ export const HomeworkTaskList = () => {
   }
 
   if (!homework?.tasks?.length) {
-    return (
-      <DataFallback
-        state="empty"
-        title="По этой домашней работе пока нет заданий."
-      />
-    );
+    return <DataFallback state="empty" title="По этой домашней работе пока нет заданий." />;
   }
 
   return (
