@@ -1,29 +1,67 @@
+@use "@styles/helpers" as *;
+
+
 .header {
   position: relative;
   min-height: 88px;
-  padding: 11px 0 5px 0;
+  padding-block: 10px;
   z-index: 100;
 
   &__wrapper {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: rem(24);
   }
 
-  &__logo{
+  &__logo {
     display: flex;
     align-items: center;
+    min-width: 0;
+    flex-shrink: 0;
+
+    img {
+      width: rem(56);
+      min-width: rem(42);
+    }
   }
 
-  &__logo--name{
+  &__logo-name {
     color: #FF8000;
-    font-size: 32px;
+    font-size: fluid(32, 20);
     text-align: center;
     margin-right: 47px;
     flex-grow: 1;
     cursor: pointer;
     text-decoration: none;
+    white-space: nowrap;
   }
+
+  @include tablet {
+    min-height: 68px;
+    padding-block: 6px;
+
+    &__wrapper {
+      gap: rem(16);
+    }
+
+    &__logo-name {
+      margin-right: 0;
+    }
+  }
+
+  @include mobile {
+    &__logo img {
+      width: rem(42);
+    }
+  }
+}
+
+.user-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
 }
 
 

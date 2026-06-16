@@ -1,6 +1,44 @@
+@use 'helpers' as *;
+
 :root{
   --color-primary: #FF5C00FF;
   --color-accent: #FF8000;
 
-  --text-color: #101010FF
+  --text-color: #101010FF;
+
+  --color-light: #FFFFFF;
+
+  --color-dark: #141414;
+  --color-dark-10: #1A1A1A;
+  --color-dark-15: #262626;
+  --color-dark-20: #333333;
+  --color-dark-40: #666666;
+
+  --color-gray-50: #7E7E81;
+  --color-gray-60: #98989A;
+
+  --font-family-base: 'Inter', sans-serif;
+  --font-family-accent: 'Montserrat', sans-serif;
+
+  --container-width: #{rem(1600)};
+  --container-padding-x: #{rem(16)};
+
+  --transition-duration: 0.2s;
+
+  @include laptop {
+    --container-width: #{rem(1280)};
+  }
+
+  @include tablet {
+    --container-width: #{rem(960)};
+    --container-padding-x: #{rem(20)};
+  }
+
+  @include mobile {
+    --container-padding-x: #{rem(16)};
+  }
+
+  @include mobile-s {
+    --container-padding-x: #{rem(12)};
+  }
 }

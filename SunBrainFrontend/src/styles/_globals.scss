@@ -1,17 +1,109 @@
-* {
-  box-sizing: border-box;
-  font-family: Inter, Montserrat, sans-serif;
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-  font-size: 18px;
+@use 'helpers' as *;
 
-  &:focus {
-    outline: none;
+html {
+  &.is-lock {
+    overflow: hidden;
   }
 }
 
 body {
-  font-size: 18px;
-  font-weight: 400;
+  @include fluid-text(18, 14);
+
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-base), sans-serif;
+  letter-spacing: 0;
+  color: var(--color-dark);
+  background-color: var(--color-light);
+  overflow-x: hidden;
+}
+
+main {
+  flex-grow: 1;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  color: var(--color-light);
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3 {
+  font-family: var(--font-family-accent), sans-serif;
+  font-weight: 500;
+}
+
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  font-weight: 600;
+}
+
+h1, .h1 {
+  @include fluid-text(70, 30);
+
+  line-height: 1.2;
+}
+
+h2, .h2 {
+  @include fluid-text(58, 28);
+
+  line-height: 1.3;
+}
+
+h3, .h3 {
+  @include fluid-text(40, 24);
+}
+
+h4, .h4 {
+  @include fluid-text(26, 18);
+}
+
+h5, .h5 {
+  @include fluid-text(24, 18);
+}
+
+h6, .h6 {
+  @include fluid-text(20, 16);
+}
+
+p {
+  --paragraphMarginBottom: #{rem(24)};
+}
+
+a,
+button,
+label,
+input,
+textarea,
+select,
+svg * {
+  transition-duration: var(--transition-duration);
+}
+
+a{
+  text-decoration: none;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+:focus-visible {
+  outline: rem(2) dashed var(--color-light);
+  outline-offset: rem(4);
+  transition-duration: 0s !important;
 }

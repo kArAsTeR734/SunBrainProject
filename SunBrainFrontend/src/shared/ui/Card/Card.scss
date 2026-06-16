@@ -1,24 +1,35 @@
+@use "@styles/helpers" as *;
+
 .card{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 390px;
-  height: 210px;
+  width: 100%;
+  min-height: fluid(210, 150);
+  height: 100%;
+  padding: rem(24);
   background-color: #fff;
-  margin-bottom: 75px;
-  border-radius: 20px;
+  margin-bottom: 0;
+  border-radius: rem(16);
   color: #000000;
   transition: 0.3s all;
+
   &:hover{
     background-color: #FF8000;
     color: #fff;
   }
+
   &__title{
     color: inherit;
-    font-size: 32px;
+    font-size: fluid(32, 22);
     font-weight: 500;
-    line-height: 24px;
+    line-height: 1.2;
     text-align: center;
     text-transform: uppercase;
+    overflow-wrap: anywhere;
+  }
+
+  @include mobile {
+    border-radius: rem(12);
   }
 }

@@ -4,7 +4,8 @@ services:
       context: ./SunBrainFrontend
       dockerfile: Dockerfile.prod
       args:
-        VITE_API_URL: http://api.sunbrain.crazedns.ru
+        VITE_API_URL: https://api.sunbrain.crazedns.ru
+    image: sunbrain_frontend_prod
     container_name: sunbrain_frontend
     restart: unless-stopped
     ports:
@@ -16,6 +17,7 @@ services:
     build:
       context: ./SunBrainBackend
       dockerfile: Dockerfile.prod
+    image: sunbrain_backend_prod
     container_name: sunbrain_backend
     restart: unless-stopped
     env_file:
@@ -35,6 +37,30 @@ services:
       POSTGRES_PASSWORD: root
     volumes:
       - postgres18_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d SunBrain_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  db_restore:
+    image: postgres:18-alpine
+    profiles:
+      - restore
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGHOST: db
+      PGPORT: 5432
+      PGDATABASE: SunBrain_dev
+      PGUSER: postgres
+      PGPASSWORD: root
+      BACKUP_FILE: /backup/SunBrain_dev.backup
+    volumes:
+      - ./SunBrain_dev.backup:/backup/SunBrain_dev.backup:ro
+      - ./scripts/restore-postgres-backup.sh:/scripts/restore-postgres-backup.sh:ro
+    command: ["sh", "/scripts/restore-postgres-backup.sh"]
 
 volumes:
   postgres18_data:

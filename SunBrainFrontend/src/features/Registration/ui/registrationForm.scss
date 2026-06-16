@@ -1,12 +1,14 @@
+@use "@styles/helpers" as *;
+
 .registration {
-  min-height: 690px;
-  padding: 33px 0 33px 0;
+  min-height: rem(690);
+  padding: fluid(36, 28) 0;
   background-color: #fff;
 
   &__header {
     color: #FF8000;
-    font-size: 36px;
-    line-height: 72px;
+    font-size: fluid(36, 28);
+    line-height: 1.4;
     font-weight: 500;
     text-align: center;
   }
@@ -15,14 +17,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
+    margin-top: fluid(50, 28);
   }
 
   &__form {
     display: flex;
     flex-direction: column;
     row-gap: 16px;
-    max-width: 445px;
+    width: min(100%, #{rem(445)});
+
+    > .MuiFormControl-root {
+      width: 100%;
+    }
   }
 
   &__actions {
@@ -46,7 +52,7 @@
         top: 8px;
         right: 40px;
         content: '';
-        width: 150px;
+        width: min(#{rem(150)}, 32vw);
         height: 2px;
         background-color: #FF8000;
       }
@@ -57,10 +63,18 @@
         top: 8px;
         left: 40px;
         content: '';
-        width: 150px;
+        width: min(#{rem(150)}, 32vw);
         height: 2px;
         background-color: #FF8000;
       }
+    }
+  }
+
+  @include mobile {
+    min-height: auto;
+
+    &__actions {
+      width: 100%;
     }
   }
 }

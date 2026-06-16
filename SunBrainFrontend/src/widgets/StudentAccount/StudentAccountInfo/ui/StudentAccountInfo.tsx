@@ -1,4 +1,4 @@
-import './studentAccountInfo.css';
+import './studentAccountInfo.scss';
 import { useAvatar } from '@entities/User/models/useAvatar.ts';
 import { useAppSelector } from '@shared/hooks/redux.ts';
 import { AvatarUpload } from '@features/User';

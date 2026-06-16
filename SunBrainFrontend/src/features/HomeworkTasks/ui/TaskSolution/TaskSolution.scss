@@ -1,13 +1,15 @@
+@use "@styles/helpers" as *;
+
 .solution {
   border-top: 1px solid #ecf3f5;
 }
 
 .solution__toggle {
-  padding: 20px 25px 20px 40px;
+  padding: fluid(20, 16) rem(48) fluid(20, 16) 0;
   cursor: pointer;
   position: relative;
   font-weight: 600;
-  font-size: 28px;
+  font-size: fluid(28, 20);
   line-height: 1;
   color: #191919;
   user-select: none;
@@ -15,13 +17,13 @@
   &:before {
     content: '';
     position: absolute;
-    top: 22px;
-    left: 300px;
+    top: 50%;
+    right: rem(18);
     width: 15px;
     height: 15px;
     border-top: 2px solid var(--secondary, #000);
     border-right: 2px solid var(--secondary, #000);
-    transform: rotate(135deg);
+    transform: translateY(-50%) rotate(135deg);
   }
 }
 
@@ -29,8 +31,9 @@
   margin-top: 20px;
   background: #f8f9fa;
   border-radius: 8px;
-  padding: 20px;
+  padding: fluid(20, 14);
   border-left: 4px solid #27ae60;
+  overflow-x: auto;
 }
 
 .katex {

@@ -1,4 +1,4 @@
-import './studentAccountPosition.css';
+import './studentAccountPosition.scss';
 import PositionList from '@/widgets/StudentAccount/PositionList';
 
 export const StudentAccountPosition = () => {

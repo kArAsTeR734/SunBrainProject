@@ -1,8 +1,10 @@
+@use "@styles/helpers" as *;
+
 .profile-dropdown {
   position: absolute;
   top: 100%;
   right: 0;
-  min-width: 200px;
+  min-width: min(#{rem(220)}, calc(100vw - #{rem(24)}));
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -44,5 +46,9 @@
         background: #fef2f2;
       }
     }
+  }
+
+  @include mobile {
+    right: rem(-8);
   }
 }

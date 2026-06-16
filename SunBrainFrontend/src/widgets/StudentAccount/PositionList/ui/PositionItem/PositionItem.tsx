@@ -1,4 +1,4 @@
-import './positionItem.css';
+import './positionItem.scss';
 import clsx from 'clsx';
 import { LeaderboardUser } from '@entities/Leaderboard/types.ts';
 

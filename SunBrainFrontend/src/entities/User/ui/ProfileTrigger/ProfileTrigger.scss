@@ -1,3 +1,5 @@
+@use "@styles/helpers" as *;
+
 .profile-trigger {
   display: flex;
   align-items: center;
@@ -31,5 +33,22 @@
       margin: 0;
     }
   }
-}
 
+  @include mobile {
+    gap: rem(6);
+
+    &__initials {
+      min-width: rem(34);
+      height: rem(34);
+      margin-right: 0;
+
+      p {
+        line-height: rem(34);
+      }
+    }
+
+    &__username {
+      display: none;
+    }
+  }
+}

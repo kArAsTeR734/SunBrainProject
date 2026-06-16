@@ -1,14 +1,37 @@
+@use "@styles/helpers" as *;
+
 .account {  
-  min-height: 520px;
+  min-height: rem(520);
   max-width: 100%;
-  padding: 50px 0 36px 0;
+  padding: fluid(50, 28) 0 fluid(36, 28) 0;
+
   &__wrapper {
     background-color: #F7F7F7;
     display: flex;
+    gap: rem(24);
+    padding: rem(24);
+    border-radius: rem(8);
   }
 
   &__special--info {
     display: flex;
     flex-direction: column;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  @include tablet {
+    min-height: auto;
+
+    &__wrapper {
+      flex-direction: column;
+    }
+  }
+
+  @include mobile {
+    &__wrapper {
+      padding: rem(12);
+      gap: rem(12);
+    }
   }
 }

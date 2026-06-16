@@ -1,4 +1,11 @@
+@use "@styles/helpers" as *;
+
 .objects-catalog {
   background-color: #F2F2F2;
-  min-height: 924px;
+  min-height: calc(100dvh - #{rem(88)});
+  padding-bottom: fluid(56, 32);
+
+  @include tablet {
+    min-height: calc(100dvh - #{rem(68)});
+  }
 }

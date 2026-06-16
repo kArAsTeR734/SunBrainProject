@@ -39,9 +39,7 @@ export const TestNavigation: React.FC<TaskNavigationProps> = ({
         {tasks.map((task) => (
           <button
             key={task.id}
-            className={`task-button ${task.isCurrent ? 'current' : ''} ${
-              task.isAnswered ? 'answered' : 'unanswered'
-            }`}
+            className={`task-button ${task.isCurrent ? 'current' : ''} ${task.isAnswered ? 'answered' : 'unanswered'}`}
             onClick={() => onTaskSelect(task.id)}
           >
             {task.orderIndex + 1}

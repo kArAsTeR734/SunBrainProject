@@ -3,16 +3,21 @@ import '@shared/ui/Button/button.scss';
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@shared/ui';
+import { useAppSelector } from '@shared/hooks/redux.ts';
 
 export const Promo = () => {
   const navigate = useNavigate();
+  const { isAuth } = useAppSelector((state) => state.userReducer);
 
   const handleClickTest = () => {
     navigate('/student/test');
   };
 
   const handleClickAccount = () => {
-    navigate('/login');
+    if (!isAuth) {
+      navigate('/login');
+    }
+    navigate('/student/account');
   };
   return (
     <section className="promo">

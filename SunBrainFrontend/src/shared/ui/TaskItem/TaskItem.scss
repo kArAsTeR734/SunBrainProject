@@ -1,8 +1,11 @@
+@use "@styles/helpers" as *;
+
 .task {
   border-radius: 8px;
-  margin-top: 25px;
+  margin-top: fluid(25, 18);
   background-color: #fff;
-  padding: 40px 40px 15px 40px;
+  padding: fluid(40, 18) fluid(40, 14) fluid(20, 14);
+  min-width: 0;
 
   &__header {
     display: flex;
@@ -17,7 +20,7 @@
   &__number {
     line-height: 24px;
     font-weight: 600;
-    font-size: 32px;
+    font-size: fluid(32, 22);
     color: #191919;
   }
 
@@ -25,12 +28,13 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    row-gap: 30px;
-    margin-top: 24px;
+    row-gap: fluid(30, 18);
+    margin-top: fluid(24, 18);
+    min-width: 0;
   }
 
   &__description {
-    font-size: 32px;
+    font-size: fluid(32, 22);
     font-family: "Times New Roman", serif;
     color: #000;
     line-height: normal;
@@ -41,29 +45,29 @@
     display: block;
     text-align: center;
     margin: 20px auto;
-    max-width: 800px;
-    padding-block: 50px;
+    max-width: min(100%, #{rem(800)});
+    padding-block: fluid(50, 24);
   }
 
   &__actions {
     display: flex;
     align-items: center;
-    column-gap: 60px;
-    margin-top: 25px;
+    gap: fluid(60, 16);
+    margin-top: fluid(25, 18);
   }
 
   &__answer {
-    width: 40%;
+    width: min(100%, #{rem(520)});
     position: relative;
 
     &-field {
       width: 100%;
       position: relative;
-      height: 60px;
+      height: rem(60);
       outline: none;
-      line-height: 58px;
-      font-size: 24px;
-      padding: 0 20px;
+      line-height: rem(58);
+      font-size: fluid(24, 18);
+      padding: 0 rem(20);
       background: #fff;
       border: 1px solid rgba(28, 28, 28, .2);
       border-radius: 3px;
@@ -85,8 +89,8 @@
     color: #000;
     border-radius: 6px;
     width: 160px;
-    height: 60px;
-    font-size: 24px;
+    height: rem(60);
+    font-size: fluid(24, 18);
     font-weight: 400;
     line-height: 22px;
     cursor: pointer;
@@ -96,6 +100,18 @@
       border: none;
       color: #fff;
       background-color: #FF8000;
+    }
+  }
+
+  @include mobile {
+    &__actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    &__answer,
+    &__check {
+      width: 100%;
     }
   }
 }

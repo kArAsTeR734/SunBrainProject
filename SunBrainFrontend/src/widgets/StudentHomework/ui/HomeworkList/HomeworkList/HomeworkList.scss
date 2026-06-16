@@ -1,6 +1,8 @@
+@use "@styles/helpers" as *;
+
 .homework-list {
-  padding-block: 40px;
+  padding-block: fluid(40, 28);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, #{rem(320)}), 1fr));
+  gap: fluid(32, 18);
 }

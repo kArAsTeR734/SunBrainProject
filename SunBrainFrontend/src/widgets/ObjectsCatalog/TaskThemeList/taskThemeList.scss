@@ -1,18 +1,20 @@
+@use "@styles/helpers" as *;
+
 .themes {
-  padding: 50px 0 30px 0;
+  padding: fluid(50, 28) 0 fluid(30, 24) 0;
 
   &__about {
     display: flex;
     flex-direction: column;
-    row-gap: 25px;
+    row-gap: fluid(25, 16);
     align-items: flex-start;
   }
 
   &__header {
     color: var(--text-color);
-    font-size: 18px;
+    font-size: fluid(20, 17);
     font-weight: 500;
-    line-height: 22.89px;
+    line-height: 1.35;
     margin-left: 20px;
   }
 
@@ -23,9 +25,21 @@
   }
 
   &__list {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, #{rem(360)}), 1fr));
+    gap: rem(16);
+    margin-top: fluid(50, 28);
+  }
+
+  @include mobile {
+    &__header,
+    &__description {
+      margin-left: 0;
+    }
+
+    &__description {
+      line-height: 1.6;
+    }
   }
 }
 

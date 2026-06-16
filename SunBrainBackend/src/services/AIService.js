@@ -1,5 +1,8 @@
 import { OpenAI } from 'openai';
-import {normalizeLatexText} from "../utils/task-content-utils.js";
+import {
+  normalizeLatexText,
+  normalizeSvg
+} from "../utils/task-content-utils.js";
 
 const HOMEWORK_SYSTEM_PROMPT = `
 You generate math homework tasks for exam preparation.
@@ -20,13 +23,16 @@ Expected JSON format:
 }
 
 Rules:
-1. Return exactly 15 tasks.
-2. Difficulty split must be exactly 5 easy, 5 medium, 5 hard.
+1. Return exactly the requested number of tasks.
+2. Use the requested difficulty for every task.
 3. statementLatex / solutionLatex / answerLatex must be clean text (no one-symbol-per-line formatting).
-4. Use imageSvg only when the task really needs a visual (graph/geometry/diagram).
-5. If the statement references a graph, figure, diagram, or drawing, imageSvg must be a valid standalone SVG.
-6. If you cannot provide a valid SVG, rewrite the task so it can be solved without a figure.
+4. Prefer text-only tasks. Set imageSvg to null by default.
+5. Do not create tasks that require a graph, figure, diagram, drawing, or SVG to solve.
+6. For graph/geometry/diagram exam numbers, generate equivalent tasks with formulas, tables, coordinates, or written conditions so they can be solved without images.
 7. No external links in imageSvg.
+8. Escape every backslash in JSON strings. For example, write "\\\\frac{1}{2}", not "\\frac{1}{2}".
+9. Use valid LaTeX command syntax with braces, for example "\\\\frac{x^2-9}{x-3}" and "\\\\cdot".
+10. Keep each solution concise enough to fit in the JSON response.
 `;
 
 const REQUIRED_DIFFICULTIES = ['easy', 'medium', 'hard'];
@@ -71,39 +77,75 @@ class AIService {
     taskNumber,
     tasksPerDifficulty = 5
   }) {
+    const chunks = [];
+    let title = '';
+
+    for (const difficulty of REQUIRED_DIFFICULTIES) {
+      const chunk = await this.generateHomeworkChunk({
+        subjectName,
+        topicName,
+        taskNumber,
+        difficulty,
+        tasksCount: tasksPerDifficulty
+      });
+
+      if (!title && chunk.title) {
+        title = chunk.title;
+      }
+
+      chunks.push(...chunk.tasks);
+    }
+
+    return {
+      title: title || `AI homework for task #${taskNumber}`,
+      tasks: chunks
+    };
+  }
+
+  async generateHomeworkChunk({
+    subjectName,
+    topicName,
+    taskNumber,
+    difficulty,
+    tasksCount
+  }) {
     const userPrompt = `
 Subject: ${subjectName}
 Exam task number: ${taskNumber}
 Topic name: ${topicName}
+Difficulty: ${difficulty}
 
 Generate homework for a student who made mistakes in this task number.
-Need exactly ${
-      tasksPerDifficulty * REQUIRED_DIFFICULTIES.length
-    } tasks: ${tasksPerDifficulty} easy, ${tasksPerDifficulty} medium, ${tasksPerDifficulty} hard.
+Need exactly ${tasksCount} ${difficulty} tasks.
 Each task must include a detailed solution and final answer.
 `;
 
     let lastError = null;
 
-    for (let attempt = 1; attempt <= 2; attempt += 1) {
+    for (let attempt = 1; attempt <= 3; attempt += 1) {
       try {
+        const retryHint = lastError
+          ? `\n\nPrevious attempt failed with this backend parser error: ${lastError.message}\nReturn a corrected complete JSON object only.`
+          : '';
         const content = await this.chat(
           [
             { role: 'system', content: HOMEWORK_SYSTEM_PROMPT.trim() },
-            { role: 'user', content: userPrompt.trim() }
+            { role: 'user', content: `${userPrompt.trim()}${retryHint}` }
           ],
-          { temperature: 0.7, maxTokens: 8000 }
+          { temperature: attempt === 1 ? 0.7 : 0.3, maxTokens: 16000 }
         );
 
         const parsed = this.parseJsonResponse(content);
-        return this.normalizeHomeworkPayload(parsed, tasksPerDifficulty);
+        return this.normalizeHomeworkPayload(parsed, tasksCount, difficulty);
       } catch (error) {
         lastError = error;
       }
     }
 
     throw new Error(
-      `Failed to generate AI homework: ${lastError?.message || 'Unknown error'}`
+      `Failed to generate AI homework (${difficulty}): ${
+        lastError?.message || 'Unknown error'
+      }`
     );
   }
 
@@ -112,37 +154,255 @@ Each task must include a detailed solution and final answer.
       throw new Error('AI returned empty response');
     }
 
-    const cleaned = content.trim();
+    const cleaned = this.stripJsonMarkdownFence(content.trim());
+    const jsonSlice = this.extractJsonObject(cleaned);
+    const backslashSafeJson = this.escapeJsonStringBackslashes(jsonSlice);
 
     try {
-      return JSON.parse(cleaned);
+      return this.parseJsonWithBackslashRepair(backslashSafeJson);
     } catch (error) {
-      const start = cleaned.indexOf('{');
-      const end = cleaned.lastIndexOf('}');
-
-      if (start === -1 || end === -1 || end <= start) {
-        throw new Error('AI did not return valid JSON');
+      try {
+        return this.parseJsonWithBackslashRepair(
+          this.escapeInvalidJsonBackslashes(backslashSafeJson)
+        );
+      } catch (repairedError) {
+        throw new Error(repairedError.message || error.message);
       }
-
-      const jsonSlice = cleaned.slice(start, end + 1);
-      return JSON.parse(jsonSlice);
     }
   }
 
-  hasVisualDependency(statementLatex) {
-    const normalized = String(statementLatex || '').toLowerCase();
-
-    return /(по график|на рисун|по рисун|диаграмм|чертеж|схем|graph|figure|diagram|plot|drawing)/i.test(
-      normalized
-    );
+  stripJsonMarkdownFence(content) {
+    return content
+      .replace(/^```(?:json)?\s*/i, '')
+      .replace(/\s*```$/i, '')
+      .trim();
   }
 
-  normalizeHomeworkPayload(payload, tasksPerDifficulty) {
+  extractJsonObject(content) {
+    const start = content.indexOf('{');
+
+    if (start === -1) {
+      throw new Error('AI did not return valid JSON');
+    }
+
+    let depth = 0;
+    let inString = false;
+    let escaped = false;
+
+    for (let index = start; index < content.length; index += 1) {
+      const char = content[index];
+
+      if (inString) {
+        if (escaped) {
+          escaped = false;
+          continue;
+        }
+
+        if (char === '\\') {
+          escaped = true;
+          continue;
+        }
+
+        if (char === '"') {
+          inString = false;
+        }
+
+        continue;
+      }
+
+      if (char === '"') {
+        inString = true;
+        continue;
+      }
+
+      if (char === '{') {
+        depth += 1;
+      } else if (char === '}') {
+        depth -= 1;
+
+        if (depth === 0) {
+          return content.slice(start, index + 1);
+        }
+      }
+    }
+
+    throw new Error('AI returned incomplete JSON');
+  }
+
+  escapeInvalidJsonBackslashes(jsonValue) {
+    let result = '';
+    let inString = false;
+
+    for (let index = 0; index < jsonValue.length; index += 1) {
+      const char = jsonValue[index];
+
+      if (char === '"') {
+        const slashCount = this.countBackslashesBefore(jsonValue, index);
+        if (slashCount % 2 === 0) {
+          inString = !inString;
+        }
+
+        result += char;
+        continue;
+      }
+
+      if (inString && char === '\\') {
+        const nextChar = jsonValue[index + 1] || '';
+        if (!/["\\/bfnrtu]/.test(nextChar)) {
+          result += '\\\\';
+          continue;
+        }
+      }
+
+      result += char;
+    }
+
+    return result;
+  }
+
+  parseJsonWithBackslashRepair(jsonValue) {
+    let current = jsonValue;
+    let lastError = null;
+
+    for (let attempt = 0; attempt < 20; attempt += 1) {
+      try {
+        return JSON.parse(current);
+      } catch (error) {
+        lastError = error;
+        const position = this.getJsonErrorPosition(error);
+
+        if (position === null || !/escaped|escape/i.test(error.message || '')) {
+          throw error;
+        }
+
+        const slashIndex = this.findBackslashNearPosition(current, position);
+        if (slashIndex === -1) {
+          throw error;
+        }
+
+        current = `${current.slice(0, slashIndex)}\\${current.slice(slashIndex)}`;
+      }
+    }
+
+    throw lastError || new Error('AI did not return valid JSON');
+  }
+
+  getJsonErrorPosition(error) {
+    const match = String(error?.message || '').match(/position\s+(\d+)/i);
+    if (!match) {
+      return null;
+    }
+
+    const position = Number(match[1]);
+    return Number.isInteger(position) && position >= 0 ? position : null;
+  }
+
+  findBackslashNearPosition(value, position) {
+    const start = Math.min(Math.max(position, 0), value.length - 1);
+    const min = Math.max(0, start - 12);
+
+    for (let index = start; index >= min; index -= 1) {
+      if (value[index] === '\\') {
+        return index;
+      }
+    }
+
+    const max = Math.min(value.length - 1, start + 12);
+    for (let index = start + 1; index <= max; index += 1) {
+      if (value[index] === '\\') {
+        return index;
+      }
+    }
+
+    return -1;
+  }
+
+  escapeJsonStringBackslashes(jsonValue) {
+    let result = '';
+    let inString = false;
+
+    for (let index = 0; index < jsonValue.length; index += 1) {
+      const char = jsonValue[index];
+
+      if (char === '"') {
+        const slashCount = this.countBackslashesBefore(jsonValue, index);
+        if (slashCount % 2 === 0) {
+          inString = !inString;
+        }
+
+        result += char;
+        continue;
+      }
+
+      if (inString && char === '\\') {
+        const nextChar = jsonValue[index + 1] || '';
+        const unicodeEscape = nextChar === 'u' && /^[0-9a-fA-F]{4}/.test(
+          jsonValue.slice(index + 2, index + 6)
+        );
+
+        if (
+          nextChar &&
+          nextChar !== '"' &&
+          nextChar !== '\\' &&
+          nextChar !== '/' &&
+          !unicodeEscape
+        ) {
+          result += '\\\\';
+          continue;
+        }
+
+        if (!nextChar) {
+          result += '\\\\';
+          continue;
+        }
+      }
+
+      if (inString) {
+        switch (char) {
+          case '\b':
+            result += '\\b';
+            continue;
+          case '\f':
+            result += '\\\\f';
+            continue;
+          case '\n':
+            result += '\\n';
+            continue;
+          case '\r':
+            result += '\\r';
+            continue;
+          case '\t':
+            result += '\\t';
+            continue;
+          default:
+            break;
+        }
+      }
+
+      result += char;
+    }
+
+    return result;
+  }
+
+  countBackslashesBefore(value, index) {
+    let count = 0;
+
+    for (let cursor = index - 1; cursor >= 0 && value[cursor] === '\\'; cursor -= 1) {
+      count += 1;
+    }
+
+    return count;
+  }
+
+  normalizeHomeworkPayload(payload, tasksPerDifficulty, expectedDifficulty = null) {
     if (!payload || typeof payload !== 'object') {
       throw new Error('Invalid homework payload');
     }
 
-    const expectedTotal = tasksPerDifficulty * REQUIRED_DIFFICULTIES.length;
+    const expectedTotal = expectedDifficulty
+      ? tasksPerDifficulty
+      : tasksPerDifficulty * REQUIRED_DIFFICULTIES.length;
     const rawTasks = Array.isArray(payload.tasks) ? payload.tasks : [];
 
     if (rawTasks.length !== expectedTotal) {
@@ -154,12 +414,15 @@ Each task must include a detailed solution and final answer.
     const tasks = rawTasks.map((task, index) => {
       const difficultyFallbackIndex = Math.floor(index / tasksPerDifficulty);
       const fallbackDifficulty =
-        REQUIRED_DIFFICULTIES[difficultyFallbackIndex] || 'hard';
-      const normalizedDifficulty = REQUIRED_DIFFICULTIES.includes(
-        String(task?.difficulty || '').trim().toLowerCase()
-      )
-        ? String(task.difficulty).trim().toLowerCase()
-        : fallbackDifficulty;
+        expectedDifficulty ||
+        REQUIRED_DIFFICULTIES[difficultyFallbackIndex] ||
+        'hard';
+      const rawDifficulty = String(task?.difficulty || '').trim().toLowerCase();
+      const normalizedDifficulty = expectedDifficulty
+        ? expectedDifficulty
+        : REQUIRED_DIFFICULTIES.includes(rawDifficulty)
+          ? rawDifficulty
+          : fallbackDifficulty;
 
       const statementLatex = normalizeLatexText(
         String(task?.statementLatex || task?.questionLatex || '')
@@ -174,12 +437,6 @@ Each task must include a detailed solution and final answer.
         throw new Error('AI returned incomplete task data');
       }
 
-      if (this.hasVisualDependency(statementLatex) && !imageSvg) {
-        throw new Error(
-          'AI returned a visually-dependent task without imageSvg'
-        );
-      }
-
       return {
         difficulty: normalizedDifficulty,
         statementLatex,
@@ -189,12 +446,14 @@ Each task must include a detailed solution and final answer.
       };
     });
 
-    for (const difficulty of REQUIRED_DIFFICULTIES) {
-      const count = tasks.filter(task => task.difficulty === difficulty).length;
-      if (count !== tasksPerDifficulty) {
-        throw new Error(
-          `AI returned invalid difficulty distribution for "${difficulty}"`
-        );
+    if (!expectedDifficulty) {
+      for (const difficulty of REQUIRED_DIFFICULTIES) {
+        const count = tasks.filter(task => task.difficulty === difficulty).length;
+        if (count !== tasksPerDifficulty) {
+          throw new Error(
+            `AI returned invalid difficulty distribution for "${difficulty}"`
+          );
+        }
       }
     }
 

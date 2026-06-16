@@ -1,3 +1,5 @@
+@use "@styles/helpers" as *;
+
 .field{
   position: relative;
   margin-bottom: 30px;
@@ -13,7 +15,7 @@
     color: #ff0000;
   }
   &__input{
-    width: 318px;
+    width: min(100%, #{rem(318)});
     height: 45px;
     border-radius: 8px;
     background: rgb(249, 249, 249);
@@ -27,5 +29,9 @@
     display: block;
     padding: 0 0 6px 6px;
     text-align: left;
+  }
+
+  @include mobile {
+    margin-bottom: rem(22);
   }
 }

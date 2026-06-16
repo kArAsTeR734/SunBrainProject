@@ -1,10 +1,13 @@
+@use "@styles/helpers" as *;
+
 .task-container {
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  padding: 24px;
-  margin-bottom: 20px;
+  padding: fluid(24, 14);
+  margin-bottom: rem(20);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 0;
 }
 
 .task-container:hover {
@@ -16,15 +19,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 15px;
+  margin-bottom: fluid(20, 16);
+  padding-bottom: rem(15);
   border-bottom: 2px solid #f0f0f0;
 }
 
 .task-header h3 {
   margin: 0;
   color: #2c3e50;
-  font-size: 1.8em;
+  font-size: fluid(28, 20);
   font-weight: 600;
 }
 
@@ -33,18 +36,19 @@
   color: #1976d2;
   padding: 6px 12px;
   border-radius: 20px;
-  font-size: 1em;
+  font-size: rem(16);
   font-weight: 500;
 }
 
 .task-content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: fluid(20, 14);
+  min-width: 0;
 }
 
 .question-text {
-  font-size: 1.4em;
+  font-size: fluid(22, 16);
   line-height: 1.6;
   color: #34495e;
   margin: 0;
@@ -73,7 +77,7 @@
 
 .options-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, #{rem(250)}), 1fr));
   gap: 12px;
   margin-top: 10px;
 }
@@ -83,7 +87,7 @@
   background: white;
   border: 2px solid #e0e0e0;
   border-radius: 10px;
-  font-size: 1.2em;
+  font-size: fluid(19, 16);
   color: #333;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -127,7 +131,7 @@
   padding: 14px 18px;
   border: 2px solid #e0e0e0;
   border-radius: 10px;
-  font-size: 1.4em;
+  font-size: fluid(22, 16);
   transition: all 0.2s ease;
   background: white;
 }
@@ -154,7 +158,7 @@
   padding: 14px 18px;
   border: 2px solid #e0e0e0;
   border-radius: 10px;
-  font-size: 1.4em;
+  font-size: fluid(22, 16);
   font-family: inherit;
   transition: all 0.2s ease;
   background: white;
@@ -169,12 +173,12 @@
 }
 
 .submit-button {
-  padding: 14px 28px;
+  padding: rem(14) rem(28);
   background: linear-gradient(135deg, #2ecc71, #27ae60);
   color: white;
   border: none;
   border-radius: 10px;
-  font-size: 1.4em;
+  font-size: fluid(22, 16);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -189,4 +193,23 @@
 
 .submit-button:active {
   transform: translateY(0);
+}
+
+@include mobile {
+  .task-container:hover,
+  .option-button:hover,
+  .submit-button:hover {
+    transform: none;
+  }
+
+  .task-header,
+  .number-input-container {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .submit-button {
+    width: 100%;
+    min-width: 0;
+  }
 }

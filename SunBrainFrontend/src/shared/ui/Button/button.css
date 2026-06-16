@@ -14,6 +14,7 @@
 }
 .button__sign-in {
   background-color: #ff8000;
+  margin-left: 10px;
   border: 1px solid rgba(0, 0, 0, 0);
 }
 .button__auth {

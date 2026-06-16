@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import './input.css';
+import './input.scss';
 
 interface InputProps {
   id: string;

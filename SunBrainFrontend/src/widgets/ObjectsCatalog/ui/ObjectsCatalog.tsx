@@ -1,4 +1,4 @@
-import './objectsCatalog.css';
+import './objectsCatalog.scss';
 import { CatalogHints } from '@shared/ui';
 import { Outlet } from 'react-router-dom';
 import { Breadcrumbs } from '@widgets/Breadcrumbs';

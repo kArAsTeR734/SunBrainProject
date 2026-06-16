@@ -1,28 +1,33 @@
+@use "@styles/helpers" as *;
+
 .math-test-container {
-  max-width: 1200px;
-  margin: 48px auto 64px;
+  max-width: rem(1200);
+  margin: fluid(48, 28) auto fluid(64, 40);
   padding: 0;
 }
 
 .test-header {
   background: linear-gradient(135deg, #ff8a00 0%, #ff5c00 100%);
   color: white;
-  padding: 20px;
+  padding: fluid(20, 16);
   font-size: 1.2em;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  border-radius: rem(10);
+  margin-bottom: rem(20);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  h1{
-    font-size: 1.4em;
+  gap: rem(16);
+
+  h1 {
+    font-size: fluid(28, 22);
+    line-height: 1.25;
   }
 }
 
 .timer {
   background: rgba(255, 255, 255, 0.2);
-  padding: 10px 20px;
-  border-radius: 20px;
+  padding: rem(10) rem(20);
+  border-radius: rem(20);
   font-weight: bold;
   font-size: 1.2em;
 }
@@ -30,37 +35,34 @@
 .test-content {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 30px;
-  margin-bottom: 30px;
+  gap: fluid(30, 18);
+  margin-bottom: fluid(30, 20);
+}
+
+.task-section,
+.navigation-section,
+.test-progress {
+  background: white;
+  border-radius: rem(10);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .task-section {
-  background: white;
-  border-radius: 10px;
-  padding: 25px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-width: 0;
+  padding: fluid(25, 14);
 }
 
-.navigation-section {
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
+.navigation-section,
 .test-progress {
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: fluid(20, 14);
 }
 
 .progress-bar {
-  height: 10px;
+  height: rem(10);
   background: #f0f0f0;
-  border-radius: 5px;
+  border-radius: rem(5);
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: rem(10);
 }
 
 .progress-fill {
@@ -72,17 +74,27 @@
 .progress-text {
   text-align: center;
   color: #666;
-  font-size: 1.4rem;
+  font-size: fluid(22, 16);
   font-weight: 500;
 }
 
-@media (max-width: 768px) {
+@include tablet {
   .test-content {
     grid-template-columns: 1fr;
   }
 
   .test-header {
+    align-items: flex-start;
     flex-direction: column;
-    gap: 15px;
+  }
+}
+
+@include mobile {
+  .math-test-container {
+    margin-block: rem(24) rem(36);
+  }
+
+  .test-header {
+    border-radius: rem(8);
   }
 }

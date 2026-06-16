@@ -3,10 +3,11 @@ import './HomeworkList.scss';
 import { useHomework } from '@features/HomeworkTasks/model/useHomework.ts';
 import { HomeworkCard } from '@entities/Homework';
 import { DataFallback } from '@shared/ui';
+import { useFinishTestMutation } from '@features/Test/models/hooks/useFinishTestMutation.ts';
 
 export const HomeworkList = () => {
   const { data: homeworks, isFetching, isLoading, isError, refetch } = useHomework();
-
+  const { isPending } = useFinishTestMutation();
   if (isLoading || isFetching) {
     return (
       <DataFallback
@@ -41,6 +42,13 @@ export const HomeworkList = () => {
           action={<SubmitButton homeworkId={homework.id} />}
         />
       ))}
+      {isPending && (
+        <DataFallback
+          state="loading"
+          title="Список сгенерированных домашек после тестирования загружается..."
+          description="Пожалуйста, подождите немного."
+        />
+      )}
     </div>
   );
 };

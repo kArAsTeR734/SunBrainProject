@@ -59,7 +59,7 @@ export const AvatarUpload = ({ currentAvatar, onUpload, size = 120 }: AvatarUplo
         style={{ cursor: isUploading ? 'wait' : 'pointer' }}
       >
         {preview ? (
-          <img src={preview} alt="Аватар" className="avatar-upload__image" />
+          <img src={preview} alt="Аватар" className="avatar-upload__image" loading="lazy" />
         ) : (
           <div className="avatar-upload__placeholder">
             <span className="avatar-upload__icon">👤</span>

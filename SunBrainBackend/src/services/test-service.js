@@ -241,9 +241,7 @@ class TestService {
       throw new Error('Task is not included in this test');
     }
 
-    const isCorrect =
-      task.correct_answer.trim().toLowerCase() ===
-      answer.trim().toLowerCase();
+    const isCorrect = TaskService.areAnswersEqual(task.correct_answer, answer);
 
     await TestAnswerModel.create({
       userId,

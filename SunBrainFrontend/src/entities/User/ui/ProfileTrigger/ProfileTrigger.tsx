@@ -1,6 +1,7 @@
 import './ProfileTrigger.scss';
 import { getUserInitials } from '@shared/utils/getUserInitials.ts';
 import { useAppSelector } from '@shared/hooks/redux.ts';
+import DropdownIcon from '@/assets/chevron-down.svg';
 
 export const ProfileTrigger = () => {
   const { user } = useAppSelector((state) => state.userReducer);
@@ -14,7 +15,7 @@ export const ProfileTrigger = () => {
         <p>{user?.fullName ?? 'Пользователь'}</p>
       </div>
       <div className="icon profile__dropdown-icon">
-        <img src="/src/assets/chevron-down.svg" alt="accountIcon" />
+        <img src={DropdownIcon} alt="dropdown-icon" />
       </div>
     </div>
   );

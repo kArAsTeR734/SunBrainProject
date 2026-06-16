@@ -35,22 +35,19 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin) return callback(null, true);
-
-        if (!allowedOrigins.includes(origin)) {
-            const msg = `CORS политика не разрешает доступ с origin: ${origin}`;
-            return callback(new Error(msg), false);
-        }
-
-        return callback(null, true);
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+    origin: allowedOrigins,
+    credentials: true
 }));
+
 app.use(cookieParser());
 app.use(express.json());
+
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: 'Backend работает'
+    });
+});
 
 app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
@@ -67,16 +64,18 @@ app.use('/api/topics', topicRouter)
 app.use('/api/test', testRouter)
 app.use('/api/ai', aiRouter);
 
-app.use((error, req, res) => {
+app.use((error, req, res, next) => {
     console.error('Ошибка:', error);
 
     const status = error.status || 500;
-    const message = error.message || 'Внутренняя ошибка сервера';
+    const message = error.message || 'Внутренняяя ошибка сервера';
 
     res.status(status).json({
         success: false,
         message,
-        ...(process.env.NODE_ENV === 'development' && { stack: error.stack })
+        ...(process.env.NODE_ENV === 'development' && {
+            stack: error.stack
+        })
     });
 });
 

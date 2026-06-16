@@ -20,6 +20,30 @@ class TaskService {
     return String(value ?? '').trim().toLowerCase();
   }
 
+  static parseDecimalAnswer(value) {
+    const normalized = this.normalizeAnswer(value)
+      .replace(/\s+/g, '')
+      .replace(/\u2212/g, '-');
+
+    if (!/^[+-]?(?:\d+(?:[.,]\d+)?|[.,]\d+)$/.test(normalized)) {
+      return null;
+    }
+
+    const parsed = Number(normalized.replace(',', '.'));
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+
+  static areAnswersEqual(expectedAnswer, userAnswer) {
+    const expectedNumber = this.parseDecimalAnswer(expectedAnswer);
+    const userNumber = this.parseDecimalAnswer(userAnswer);
+
+    if (expectedNumber !== null && userNumber !== null) {
+      return Math.abs(expectedNumber - userNumber) < 1e-9;
+    }
+
+    return this.normalizeAnswer(expectedAnswer) === this.normalizeAnswer(userAnswer);
+  }
+
   static async checkTaskAnswer({userId, taskId, answer}) {
     if (!userId) {
       throw new Error('User is not authenticated');
@@ -35,9 +59,7 @@ class TaskService {
       throw new Error('Task not found');
     }
 
-    const isCorrect =
-      this.normalizeAnswer(task.correct_answer) ===
-      this.normalizeAnswer(answer);
+    const isCorrect = this.areAnswersEqual(task.correct_answer, answer);
 
     const points = isCorrect ? Number(task.points) || 0 : 0;
 

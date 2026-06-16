@@ -1,3 +1,5 @@
+@use "@styles/helpers" as *;
+
 .calendar__item {
   width: 100%;
   display: flex;
@@ -10,14 +12,14 @@
 
 .calendar__date {
   color: #FF5C00;
-  font-size: 20px;
+  font-size: fluid(20, 18);
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .calendar__day {
   color: #929292;
-  font-size: 13px;
+  font-size: rem(13);
   font-weight: 500;
   margin-top: 4px;
   text-transform: uppercase;

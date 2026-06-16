@@ -1,16 +1,20 @@
+@use "@styles/helpers" as *;
+
 .general {
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  margin: 25px;
-  padding: 15px;
+  flex: 0 0 rem(360);
+  min-width: 0;
+  margin: 0;
+  padding: fluid(24, 16);
   border-radius: 4px;
 
   &__header {
     color: rgb(23, 26, 31);
-    font-size: 32px;
+    font-size: fluid(32, 24);
     font-weight: 400;
-    line-height: 48px;
+    line-height: 1.35;
     text-align: center;
     padding-bottom: 10px;
   }
@@ -37,7 +41,13 @@
       font-size: 16px;
       font-weight: 400;
       text-align: left;
+      overflow-wrap: anywhere;
     }
+  }
+
+  @include tablet {
+    flex-basis: auto;
+    width: 100%;
   }
 }
 

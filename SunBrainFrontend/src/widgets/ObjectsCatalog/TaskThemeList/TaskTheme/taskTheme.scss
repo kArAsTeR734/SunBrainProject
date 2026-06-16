@@ -1,13 +1,16 @@
+@use "@styles/helpers" as *;
+
 .theme-wrapper {
-  width: 576px;
-  height: 64px;
+  width: 100%;
+  min-height: rem(64);
+  height: auto;
   display: flex;
   align-items: center;
   border-radius: 8px;
   background-color: #fff;
   color: #1c1c1c;
-  padding: 20px 0 20px 20px;
-  margin: 10px;
+  padding: rem(18) rem(20);
+  margin: 0;
   transition: all 0.3s ease;
   cursor: pointer;
 
@@ -34,5 +37,16 @@
     padding-left: 10px;
     text-transform: uppercase;
     flex-grow: 2;
+    overflow-wrap: anywhere;
+  }
+
+  @include mobile {
+    align-items: flex-start;
+    padding: rem(16);
+
+    &-number,
+    &-title {
+      line-height: 1.35;
+    }
   }
 }

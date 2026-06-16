@@ -8,7 +8,7 @@ import {
   passwordValidation,
 } from '@features/Authorization/model/config/validationConfig.ts';
 import clsx from 'clsx';
-import '@shared/ui/Button/button.css';
+import '@shared/ui/Button/button.scss';
 import { useLogin } from '@features/login/model/useLogin.ts';
 import { LoginRequest } from '@features/Registration/model/types.ts';
 import { Button } from '@/shared/ui';

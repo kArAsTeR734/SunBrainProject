@@ -1,3 +1,5 @@
+@use "@styles/helpers" as *;
+
 .catalog-hint{
   display: flex;
   justify-content: space-between;
@@ -28,5 +30,25 @@
     color: rgb(122, 114, 114);
     font-size: 16px;
     font-weight: 500;
+  }
+
+  @include mobile {
+    align-items: center;
+    margin-top: rem(24);
+
+    &__img {
+      width: rem(48);
+      height: rem(48);
+    }
+
+    &__number {
+      top: rem(-4);
+      left: rem(38);
+    }
+
+    &__title {
+      padding-left: rem(18);
+      font-size: rem(14);
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { Card } from '@/shared/ui';
-import './catalogObjectCards.css';
+import './catalogObjectCards.scss';
 import { useRouting } from '@/shared/hooks/useRouting.ts';
 
 export const CatalogObjectCards = () => {
