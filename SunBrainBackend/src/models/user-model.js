@@ -11,7 +11,7 @@ class UserModel {
 
   static async findById(id) {
     const result = await pool.query(
-      `SELECT id, email, full_name, role, created_at
+      `SELECT id, email, full_name, role, avatar_url, created_at
              FROM users WHERE id = $1`,
       [id]
     );

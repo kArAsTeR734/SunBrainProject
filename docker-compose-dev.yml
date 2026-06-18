@@ -4,14 +4,10 @@ services:
       context: ./SunBrainFrontend
       dockerfile: Dockerfile.dev
     image: sunbrain_frontend_dev
-    container_name: sunbrain_frontend_dev
     ports:
       - "3000:3000"
-    volumes:
-      - ./SunBrainFrontend:/app
-      - /app/node_modules
     environment:
-      - CHOKIDAR_USEPOLLING=true
+      - VITE_RUN=development
     depends_on:
       - backend
 
@@ -20,7 +16,6 @@ services:
       context: ./SunBrainBackend
       dockerfile: Dockerfile.dev
     image: sunbrain_backend_dev
-    container_name: sunbrain_backend_dev
     ports:
       - "5000:5000"
     env_file:
@@ -33,7 +28,6 @@ services:
 
   db:
     image: postgres:18-alpine
-    container_name: sunbrain_db_dev
     environment:
       POSTGRES_DB: SunBrain_dev
       POSTGRES_USER: postgres
@@ -46,24 +40,7 @@ services:
       timeout: 5s
       retries: 12
 
-  db_restore:
-    image: postgres:18-alpine
-    profiles:
-      - restore
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      PGHOST: db
-      PGPORT: 5432
-      PGDATABASE: SunBrain_dev
-      PGUSER: postgres
-      PGPASSWORD: root
-      BACKUP_FILE: /backup/SunBrain_dev.backup
-    volumes:
-      - ./SunBrain_dev.backup:/backup/SunBrain_dev.backup:ro
-      - ./scripts/restore-postgres-backup.sh:/scripts/restore-postgres-backup.sh:ro
-    command: ["sh", "/scripts/restore-postgres-backup.sh"]
-
 volumes:
   postgres18_data:
+    name: sunbrainproject_postgres18_data
+    external: true

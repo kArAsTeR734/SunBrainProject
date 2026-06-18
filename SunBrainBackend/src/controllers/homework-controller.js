@@ -65,16 +65,23 @@ class HomeworkController {
 
   static async getHomework(req, res) {
     try {
+      const userId = req.userId;
       const homeworkId = Number(req.params.id);
-      const data = await HomeworkService.getHomework(homeworkId);
+      const data = await HomeworkService.getHomework(homeworkId, userId);
 
       return res.status(200).json(
         successResponse(data)
       );
     } catch (error) {
       console.error(error);
-      return res.status(500).json(
-        errorResponse('Failed to get homework')
+      const status = error.message === 'Homework not found' ? 404 : 500;
+      const message =
+        error.message === 'Homework not found'
+          ? 'Homework not found'
+          : 'Failed to get homework';
+
+      return res.status(status).json(
+        errorResponse(message)
       );
     }
   }

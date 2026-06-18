@@ -43,24 +43,7 @@ services:
       timeout: 5s
       retries: 12
 
-  db_restore:
-    image: postgres:18-alpine
-    profiles:
-      - restore
-    depends_on:
-      db:
-        condition: service_healthy
-    environment:
-      PGHOST: db
-      PGPORT: 5432
-      PGDATABASE: SunBrain_dev
-      PGUSER: postgres
-      PGPASSWORD: root
-      BACKUP_FILE: /backup/SunBrain_dev.backup
-    volumes:
-      - ./SunBrain_dev.backup:/backup/SunBrain_dev.backup:ro
-      - ./scripts/restore-postgres-backup.sh:/scripts/restore-postgres-backup.sh:ro
-    command: ["sh", "/scripts/restore-postgres-backup.sh"]
-
 volumes:
   postgres18_data:
+    name: sunbrainproject_postgres18_data
+    external: true

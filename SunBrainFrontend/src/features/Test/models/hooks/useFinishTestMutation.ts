@@ -15,7 +15,7 @@ export const useFinishTestMutation = () => {
 
       void KnowledgeTestService.generateHomeworks({ testId: variables.testId })
         .then(async () => {
-          await queryClient.invalidateQueries({ queryKey: ['homework-list'] });
+          await queryClient.invalidateQueries({ queryKey: ['homeworks', 'homeworks-list'] });
         })
         .catch((error) => {
           console.error('Ошибка фоновой генерации домашек', error);

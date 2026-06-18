@@ -16,9 +16,8 @@ export const TaskItem: FC<TaskItemProps> = ({ task, isHomeworkTask }) => {
   const answer = useInput('');
   const [isChecked, setIsChecked] = useState(false);
   const [isTaskComplete, setIsTaskComplete] = useState(false);
-
+  const [attemptCount, setAttemptCount] = useState<number>(3);
   const checkAnswerMutate = useCheckTask(task.id);
-
   const taskContent = isHomeworkTask
     ? (task as HomeworkTask).question
     : (task as CatalogTask).content;
@@ -28,8 +27,14 @@ export const TaskItem: FC<TaskItemProps> = ({ task, isHomeworkTask }) => {
       const data = await checkAnswerMutate.mutateAsync({
         answer: answer.value,
       });
+      const isCorrect = data.correct;
+
       setIsChecked(true);
-      setIsTaskComplete(data.correct);
+      setIsTaskComplete(isCorrect);
+
+      if (!isCorrect) {
+        setAttemptCount((prev) => Math.max(prev - 1, 0));
+      }
     } catch (error) {
       console.error('Ошибка проверки задания', error);
     }
@@ -51,6 +56,7 @@ export const TaskItem: FC<TaskItemProps> = ({ task, isHomeworkTask }) => {
           <h4>
             <span className="task__number">Задача {task.id}</span>
           </h4>
+          <span className="task__attempts">Попыток до показа решения осталось: {attemptCount}</span>
         </div>
         <div className="task__text">
           <MarkdownContent content={taskContent} />
@@ -78,7 +84,7 @@ export const TaskItem: FC<TaskItemProps> = ({ task, isHomeworkTask }) => {
           </Button>
         </div>
 
-        {isHomeworkTask && isChecked && isTaskComplete && (
+        {(attemptCount === 0 || (isChecked && isTaskComplete)) && (
           <TaskSolution solution={task.solutionLatex} />
         )}
       </div>

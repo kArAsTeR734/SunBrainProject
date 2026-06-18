@@ -1,8 +1,8 @@
 import { OpenAI } from 'openai';
 import {
-  normalizeLatexText,
   normalizeSvg
 } from "../utils/task-content-utils.js";
+import { normalizeGeneratedTextBatch } from './task-text-normalizer-service.js';
 
 const HOMEWORK_SYSTEM_PROMPT = `
 You generate math homework tasks for exam preparation.
@@ -33,9 +33,11 @@ Rules:
 8. Escape every backslash in JSON strings. For example, write "\\\\frac{1}{2}", not "\\frac{1}{2}".
 9. Use valid LaTeX command syntax with braces, for example "\\\\frac{x^2-9}{x-3}" and "\\\\cdot".
 10. Keep each solution concise enough to fit in the JSON response.
+11. Do not generate vector tasks or use vector notation.
 `;
 
 const REQUIRED_DIFFICULTIES = ['easy', 'medium', 'hard'];
+const VECTOR_TASK_REGEX = /(?:\\vec|\\overrightarrow|\bvec[a-zа-яё]\b|вектор|векторы|координатн(?:ой|ая|ую)\s+плоскост)/i;
 
 class AIService {
   constructor() {
@@ -136,7 +138,7 @@ Each task must include a detailed solution and final answer.
         );
 
         const parsed = this.parseJsonResponse(content);
-        return this.normalizeHomeworkPayload(parsed, tasksCount, difficulty);
+        return await this.normalizeHomeworkPayload(parsed, tasksCount, difficulty);
       } catch (error) {
         lastError = error;
       }
@@ -395,7 +397,7 @@ Each task must include a detailed solution and final answer.
     return count;
   }
 
-  normalizeHomeworkPayload(payload, tasksPerDifficulty, expectedDifficulty = null) {
+  async normalizeHomeworkPayload(payload, tasksPerDifficulty, expectedDifficulty = null) {
     if (!payload || typeof payload !== 'object') {
       throw new Error('Invalid homework payload');
     }
@@ -411,6 +413,16 @@ Each task must include a detailed solution and final answer.
       );
     }
 
+    const textFields = [];
+    for (const task of rawTasks) {
+      textFields.push(String(task?.statementLatex || task?.questionLatex || ''));
+      textFields.push(String(task?.solutionLatex || ''));
+      textFields.push(String(task?.answerLatex || task?.answer || ''));
+    }
+    textFields.push(String(payload.title || ''));
+
+    const normalizedTextFields = await normalizeGeneratedTextBatch(textFields);
+
     const tasks = rawTasks.map((task, index) => {
       const difficultyFallbackIndex = Math.floor(index / tasksPerDifficulty);
       const fallbackDifficulty =
@@ -424,17 +436,21 @@ Each task must include a detailed solution and final answer.
           ? rawDifficulty
           : fallbackDifficulty;
 
-      const statementLatex = normalizeLatexText(
-        String(task?.statementLatex || task?.questionLatex || '')
-      );
-      const solutionLatex = normalizeLatexText(String(task?.solutionLatex || ''));
-      const answerLatex = normalizeLatexText(
-        String(task?.answerLatex || task?.answer || '')
-      );
+      const textFieldIndex = index * 3;
+      const statementLatex = normalizedTextFields[textFieldIndex] || '';
+      const solutionLatex = normalizedTextFields[textFieldIndex + 1] || '';
+      const answerLatex = normalizedTextFields[textFieldIndex + 2] || '';
       const imageSvg = normalizeSvg(task?.imageSvg);
 
       if (!statementLatex || !solutionLatex || !answerLatex) {
         throw new Error('AI returned incomplete task data');
+      }
+
+      if (
+        VECTOR_TASK_REGEX.test(statementLatex) ||
+        VECTOR_TASK_REGEX.test(solutionLatex)
+      ) {
+        throw new Error('AI returned vector task, but vector tasks are disabled');
       }
 
       return {
@@ -457,7 +473,7 @@ Each task must include a detailed solution and final answer.
       }
     }
 
-    const title = normalizeLatexText(String(payload.title || ''));
+    const title = normalizedTextFields[rawTasks.length * 3] || '';
 
     return {
       title: title || 'AI homework',

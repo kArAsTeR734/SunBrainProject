@@ -26,7 +26,7 @@ export default class HomeworkModel {
     return rows;
   }
 
-  static async getHomeworkById(homeworkId) {
+  static async getHomeworkById(homeworkId, userId) {
 
     const query = `
     SELECT
@@ -42,15 +42,17 @@ export default class HomeworkModel {
     FROM homeworks h
     JOIN topics t ON t.id = h.topic_id
     JOIN subjects s ON s.id = h.subject_id
+    JOIN homework_assignments ha ON ha.homework_id = h.id
     WHERE h.id = $1
+      AND ha.user_id = $2
   `;
 
-    const { rows } = await pool.query(query, [homeworkId]);
+    const { rows } = await pool.query(query, [homeworkId, userId]);
 
     return rows[0];
   }
 
-  static async getHomeworkTasks(homeworkId) {
+  static async getHomeworkTasks(homeworkId, userId) {
 
     const query = `
     SELECT 
@@ -61,12 +63,14 @@ export default class HomeworkModel {
         t.difficulty,
         t.points AS points
     FROM homework_tasks ht
+    JOIN homework_assignments ha ON ha.homework_id = ht.homework_id
     LEFT JOIN tasks t ON t.id = ht.task_id
     WHERE ht.homework_id = $1
+      AND ha.user_id = $2
     ORDER BY ht.order_index ASC, ht.task_id ASC
   `;
 
-    const { rows } = await pool.query(query, [homeworkId]);
+    const { rows } = await pool.query(query, [homeworkId, userId]);
 
     return rows;
   }

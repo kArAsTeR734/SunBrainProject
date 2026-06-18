@@ -1,4 +1,5 @@
 import AvatarService from "../services/avatar-service.js";
+import fs from 'fs';
 
 export class AvatarController {
   static async uploadAvatar(req, res, next) {
@@ -9,7 +10,6 @@ export class AvatarController {
       if (!file) {
         return res.status(400).json({ message: 'Файл не загружен' });
       }
-      console.log(userId)
       const result = await AvatarService.uploadAvatar(userId, file);
 
       res.json({
@@ -19,6 +19,10 @@ export class AvatarController {
         }
       });
     } catch (e) {
+      if (req.file?.path) {
+        await fs.promises.unlink(req.file.path).catch(() => {});
+      }
+
       next(e);
     }
   }

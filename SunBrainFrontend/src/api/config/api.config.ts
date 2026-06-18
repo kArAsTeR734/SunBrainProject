@@ -1,8 +1,18 @@
 import axios from 'axios';
 import { AuthorizationService } from '../services/AuthorizationService.ts';
 
+const getDefaultApiBaseUrl = () => {
+  if (typeof window === 'undefined') {
+    return 'http://localhost:5000';
+  }
+
+  return `${window.location.protocol}//${window.location.hostname}:5000`;
+};
+
+export const API_BASE_URL = import.meta.env.VITE_API_URL || getDefaultApiBaseUrl();
+
 export const api = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${localStorage.getItem('access_token')}`,
@@ -10,7 +20,7 @@ export const api = axios.create({
 });
 
 export const authApi = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },

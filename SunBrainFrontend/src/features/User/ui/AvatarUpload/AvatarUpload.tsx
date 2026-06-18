@@ -1,4 +1,4 @@
-import { useState, useRef, ChangeEvent } from 'react';
+import { useEffect, useState, useRef, ChangeEvent } from 'react';
 import './AvatarUpload.scss';
 
 interface AvatarUploadProps {
@@ -11,6 +11,10 @@ export const AvatarUpload = ({ currentAvatar, onUpload, size = 120 }: AvatarUplo
   const [preview, setPreview] = useState<string>(currentAvatar || '');
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setPreview(currentAvatar || '');
+  }, [currentAvatar]);
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

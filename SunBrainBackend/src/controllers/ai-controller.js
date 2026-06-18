@@ -37,7 +37,8 @@ export class AIController {
       const status =
         error.message?.includes('must be a positive integer') ||
         error.message === 'Subject not found' ||
-        error.message?.includes('Topic for task number')
+        error.message?.includes('Topic for task number') ||
+        error.message?.includes('AI homework generation is disabled')
           ? 400
           : 500;
 

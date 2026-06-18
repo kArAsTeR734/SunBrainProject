@@ -2,15 +2,16 @@ import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
-import { FC, memo } from 'react';
+import { memo } from 'react';
 import './HomeworkContent.scss';
 import { InlineMath } from 'react-katex';
 
-interface Props {
+interface MarkdownProps {
   content: string;
 }
 
-export const MarkdownContent: FC<Props> = memo(({ content }) => {
+// eslint-disable-next-line react/display-name
+export const MarkdownContent = memo(({ content }: MarkdownProps) => {
   const normalizeSolution = (text: string) => {
     return text
       .replace(/\\n/g, '\n')

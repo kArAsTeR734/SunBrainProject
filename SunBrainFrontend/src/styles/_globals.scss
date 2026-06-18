@@ -1,5 +1,11 @@
 @use 'helpers' as *;
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
   &.is-lock {
     overflow: hidden;
@@ -86,7 +92,7 @@ svg * {
   transition-duration: var(--transition-duration);
 }
 
-a{
+a {
   text-decoration: none;
 }
 

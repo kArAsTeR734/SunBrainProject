@@ -35,7 +35,15 @@ export default class TaskModel {
   static async getTaskById(taskId) {
 
     const query = `
-      SELECT id, content, original_tex, difficulty, answer_format, topic_id, points
+      SELECT
+        id,
+        content,
+        original_tex,
+        difficulty,
+        answer_format,
+        topic_id,
+        points,
+        solution AS "solutionLatex"
       FROM tasks
       WHERE id = $1
     `;
@@ -47,8 +55,18 @@ export default class TaskModel {
 
   static async getTasksByTopicId(themeId){
     const query = `
-    SELECT * FROM tasks
+    SELECT
+      id,
+      content,
+      original_tex,
+      difficulty,
+      answer_format,
+      topic_id,
+      points,
+      solution AS "solutionLatex"
+    FROM tasks
       WHERE topic_id = $1
+      ORDER BY id
     `;
 
     const { rows } = await pool.query(query, [themeId]);

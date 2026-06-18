@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { UserService } from '@/api/services/UserService.ts';
 import { userSlice } from '@app/store/reducers/UserSlice.ts';
 import { useAppDispatch } from '@shared/hooks/redux.ts';
+import { resolveAssetUrl } from '@shared/utils/resolveAssetUrl.ts';
 
 export const useUserInfo = () => {
   const { setUser } = userSlice.actions;
@@ -13,10 +14,7 @@ export const useUserInfo = () => {
       try {
         const userData = await UserService.getUserInfo();
         if (userData?.user?.avatarUrl) {
-          let avatarUrl = userData.user.avatarUrl;
-          if (avatarUrl.startsWith('/uploads/')) {
-            userData.user.avatarUrl = `http://localhost:5000${avatarUrl}`;
-          }
+          userData.user.avatarUrl = resolveAssetUrl(userData.user.avatarUrl);
         }
         const user = userData.user;
         dispatch(setUser(user));

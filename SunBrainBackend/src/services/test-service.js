@@ -47,7 +47,10 @@ class TestService {
 
     const test = await TestModel.create(userId, normalizedSubjectId);
 
-    const tasks = await TaskService.generateTestTasks(normalizedSubjectId);
+    const tasks = await TaskService.generateTestTasks(
+      normalizedSubjectId,
+      meta.availableTaskNumbers
+    );
 
     await TestModel.addTasks(test.id, tasks);
 
@@ -193,29 +196,40 @@ class TestService {
             outcome.failedTaskNumbers.includes(taskNumber)
           )
         : outcome.failedTaskNumbers;
+    const supportedTargetTaskNumbers = targetTaskNumbers.filter(taskNumber =>
+      AIHomeworkService.isTaskNumberSupported(taskNumber)
+    );
+    const skippedTaskNumbers = targetTaskNumbers.filter(
+      taskNumber => !AIHomeworkService.isTaskNumberSupported(taskNumber)
+    );
 
-    if (targetTaskNumbers.length === 0) {
+    if (supportedTargetTaskNumbers.length === 0) {
       return {
         testId: normalizedTestId,
         subjectId: Number(test.subject_id),
         generatedFromTaskNumbers: [],
         generatedHomeworks: [],
-        generationErrors: []
+        generationErrors: [],
+        skippedTaskNumbers
       };
     }
 
     const generationResult = await AIHomeworkService.createForTaskNumbers({
       userId,
       subjectId: test.subject_id,
-      taskNumbers: targetTaskNumbers
+      taskNumbers: supportedTargetTaskNumbers
     });
 
     return {
       testId: normalizedTestId,
       subjectId: Number(test.subject_id),
-      generatedFromTaskNumbers: targetTaskNumbers,
+      generatedFromTaskNumbers: supportedTargetTaskNumbers,
       generatedHomeworks: generationResult.created,
-      generationErrors: generationResult.failed
+      generationErrors: generationResult.failed,
+      skippedTaskNumbers: [
+        ...skippedTaskNumbers,
+        ...(generationResult.skipped || []).map(item => item.taskNumber)
+      ]
     };
   }
 

@@ -11,6 +11,9 @@ export const AppInitializer = () => {
 
   useEffect(() => {
     dispatch(checkAuth());
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(setUser(user ?? null));
   }, [dispatch, user, setUser]);
 

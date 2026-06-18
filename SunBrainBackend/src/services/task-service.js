@@ -138,11 +138,11 @@ class TaskService {
     };
   }
 
-  static async generateTestTasks(subjectId) {
+  static async generateTestTasks(subjectId, taskNumbers = this.TEST_TASK_NUMBERS) {
     const result = [];
     const numbersMeta = [];
 
-    for (const taskNumber of this.TEST_TASK_NUMBERS) {
+    for (const taskNumber of taskNumbers) {
       const tasks = await TaskModel.getByNumber(taskNumber, subjectId);
       const groupedTasks = this.groupByDifficulty(tasks);
       const availableDifficulties = Object.keys(groupedTasks);
@@ -250,19 +250,16 @@ class TaskService {
       .filter(item => item.maxSelectableForTest === 0)
       .map(item => item.taskNumber);
 
-    const hasMissingNumbers = missingNumbers.length > 0;
-    const minPossibleTotalTasks = hasMissingNumbers
-      ? 0
-      : numbers.length * this.TEST_TASKS_PER_NUMBER_MIN;
-    const maxPossibleTotalTasks = hasMissingNumbers
-      ? 0
-      : numbers.reduce(
-        (sum, item) => sum + Math.max(item.maxSelectableForTest, 0),
-        0
-      );
+    const availableNumbers = numbers.filter(item => item.maxSelectableForTest > 0);
+    const minPossibleTotalTasks =
+      availableNumbers.length * this.TEST_TASKS_PER_NUMBER_MIN;
+    const maxPossibleTotalTasks = availableNumbers.reduce(
+      (sum, item) => sum + Math.max(item.maxSelectableForTest, 0),
+      0
+    );
 
     const canBuildTarget =
-      !hasMissingNumbers &&
+      availableNumbers.length > 0 &&
       this.TEST_TARGET_TOTAL_TASKS >= minPossibleTotalTasks &&
       this.TEST_TARGET_TOTAL_TASKS <= maxPossibleTotalTasks;
 
@@ -276,6 +273,7 @@ class TaskService {
       maxPossibleTotalTasks,
       canBuildTarget,
       missingTaskNumbers: missingNumbers,
+      availableTaskNumbers: availableNumbers.map(item => item.taskNumber),
       numbers
     };
   }

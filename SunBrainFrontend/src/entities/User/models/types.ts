@@ -1,5 +1,5 @@
 export interface AvatarUpload {
-  file: File;
+  avatarUrl: string;
 }
 
 export interface ProfileUser {

@@ -2,6 +2,12 @@ import aiService from './AIService.js';
 import HomeworkModel from '../models/homework-model.js';
 
 class AIHomeworkService {
+  static UNSUPPORTED_AI_TASK_NUMBERS = new Set([2]);
+
+  static isTaskNumberSupported(taskNumber) {
+    return !this.UNSUPPORTED_AI_TASK_NUMBERS.has(Number(taskNumber));
+  }
+
   static normalizeInteger(value, fieldName) {
     const normalized = Number(value);
 
@@ -19,6 +25,12 @@ class AIHomeworkService {
 
     const normalizedSubjectId = this.normalizeInteger(subjectId, 'subjectId');
     const normalizedTaskNumber = this.normalizeInteger(taskNumber, 'taskNumber');
+
+    if (!this.isTaskNumberSupported(normalizedTaskNumber)) {
+      throw new Error(
+        `AI homework generation is disabled for task number ${normalizedTaskNumber}`
+      );
+    }
 
     const subject = await HomeworkModel.getSubjectById(normalizedSubjectId);
     if (!subject) {
@@ -79,8 +91,17 @@ class AIHomeworkService {
 
     const created = [];
     const failed = [];
+    const skipped = [];
 
     for (const taskNumber of normalizedUniqueNumbers) {
+      if (!this.isTaskNumberSupported(taskNumber)) {
+        skipped.push({
+          taskNumber,
+          message: `AI homework generation is disabled for task number ${taskNumber}`
+        });
+        continue;
+      }
+
       try {
         const homework = await this.createForTask({
           userId,
@@ -97,7 +118,7 @@ class AIHomeworkService {
       }
     }
 
-    return { created, failed };
+    return { created, failed, skipped };
   }
 }
 

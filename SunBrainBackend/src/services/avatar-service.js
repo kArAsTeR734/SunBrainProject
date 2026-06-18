@@ -7,7 +7,6 @@ class AvatarService {
   static AVATAR_DIR = 'uploads/avatars';
   static ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
   static MAX_SIZE = 5 * 1024 * 1024;
-  static BASE_URL = 'http://localhost:5000';
 
   static initUploadDir() {
     if (!fs.existsSync(this.AVATAR_DIR)) {
@@ -40,9 +39,15 @@ class AvatarService {
     const filename = this.generateFileName(file.originalname);
     const filepath = path.join(this.AVATAR_DIR, filename);
 
-    await fs.promises.writeFile(filepath, file.buffer);
+    if (file.path) {
+      await this.moveFile(file.path, filepath);
+    } else if (file.buffer) {
+      await fs.promises.writeFile(filepath, file.buffer);
+    } else {
+      throw new Error('Р¤Р°Р№Р» РЅРµ СЃРѕРґРµСЂР¶РёС‚ РґР°РЅРЅС‹С… РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ');
+    }
 
-    const avatarUrl = `${AvatarService.BASE_URL}/uploads/avatars/${filename}`;
+    const avatarUrl = `/uploads/avatars/${filename}`;
 
     return {
       filename,
@@ -53,12 +58,54 @@ class AvatarService {
     };
   }
 
+  static async moveFile(source, target) {
+    try {
+      await fs.promises.rename(source, target);
+    } catch (error) {
+      if (error.code !== 'EXDEV') {
+        throw error;
+      }
+
+      await fs.promises.copyFile(source, target);
+      await fs.promises.unlink(source);
+    }
+  }
+
+  static async deleteFile(filepath) {
+    try {
+      if (fs.existsSync(filepath)) {
+        await fs.promises.unlink(filepath);
+      }
+    } catch (error) {
+      console.error('РћС€РёР±РєР° РїСЂРё СѓРґР°Р»РµРЅРёРё С„Р°Р№Р»Р° Р°РІР°С‚Р°СЂРєРё:', error);
+    }
+  }
+
+  static getAvatarFilename(avatarUrl) {
+    if (!avatarUrl) {
+      return null;
+    }
+
+    try {
+      const parsedUrl = new URL(avatarUrl, 'http://localhost');
+
+      if (!parsedUrl.pathname.startsWith('/uploads/avatars/')) {
+        return null;
+      }
+
+      return path.basename(parsedUrl.pathname);
+    } catch {
+      return null;
+    }
+  }
+
   static async deleteOldAvatar(avatarUrl) {
-    if (!avatarUrl || !avatarUrl.startsWith('/uploads/avatars/')) {
+    const filename = this.getAvatarFilename(avatarUrl);
+
+    if (!filename) {
       return;
     }
 
-    const filename = path.basename(avatarUrl);
     const filepath = path.join(this.AVATAR_DIR, filename);
 
     try {
@@ -73,14 +120,19 @@ class AvatarService {
 
   static async uploadAvatar(userId, file) {
     const user = await UserModel.findById(userId);
-
-    if (user?.avatar_url) {
-      await this.deleteOldAvatar(user.avatar_url);
-    }
-
     const fileInfo = await this.saveFile(file);
 
-    const updatedUser = await UserModel.updateAvatar(userId, fileInfo.avatarUrl);
+    let updatedUser;
+    try {
+      updatedUser = await UserModel.updateAvatar(userId, fileInfo.avatarUrl);
+    } catch (error) {
+      await this.deleteFile(fileInfo.filepath);
+      throw error;
+    }
+
+    if (user?.avatar_url && user.avatar_url !== fileInfo.avatarUrl) {
+      await this.deleteOldAvatar(user.avatar_url);
+    }
 
     return {
       user: updatedUser,

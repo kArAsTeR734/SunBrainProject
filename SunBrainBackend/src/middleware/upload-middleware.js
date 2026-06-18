@@ -1,7 +1,18 @@
 import multer from 'multer';
 import path from 'path';
+import fs from 'fs';
 
-const storage = multer.memoryStorage();
+const TEMP_DIR = 'uploads/tmp';
+
+const storage = multer.diskStorage({
+  destination: (_req, _file, cb) => {
+    fs.mkdir(TEMP_DIR, { recursive: true }, (error) => cb(error, TEMP_DIR));
+  },
+  filename: (_req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`);
+  },
+});
 
 const fileFilter = (req, file, cb) => {
   const allowedTypes = /jpeg|jpg|png|gif|webp/;
@@ -16,7 +27,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 const upload = multer({
-  storage: storage,
+  storage,
   limits: {
     fileSize: 5 * 1024 * 1024 // 5MB
   },

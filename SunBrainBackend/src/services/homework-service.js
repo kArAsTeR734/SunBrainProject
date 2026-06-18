@@ -43,11 +43,14 @@ class HomeworkService {
     };
   }
 
-  static async getHomework(homeworkId) {
+  static async getHomework(homeworkId, userId) {
 
-    const homework = await HomeworkModel.getHomeworkById(homeworkId);
+    const homework = await HomeworkModel.getHomeworkById(homeworkId, userId);
+    if (!homework) {
+      throw new Error('Homework not found');
+    }
 
-    const tasks = await HomeworkModel.getHomeworkTasks(homeworkId);
+    const tasks = await HomeworkModel.getHomeworkTasks(homeworkId, userId);
 
     return {
       id: homework.id,
