@@ -1,10 +1,10 @@
-import { spawn } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
-import { normalizeLatexText } from '../utils/task-content-utils.js';
+import { spawn } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import { normalizeLatexText } from "../utils/task-content-utils.js";
 
 const DEFAULT_TIMEOUT_MS = 5000;
 const normalizerScriptPath = fileURLToPath(
-  new URL('../../scripts/task_text_normalizer.py', import.meta.url)
+  new URL("../../scripts/task_text_normalizer.py", import.meta.url),
 );
 
 function getTimeoutMs() {
@@ -13,7 +13,9 @@ function getTimeoutMs() {
 }
 
 function getPythonCommand() {
-  return process.env.TASK_TEXT_NORMALIZER_PYTHON || process.env.PYTHON || 'python';
+  return (
+    process.env.TASK_TEXT_NORMALIZER_PYTHON || process.env.PYTHON || "python"
+  );
 }
 
 function getNormalizerScriptPath() {
@@ -21,18 +23,18 @@ function getNormalizerScriptPath() {
 }
 
 function fallbackNormalizeBatch(values) {
-  return values.map(value => normalizeLatexText(String(value ?? '')));
+  return values.map((value) => normalizeLatexText(String(value ?? "")));
 }
 
 function runPythonNormalizer(values) {
   return new Promise((resolve, reject) => {
     const child = spawn(getPythonCommand(), [getNormalizerScriptPath()], {
-      stdio: ['pipe', 'pipe', 'pipe'],
-      windowsHide: true
+      stdio: ["pipe", "pipe", "pipe"],
+      windowsHide: true,
     });
 
-    let stdout = '';
-    let stderr = '';
+    let stdout = "";
+    let stderr = "";
     let settled = false;
 
     const timeout = setTimeout(() => {
@@ -42,21 +44,21 @@ function runPythonNormalizer(values) {
 
       settled = true;
       child.kill();
-      reject(new Error('Task text normalizer timed out'));
+      reject(new Error("TestTask text normalizer timed out"));
     }, getTimeoutMs());
 
-    child.stdout.setEncoding('utf8');
-    child.stderr.setEncoding('utf8');
+    child.stdout.setEncoding("utf8");
+    child.stderr.setEncoding("utf8");
 
-    child.stdout.on('data', chunk => {
+    child.stdout.on("data", (chunk) => {
       stdout += chunk;
     });
 
-    child.stderr.on('data', chunk => {
+    child.stderr.on("data", (chunk) => {
       stderr += chunk;
     });
 
-    child.on('error', error => {
+    child.on("error", (error) => {
       if (settled) {
         return;
       }
@@ -66,7 +68,7 @@ function runPythonNormalizer(values) {
       reject(error);
     });
 
-    child.on('close', code => {
+    child.on("close", (code) => {
       if (settled) {
         return;
       }
@@ -75,18 +77,24 @@ function runPythonNormalizer(values) {
       clearTimeout(timeout);
 
       if (code !== 0) {
-        reject(new Error(stderr || `Task text normalizer exited with code ${code}`));
+        reject(
+          new Error(stderr || `Task text normalizer exited with code ${code}`),
+        );
         return;
       }
 
       try {
         const parsed = JSON.parse(stdout);
         if (!Array.isArray(parsed?.texts)) {
-          reject(new Error('Task text normalizer returned invalid payload'));
+          reject(
+            new Error("TestTask text normalizer returned invalid payload"),
+          );
           return;
         }
 
-        resolve(parsed.texts.map(value => normalizeLatexText(String(value ?? ''))));
+        resolve(
+          parsed.texts.map((value) => normalizeLatexText(String(value ?? ""))),
+        );
       } catch (error) {
         reject(error);
       }
@@ -99,7 +107,7 @@ function runPythonNormalizer(values) {
 export async function normalizeGeneratedTextBatch(values) {
   const fallback = fallbackNormalizeBatch(values);
 
-  if (process.env.TASK_TEXT_NORMALIZER_DISABLED === 'true') {
+  if (process.env.TASK_TEXT_NORMALIZER_DISABLED === "true") {
     return fallback;
   }
 
@@ -107,7 +115,7 @@ export async function normalizeGeneratedTextBatch(values) {
     return await runPythonNormalizer(fallback);
   } catch (error) {
     console.warn(
-      `Task text normalizer unavailable, using JS fallback: ${error.message}`
+      `Task text normalizer unavailable, using JS fallback: ${error.message}`,
     );
     return fallback;
   }

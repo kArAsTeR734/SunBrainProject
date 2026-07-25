@@ -1,12 +1,15 @@
-import TaskModel from '../models/task-model.js';
-import HomeworkAnswerModel from '../models/homework-answer-model.js';
-import pool from '../../db.js';
-import {normalizeTaskContent} from '../utils/task-content-utils.js';
+import TaskModel from "../models/task-model.js";
+import HomeworkAnswerModel from "../models/homework-answer-model.js";
+import pool from "../../db.js";
+import { normalizeTaskContent } from "../utils/task-content-utils.js";
 
 class TaskService {
-  static TEST_TASK_NUMBERS = Array.from({length: 12}, (_, index) => index + 1);
+  static TEST_TASK_NUMBERS = Array.from(
+    { length: 12 },
+    (_, index) => index + 1,
+  );
 
-  static TEST_SUBJECT_CODES = ['emath', 'omath', 'ephysic', 'ophysic'];
+  static TEST_SUBJECT_CODES = ["emath", "omath", "ephysic", "ophysic"];
 
   static TEST_TARGET_TOTAL_TASKS = 20;
 
@@ -14,22 +17,24 @@ class TaskService {
 
   static TEST_TASKS_PER_NUMBER_MAX = 2;
 
-  static TEST_DIFFICULTIES = ['easy', 'medium', 'hard'];
+  static TEST_DIFFICULTIES = ["easy", "medium", "hard"];
 
   static normalizeAnswer(value) {
-    return String(value ?? '').trim().toLowerCase();
+    return String(value ?? "")
+      .trim()
+      .toLowerCase();
   }
 
   static parseDecimalAnswer(value) {
     const normalized = this.normalizeAnswer(value)
-      .replace(/\s+/g, '')
-      .replace(/\u2212/g, '-');
+      .replace(/\s+/g, "")
+      .replace(/\u2212/g, "-");
 
     if (!/^[+-]?(?:\d+(?:[.,]\d+)?|[.,]\d+)$/.test(normalized)) {
       return null;
     }
 
-    const parsed = Number(normalized.replace(',', '.'));
+    const parsed = Number(normalized.replace(",", "."));
     return Number.isFinite(parsed) ? parsed : null;
   }
 
@@ -41,22 +46,24 @@ class TaskService {
       return Math.abs(expectedNumber - userNumber) < 1e-9;
     }
 
-    return this.normalizeAnswer(expectedAnswer) === this.normalizeAnswer(userAnswer);
+    return (
+      this.normalizeAnswer(expectedAnswer) === this.normalizeAnswer(userAnswer)
+    );
   }
 
-  static async checkTaskAnswer({userId, taskId, answer}) {
+  static async checkTaskAnswer({ userId, taskId, answer }) {
     if (!userId) {
-      throw new Error('User is not authenticated');
+      throw new Error("User is not authenticated");
     }
 
-    if (typeof answer !== 'string' || !answer.trim()) {
-      throw new Error('Answer is required');
+    if (typeof answer !== "string" || !answer.trim()) {
+      throw new Error("Answer is required");
     }
 
     const task = await TaskModel.getTaskByIdForCheck(taskId);
 
     if (!task) {
-      throw new Error('Task not found');
+      throw new Error("TestTask not found");
     }
 
     const isCorrect = this.areAnswersEqual(task.correct_answer, answer);
@@ -68,7 +75,7 @@ class TaskService {
       taskId,
       answer,
       isCorrect,
-      points
+      points,
     });
 
     const leaderboardUpdate = await pool.query(
@@ -80,7 +87,7 @@ class TaskService {
           last_activity_at = NOW()
       WHERE user_id = $3
       `,
-      [points, isCorrect ? 1 : 0, userId]
+      [points, isCorrect ? 1 : 0, userId],
     );
 
     if (leaderboardUpdate.rowCount === 0) {
@@ -96,29 +103,29 @@ class TaskService {
         )
         VALUES ($1, $2, 1, $3, NOW(), NOW())
         `,
-        [userId, points, isCorrect ? 1 : 0]
+        [userId, points, isCorrect ? 1 : 0],
       );
     }
 
     return {
       correct: isCorrect,
-      points
+      points,
     };
   }
 
   static async getTask(taskId) {
     if (!taskId) {
-      throw new Error('Task with this taskId not found');
+      throw new Error("TestTask with this taskId not found");
     }
 
     const task = await TaskModel.getTaskById(taskId);
 
     if (!task) {
-      throw new Error('Task not found');
+      throw new Error("TestTask not found");
     }
 
     return {
-      task
+      task,
     };
   }
 
@@ -134,11 +141,14 @@ class TaskService {
     }
 
     return {
-      catalogTasks: tasks
+      catalogTasks: tasks,
     };
   }
 
-  static async generateTestTasks(subjectId, taskNumbers = this.TEST_TASK_NUMBERS) {
+  static async generateTestTasks(
+    subjectId,
+    taskNumbers = this.TEST_TASK_NUMBERS,
+  ) {
     const result = [];
     const numbersMeta = [];
 
@@ -155,7 +165,7 @@ class TaskService {
         taskNumber,
         groupedTasks,
         availableDifficulties,
-        canPickTwo: availableDifficulties.length >= 2
+        canPickTwo: availableDifficulties.length >= 2,
       });
     }
 
@@ -165,11 +175,17 @@ class TaskService {
       const tasksCount = plannedCounts[meta.taskNumber] || 1;
       const selectedDifficulties = this.pickUniqueDifficulties(
         meta.availableDifficulties,
-        tasksCount
+        tasksCount,
       );
 
       for (const difficulty of selectedDifficulties) {
-        result.push(this.getRandom(meta.groupedTasks[difficulty], meta.taskNumber, difficulty));
+        result.push(
+          this.getRandom(
+            meta.groupedTasks[difficulty],
+            meta.taskNumber,
+            difficulty,
+          ),
+        );
       }
     }
 
@@ -177,26 +193,26 @@ class TaskService {
   }
 
   static async getTestPoolMeta(subjectCode) {
-    const normalizedSubjectCode = String(subjectCode || '')
+    const normalizedSubjectCode = String(subjectCode || "")
       .trim()
       .toLowerCase();
 
     if (!normalizedSubjectCode) {
-      throw new Error('subjectCode is required');
+      throw new Error("subjectCode is required");
     }
 
     if (!this.TEST_SUBJECT_CODES.includes(normalizedSubjectCode)) {
-      throw new Error('subjectCode is not supported');
+      throw new Error("subjectCode is not supported");
     }
 
     const subject = await TaskModel.getSubjectByCode(normalizedSubjectCode);
     if (!subject) {
-      throw new Error('Subject not found');
+      throw new Error("Subject not found");
     }
 
     const rows = await TaskModel.getCountsByNumberAndDifficulty(
       normalizedSubjectCode,
-      this.TEST_TASK_NUMBERS
+      this.TEST_TASK_NUMBERS,
     );
 
     const byNumber = {};
@@ -208,15 +224,15 @@ class TaskService {
         availableByDifficulty: {
           easy: 0,
           medium: 0,
-          hard: 0
+          hard: 0,
         },
-        maxSelectableForTest: 0
+        maxSelectableForTest: 0,
       };
     }
 
     for (const row of rows) {
       const taskNumber = Number(row.task_number);
-      const difficulty = String(row.difficulty || '').toLowerCase();
+      const difficulty = String(row.difficulty || "").toLowerCase();
       const count = Number(row.count) || 0;
 
       if (!byNumber[taskNumber]) {
@@ -231,31 +247,33 @@ class TaskService {
       byNumber[taskNumber].availableTotal += count;
     }
 
-    const numbers = this.TEST_TASK_NUMBERS.map(taskNumber => {
+    const numbers = this.TEST_TASK_NUMBERS.map((taskNumber) => {
       const item = byNumber[taskNumber];
       const availableDifficultiesCount = Object.values(
-        item.availableByDifficulty
-      ).filter(count => count > 0).length;
+        item.availableByDifficulty,
+      ).filter((count) => count > 0).length;
 
       return {
         ...item,
         maxSelectableForTest: Math.min(
           this.TEST_TASKS_PER_NUMBER_MAX,
-          availableDifficultiesCount
-        )
+          availableDifficultiesCount,
+        ),
       };
     });
 
     const missingNumbers = numbers
-      .filter(item => item.maxSelectableForTest === 0)
-      .map(item => item.taskNumber);
+      .filter((item) => item.maxSelectableForTest === 0)
+      .map((item) => item.taskNumber);
 
-    const availableNumbers = numbers.filter(item => item.maxSelectableForTest > 0);
+    const availableNumbers = numbers.filter(
+      (item) => item.maxSelectableForTest > 0,
+    );
     const minPossibleTotalTasks =
       availableNumbers.length * this.TEST_TASKS_PER_NUMBER_MIN;
     const maxPossibleTotalTasks = availableNumbers.reduce(
       (sum, item) => sum + Math.max(item.maxSelectableForTest, 0),
-      0
+      0,
     );
 
     const canBuildTarget =
@@ -273,8 +291,8 @@ class TaskService {
       maxPossibleTotalTasks,
       canBuildTarget,
       missingTaskNumbers: missingNumbers,
-      availableTaskNumbers: availableNumbers.map(item => item.taskNumber),
-      numbers
+      availableTaskNumbers: availableNumbers.map((item) => item.taskNumber),
+      numbers,
     };
   }
 
@@ -287,20 +305,24 @@ class TaskService {
 
     const totalNumbers = numbersMeta.length;
     const minPossible = totalNumbers * this.TEST_TASKS_PER_NUMBER_MIN;
-    const twoTaskCandidates = numbersMeta.filter(meta => meta.canPickTwo);
+    const twoTaskCandidates = numbersMeta.filter((meta) => meta.canPickTwo);
     const maxPossible = minPossible + twoTaskCandidates.length;
     const targetTotal = this.TEST_TARGET_TOTAL_TASKS;
-    const targetOutOfRange = targetTotal < minPossible || targetTotal > maxPossible;
+    const targetOutOfRange =
+      targetTotal < minPossible || targetTotal > maxPossible;
 
     if (targetOutOfRange) {
       throw new Error(
-        `Cannot build test with target ${targetTotal}: available range is ${minPossible}-${maxPossible}`
+        `Cannot build test with target ${targetTotal}: available range is ${minPossible}-${maxPossible}`,
       );
     }
 
     const extraTasksNeeded = targetTotal - minPossible;
 
-    const selectedForTwo = this.pickRandomItems(twoTaskCandidates, extraTasksNeeded);
+    const selectedForTwo = this.pickRandomItems(
+      twoTaskCandidates,
+      extraTasksNeeded,
+    );
 
     for (const meta of selectedForTwo) {
       counts[meta.taskNumber] = 2;
@@ -314,7 +336,7 @@ class TaskService {
 
     for (const difficulty of this.TEST_DIFFICULTIES) {
       const items = tasks.filter(
-        task => String(task.difficulty || '').toLowerCase() === difficulty
+        (task) => String(task.difficulty || "").toLowerCase() === difficulty,
       );
 
       if (items.length > 0) {
@@ -346,11 +368,11 @@ class TaskService {
       id: Number(task.id),
       taskNumber: Number(task.task_number),
       orderIndex: Number(orderIndex),
-      difficulty: String(task.difficulty || '').toLowerCase(),
+      difficulty: String(task.difficulty || "").toLowerCase(),
       content: normalizedTask.content,
       originalTex: normalizedTask.originalTex,
       answerFormat: task.answer_format || null,
-      imageSvg: normalizedTask.payload?.imageSvg || null
+      imageSvg: normalizedTask.payload?.imageSvg || null,
     };
   }
 
@@ -361,7 +383,7 @@ class TaskService {
   static getRandom(arr, taskNumber, difficulty) {
     if (!arr.length) {
       throw new Error(
-        `No tasks for task number ${taskNumber} and difficulty ${difficulty}`
+        `No tasks for task number ${taskNumber} and difficulty ${difficulty}`,
       );
     }
 
