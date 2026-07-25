@@ -1,9 +1,10 @@
 import React, { FC, useState } from 'react';
 import useInput from '@shared/hooks/useInput.ts';
-import { MarkdownContent, TaskSolution } from '@features/HomeworkTasks';
+import { MarkdownContent } from '@features/HomeworkTasks/ui/HomeworkContent/HomeworkContent.tsx';
+import { TaskSolution } from '@features/HomeworkTasks/ui/TaskSolution/TaskSolution.tsx';
 import clsx from 'clsx';
 import './TaskItem.scss';
-import { Button } from '@shared/ui';
+import { Button } from '@shared/ui/Button/Button.tsx';
 import { useCheckTask } from '@features/Task';
 import { CatalogTask, HomeworkTask } from '@entities/Task/model/types.ts';
 

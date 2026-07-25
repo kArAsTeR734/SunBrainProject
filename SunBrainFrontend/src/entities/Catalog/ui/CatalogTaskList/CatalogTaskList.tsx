@@ -1,12 +1,13 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCatalogTasks } from '@features/Catalog';
-import { DataFallback, TaskItem, TaskList } from '@shared/ui';
+import { DataFallback } from '@shared/ui/DataFallback/DataFallback.tsx';
+import { TaskItem } from '@shared/ui/TaskItem/TaskItem.tsx';
+import { TaskList } from '@shared/ui/TaskList/TaskList.tsx';
 
 export const CatalogTaskList = () => {
   const { themeId } = useParams();
   const navigate = useNavigate();
   const { data: catalogTasks, isLoading, isError, refetch } = useCatalogTasks(Number(themeId));
-  console.log(catalogTasks);
   if (isLoading) {
     return <DataFallback state="loading" title="Загружаем задания по теме..." />;
   }

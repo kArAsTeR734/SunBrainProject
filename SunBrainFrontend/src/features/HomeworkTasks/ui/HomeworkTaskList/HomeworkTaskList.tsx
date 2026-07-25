@@ -1,7 +1,9 @@
 import './homeworkTaskList.scss';
 import { useHomeworkTasks } from '@features/HomeworkTasks/model/useHomeworkTasks.ts';
 import { useParams } from 'react-router-dom';
-import { DataFallback, TaskItem, TaskList } from '@shared/ui';
+import { DataFallback } from '@shared/ui/DataFallback/DataFallback.tsx';
+import { TaskItem } from '@shared/ui/TaskItem/TaskItem.tsx';
+import { TaskList } from '@shared/ui/TaskList/TaskList.tsx';
 
 export const HomeworkTaskList = () => {
   const { homeworkId } = useParams();

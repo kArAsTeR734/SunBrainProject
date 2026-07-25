@@ -1,6 +1,6 @@
-import HomeworkService from '../services/homework-service.js';
-import TaskService from '../services/task-service.js';
-import { errorResponse, successResponse } from '../utils/ApiError.js';
+import HomeworkService from "../services/homework-service.js";
+import TaskService from "../services/task-service.js";
+import { errorResponse, successResponse } from "../utils/ApiError.js";
 
 class HomeworkController {
   static async checkTaskAnswer(req, res) {
@@ -9,41 +9,35 @@ class HomeworkController {
       const { taskId } = req.params;
       const { answer } = req.body;
 
-      if (typeof answer !== 'string' || !answer.trim()) {
-        return res.status(400).json(
-          errorResponse('Answer is required')
-        );
+      if (typeof answer !== "string" || !answer.trim()) {
+        return res.status(400).json(errorResponse("Answer is required"));
       }
 
       const result = await TaskService.checkTaskAnswer({
         userId,
         taskId,
-        answer
+        answer,
       });
 
-      return res.status(200).json(
-        successResponse(result)
-      );
+      return res.status(200).json(successResponse(result));
     } catch (error) {
       console.error(error);
 
       let status = 500;
-      let message = 'Failed to check homework answer';
+      let message = "Failed to check homework answer";
 
-      if (error.message === 'User is not authenticated') {
+      if (error.message === "User is not authenticated") {
         status = 401;
-        message = 'User is not authenticated';
-      } else if (error.message === 'Answer is required') {
+        message = "User is not authenticated";
+      } else if (error.message === "Answer is required") {
         status = 400;
-        message = 'Answer is required';
-      } else if (error.message === 'Task not found') {
+        message = "Answer is required";
+      } else if (error.message === "TestTask not found") {
         status = 404;
-        message = 'Task not found';
+        message = "TestTask not found";
       }
 
-      return res.status(status).json(
-        errorResponse(message)
-      );
+      return res.status(status).json(errorResponse(message));
     }
   }
 
@@ -52,14 +46,12 @@ class HomeworkController {
       const userId = req.userId;
       const data = await HomeworkService.getMyHomeworks(userId);
 
-      return res.status(200).json(
-        successResponse(data)
-      );
+      return res.status(200).json(successResponse(data));
     } catch (error) {
       console.error(error);
-      return res.status(500).json(
-        errorResponse('Failed to get user homeworks')
-      );
+      return res
+        .status(500)
+        .json(errorResponse("Failed to get user homeworks"));
     }
   }
 
@@ -69,20 +61,16 @@ class HomeworkController {
       const homeworkId = Number(req.params.id);
       const data = await HomeworkService.getHomework(homeworkId, userId);
 
-      return res.status(200).json(
-        successResponse(data)
-      );
+      return res.status(200).json(successResponse(data));
     } catch (error) {
       console.error(error);
-      const status = error.message === 'Homework not found' ? 404 : 500;
+      const status = error.message === "Homework not found" ? 404 : 500;
       const message =
-        error.message === 'Homework not found'
-          ? 'Homework not found'
-          : 'Failed to get homework';
+        error.message === "Homework not found"
+          ? "Homework not found"
+          : "Failed to get homework";
 
-      return res.status(status).json(
-        errorResponse(message)
-      );
+      return res.status(status).json(errorResponse(message));
     }
   }
 }

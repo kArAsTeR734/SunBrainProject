@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Task.scss';
+import './TestTask.scss';
 import { MarkdownContent } from '@features/HomeworkTasks';
 
 interface TaskProps {

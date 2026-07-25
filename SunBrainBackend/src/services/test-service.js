@@ -1,7 +1,7 @@
-import TestModel from '../models/test-models.js';
-import TaskService from './task-service.js';
-import TestAnswerModel from '../models/test-answer-model.js';
-import AIHomeworkService from './ai-homework-service.js';
+import TestModel from "../models/test-models.js";
+import TaskService from "./task-service.js";
+import TestAnswerModel from "../models/test-answer-model.js";
+import AIHomeworkService from "./ai-homework-service.js";
 
 class TestService {
   static async getPoolMeta(subjectCode) {
@@ -12,28 +12,32 @@ class TestService {
     const normalizedTestId = Number(testId);
 
     if (!userId) {
-      throw new Error('User is not authenticated');
+      throw new Error("User is not authenticated");
     }
 
     const test = await TestModel.getByIdForUser(normalizedTestId, userId);
     if (!test) {
-      throw new Error('Test not found');
+      throw new Error("Test not found");
     }
 
-    const countsByNumber = await TestModel.getTaskCountsByTest(normalizedTestId);
-    const totalTasks = countsByNumber.reduce((sum, item) => sum + item.count, 0);
+    const countsByNumber =
+      await TestModel.getTaskCountsByTest(normalizedTestId);
+    const totalTasks = countsByNumber.reduce(
+      (sum, item) => sum + item.count,
+      0,
+    );
 
     return {
       testId: normalizedTestId,
       subjectId: test.subject_id,
       totalTasks,
-      countsByNumber
+      countsByNumber,
     };
   }
 
   static async startTest(userId, subjectCode) {
     if (!userId) {
-      throw new Error('User is not authenticated');
+      throw new Error("User is not authenticated");
     }
 
     const meta = await TaskService.getTestPoolMeta(subjectCode);
@@ -41,7 +45,7 @@ class TestService {
 
     if (!meta.canBuildTarget) {
       throw new Error(
-        `Cannot build test with target ${meta.targetTotalTasks}: available range is ${meta.minPossibleTotalTasks}-${meta.maxPossibleTotalTasks}`
+        `Cannot build test with target ${meta.targetTotalTasks}: available range is ${meta.minPossibleTotalTasks}-${meta.maxPossibleTotalTasks}`,
       );
     }
 
@@ -49,14 +53,14 @@ class TestService {
 
     const tasks = await TaskService.generateTestTasks(
       normalizedSubjectId,
-      meta.availableTaskNumbers
+      meta.availableTaskNumbers,
     );
 
     await TestModel.addTasks(test.id, tasks);
 
     const countsByNumber = await TestModel.getTaskCountsByTest(test.id);
     const publicTasks = tasks.map((task, index) =>
-      TaskService.buildPublicTestTask(task, index)
+      TaskService.buildPublicTestTask(task, index),
     );
 
     return {
@@ -66,7 +70,7 @@ class TestService {
       targetTotalTasks: TaskService.TEST_TARGET_TOTAL_TASKS,
       totalTasks: publicTasks.length,
       countsByNumber,
-      tasks: publicTasks
+      tasks: publicTasks,
     };
   }
 
@@ -74,34 +78,34 @@ class TestService {
     const normalizedTestId = Number(testId);
 
     if (!userId) {
-      throw new Error('User is not authenticated');
+      throw new Error("User is not authenticated");
     }
 
     const test = await TestModel.getByIdForUser(normalizedTestId, userId);
     if (!test) {
-      throw new Error('Test not found');
+      throw new Error("Test not found");
     }
 
-    if (String(test.status || '').toLowerCase() !== 'completed') {
-      throw new Error('Test is not completed yet');
+    if (String(test.status || "").toLowerCase() !== "completed") {
+      throw new Error("Test is not completed yet");
     }
 
     const reviewRows = await TestModel.getReviewByTest(normalizedTestId);
-    const answers = reviewRows.map(row => {
+    const answers = reviewRows.map((row) => {
       const normalizedTask = TaskService.normalizeTaskPresentation(row);
 
       return {
         taskId: Number(row.task_id),
         taskNumber: Number(row.task_number),
         orderIndex: Number(row.order_index),
-        difficulty: String(row.difficulty || '').toLowerCase(),
+        difficulty: String(row.difficulty || "").toLowerCase(),
         content: normalizedTask.content,
         originalTex: normalizedTask.originalTex,
         answerFormat: row.answer_format || null,
         imageSvg: normalizedTask.payload?.imageSvg || null,
         userAnswer: row.user_answer ?? null,
         correctAnswer: row.correct_answer,
-        isCorrect: Boolean(row.is_correct)
+        isCorrect: Boolean(row.is_correct),
       };
     });
 
@@ -109,8 +113,8 @@ class TestService {
       testId: normalizedTestId,
       subjectId: Number(test.subject_id),
       totalTasks: answers.length,
-      correctTasks: answers.filter(item => item.isCorrect).length,
-      answers
+      correctTasks: answers.filter((item) => item.isCorrect).length,
+      answers,
     };
   }
 
@@ -131,22 +135,24 @@ class TestService {
     const masteryByTaskNumber = {};
 
     for (const [taskNumber, expectedTaskIds] of Object.entries(
-      expectedTasksByNumber
+      expectedTasksByNumber,
     )) {
       const hasAllAnswers = expectedTaskIds.every(
-        taskId => latestAnswerByTaskId[taskId]
+        (taskId) => latestAnswerByTaskId[taskId],
       );
 
       const allCorrect =
         hasAllAnswers &&
-        expectedTaskIds.every(taskId => latestAnswerByTaskId[taskId].is_correct);
+        expectedTaskIds.every(
+          (taskId) => latestAnswerByTaskId[taskId].is_correct,
+        );
 
       masteryByTaskNumber[taskNumber] = allCorrect;
     }
 
     const totalTasks = taskPlan.length;
     const correctTasks = taskPlan.filter(
-      item => latestAnswerByTaskId[item.taskId]?.is_correct
+      (item) => latestAnswerByTaskId[item.taskId]?.is_correct,
     ).length;
     const failedTaskNumbers = Object.entries(masteryByTaskNumber)
       .filter(([, isMastered]) => !isMastered)
@@ -156,7 +162,7 @@ class TestService {
       masteryByTaskNumber,
       failedTaskNumbers,
       totalTasks,
-      correctTasks
+      correctTasks,
     };
   }
 
@@ -164,43 +170,42 @@ class TestService {
     const normalizedTestId = Number(testId);
 
     if (!userId) {
-      throw new Error('User is not authenticated');
+      throw new Error("User is not authenticated");
     }
 
     const test = await TestModel.getByIdForUser(normalizedTestId, userId);
     if (!test) {
-      throw new Error('Test not found');
+      throw new Error("Test not found");
     }
 
-    if (String(test.status || '').toLowerCase() !== 'completed') {
-      throw new Error('Test is not completed yet');
+    if (String(test.status || "").toLowerCase() !== "completed") {
+      throw new Error("Test is not completed yet");
     }
 
     const taskPlan = await TestModel.getTaskPlanByTest(normalizedTestId);
-    const latestAnswers = await TestAnswerModel.getLatestByTestAndTask(
-      normalizedTestId
-    );
+    const latestAnswers =
+      await TestAnswerModel.getLatestByTestAndTask(normalizedTestId);
     const outcome = this.buildOutcome(taskPlan, latestAnswers);
 
     const normalizedRequested = [
       ...new Set(
         (Array.isArray(requestedTaskNumbers) ? requestedTaskNumbers : [])
           .map(Number)
-          .filter(number => Number.isInteger(number) && number > 0)
-      )
+          .filter((number) => Number.isInteger(number) && number > 0),
+      ),
     ];
 
     const targetTaskNumbers =
       normalizedRequested.length > 0
-        ? normalizedRequested.filter(taskNumber =>
-            outcome.failedTaskNumbers.includes(taskNumber)
+        ? normalizedRequested.filter((taskNumber) =>
+            outcome.failedTaskNumbers.includes(taskNumber),
           )
         : outcome.failedTaskNumbers;
-    const supportedTargetTaskNumbers = targetTaskNumbers.filter(taskNumber =>
-      AIHomeworkService.isTaskNumberSupported(taskNumber)
+    const supportedTargetTaskNumbers = targetTaskNumbers.filter((taskNumber) =>
+      AIHomeworkService.isTaskNumberSupported(taskNumber),
     );
     const skippedTaskNumbers = targetTaskNumbers.filter(
-      taskNumber => !AIHomeworkService.isTaskNumberSupported(taskNumber)
+      (taskNumber) => !AIHomeworkService.isTaskNumberSupported(taskNumber),
     );
 
     if (supportedTargetTaskNumbers.length === 0) {
@@ -210,14 +215,14 @@ class TestService {
         generatedFromTaskNumbers: [],
         generatedHomeworks: [],
         generationErrors: [],
-        skippedTaskNumbers
+        skippedTaskNumbers,
       };
     }
 
     const generationResult = await AIHomeworkService.createForTaskNumbers({
       userId,
       subjectId: test.subject_id,
-      taskNumbers: supportedTargetTaskNumbers
+      taskNumbers: supportedTargetTaskNumbers,
     });
 
     return {
@@ -228,8 +233,8 @@ class TestService {
       generationErrors: generationResult.failed,
       skippedTaskNumbers: [
         ...skippedTaskNumbers,
-        ...(generationResult.skipped || []).map(item => item.taskNumber)
-      ]
+        ...(generationResult.skipped || []).map((item) => item.taskNumber),
+      ],
     };
   }
 
@@ -238,21 +243,24 @@ class TestService {
     const normalizedTaskId = Number(taskId);
 
     if (!userId) {
-      throw new Error('User is not authenticated');
+      throw new Error("User is not authenticated");
     }
 
-    if (typeof answer !== 'string' || !answer.trim()) {
-      throw new Error('Answer is required');
+    if (typeof answer !== "string" || !answer.trim()) {
+      throw new Error("Answer is required");
     }
 
     const test = await TestModel.getByIdForUser(normalizedTestId, userId);
     if (!test) {
-      throw new Error('Test not found');
+      throw new Error("Test not found");
     }
 
-    const task = await TestModel.getTestTaskById(normalizedTestId, normalizedTaskId);
+    const task = await TestModel.getTestTaskById(
+      normalizedTestId,
+      normalizedTaskId,
+    );
     if (!task) {
-      throw new Error('Task is not included in this test');
+      throw new Error("TestTask is not included in this test");
     }
 
     const isCorrect = TaskService.areAnswersEqual(task.correct_answer, answer);
@@ -264,7 +272,7 @@ class TestService {
       taskNumber: task.task_number,
       difficulty: task.test_difficulty || task.difficulty,
       answer,
-      isCorrect
+      isCorrect,
     });
 
     return { isCorrect };
@@ -274,23 +282,22 @@ class TestService {
     const normalizedTestId = Number(testId);
 
     if (!userId) {
-      throw new Error('User is not authenticated');
+      throw new Error("User is not authenticated");
     }
 
     const test = await TestModel.getByIdForUser(normalizedTestId, userId);
     if (!test) {
-      throw new Error('Test not found');
+      throw new Error("Test not found");
     }
 
     const taskPlan = await TestModel.getTaskPlanByTest(normalizedTestId);
-    const latestAnswers = await TestAnswerModel.getLatestByTestAndTask(
-      normalizedTestId
-    );
+    const latestAnswers =
+      await TestAnswerModel.getLatestByTestAndTask(normalizedTestId);
     const outcome = this.buildOutcome(taskPlan, latestAnswers);
 
     await TestModel.finish(normalizedTestId, {
       totalQuestions: outcome.totalTasks,
-      correctAnswers: outcome.correctTasks
+      correctAnswers: outcome.correctTasks,
     });
 
     return {
@@ -298,7 +305,7 @@ class TestService {
       correctTasks: outcome.correctTasks,
       masteryByTaskNumber: outcome.masteryByTaskNumber,
       failedTaskNumbers: outcome.failedTaskNumbers,
-      hasFailedTaskNumbers: outcome.failedTaskNumbers.length > 0
+      hasFailedTaskNumbers: outcome.failedTaskNumbers.length > 0,
     };
   }
 }

@@ -4,13 +4,12 @@ import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import { memo } from 'react';
 import './HomeworkContent.scss';
-import { InlineMath } from 'react-katex';
+import katex from 'katex';
 
 interface MarkdownProps {
   content: string;
 }
 
-// eslint-disable-next-line react/display-name
 export const MarkdownContent = memo(({ content }: MarkdownProps) => {
   const normalizeSolution = (text: string) => {
     return text
@@ -31,7 +30,13 @@ export const MarkdownContent = memo(({ content }: MarkdownProps) => {
           const [kind, payload] = alt.split('|');
 
           if (kind === 'formula:inline' && payload) {
-            return <InlineMath math={payload} />;
+            return (
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: katex.renderToString(payload, { throwOnError: false }),
+                }}
+              />
+            );
           }
 
           if (kind === 'formula:inline') {

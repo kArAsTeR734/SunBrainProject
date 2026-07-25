@@ -1,5 +1,5 @@
 import { useAppSelector } from '@shared/hooks/redux.ts';
-import { Loader } from '@shared/ui';
+import { Loader } from '@shared/ui/Loader/Loader.tsx';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 export const ProtectedRoute = () => {

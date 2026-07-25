@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import 'katex/dist/katex.min.css';
 import './TaskSolution.scss';
-import { MarkdownContent } from '@features/HomeworkTasks';
+import { MarkdownContent } from '@features/HomeworkTasks/ui/HomeworkContent/HomeworkContent.tsx';
 
 interface TaskSolutionProps {
   solution: string;

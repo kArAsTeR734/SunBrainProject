@@ -1,4 +1,4 @@
-import { Task } from '@entities/Task/model/types.ts';
+import { Task } from '@entities/Task';
 
 export interface HomeworkBase {
   id: number;
