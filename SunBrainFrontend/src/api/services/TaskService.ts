@@ -1,7 +1,7 @@
-import { request } from '@shared/api/api-client.ts';
+import { request } from '@shared/api';
 import { api } from '@/api/config/api.config.ts';
-import { CheckAnswerResponse } from '@entities/Homework/model/types.ts';
-import { CatalogItemsResponse } from '@entities/Task/model/types.ts';
+import type { CheckAnswerResponse } from '@entities/Homework';
+import type { CatalogItemsResponse } from '@entities/Task';
 
 export class TaskService {
   static async checkTaskAnswer(taskId: number, answer: string): Promise<CheckAnswerResponse> {

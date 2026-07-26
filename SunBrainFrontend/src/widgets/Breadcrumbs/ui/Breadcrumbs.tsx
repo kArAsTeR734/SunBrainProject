@@ -1,12 +1,12 @@
-import { useHomeworkTasks } from '@features/HomeworkTasks/model/useHomeworkTasks.ts';
+import { useHomeworkTasks } from '@features/HomeworkTasks';
 import { useLocation, useParams } from 'react-router-dom';
-import getSubjectTitle from '@shared/utils/getSubjectTitle.ts';
+import { getSubjectTitle } from '@shared/lib';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import React from 'react';
 import './Breadcrumbs.scss';
-import { PATHS } from '@app/providers/routes/config.tsx';
-import { useTopics } from '@features/Topics/models/hooks/useTopics.ts';
+import { useTopics } from '@features/Topics';
 import { Link } from 'react-router-dom';
+import { PATHS } from '@shared/routes';
 
 export const Breadcrumbs = () => {
   const { pathname } = useLocation();

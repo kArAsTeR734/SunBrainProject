@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import React from 'react';
-import '../styles/main.scss';
-import { getRoutesConfig } from '@/app/providers/routes/config.tsx';
-import { AppInitializer } from '@app/providers/AppInit/AppInitializer.tsx';
+import './styles/main.scss';
+import { getRoutesConfig } from '@app/routes/config';
+import { AppInitializer } from './initialization/AppInitializer.tsx';
 
 function App() {
   const router = createBrowserRouter(getRoutesConfig());

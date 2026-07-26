@@ -1,5 +1,4 @@
-import { HomeworkListItem } from '@entities/Homework/model/types.ts';
-import { formatCalendarDeadline } from '@entities/Homework/lib/formatDeadline.ts';
+import { formatCalendarDeadline, type HomeworkListItem } from '@entities/Homework';
 
 export const groupHomeworksByDate = (homeworks: HomeworkListItem[]) => {
   const map: Record<string, HomeworkListItem[]> = {};

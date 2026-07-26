@@ -1,5 +1,3 @@
-import { TaskCountByNumber } from '@shared/types/types.ts';
-
 export type KnowledgeTestSubjectId = 'emath' | 'omath' | 'ephysic' | 'ophysic';
 export type KnowledgeTestDifficultyLevel = 'easy' | 'medium' | 'hard';
 
@@ -41,6 +39,11 @@ export interface TestTaskPublic {
   content: string;
   originalTex: string | null;
   answerFormat: string | null;
+}
+
+export interface TaskCountByNumber {
+  taskNumber: number;
+  count: number;
 }
 
 export interface StartTestData {

@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router-dom';
-import { navLinks } from '@/shared/constants/navbarLinks.ts';
 import './NavbarMenu.scss';
+import { navLinks } from '../../config/navbarLinks.ts';
 
 interface NavbarProps {
   isMenuOpen: boolean;
   closeBurger: () => void;
 }
 
-const NavbarMenu = ({ closeBurger, isMenuOpen }: NavbarProps) => {
+export const NavbarMenu = ({ closeBurger, isMenuOpen }: NavbarProps) => {
   return (
     <nav
       id="header-navigation"
@@ -26,5 +26,3 @@ const NavbarMenu = ({ closeBurger, isMenuOpen }: NavbarProps) => {
     </nav>
   );
 };
-
-export default NavbarMenu;

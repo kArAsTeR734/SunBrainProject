@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom';
 import './header.scss';
 import logo from '@/assets/logo.svg';
-import NavbarMenu from '@/widgets/Header/ui/NavbarMenu/NavbarMenu.tsx';
+import { NavbarMenu } from '@/widgets/Header/ui/NavbarMenu/NavbarMenu.tsx';
 import { ProfileHeaderData } from '@features/User';
 import { useState } from 'react';
 import { BurgerMenu } from '@shared/ui';

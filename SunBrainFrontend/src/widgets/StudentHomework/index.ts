@@ -1,3 +1,1 @@
-import { StudentHomework } from './ui/StudentHomework';
-
-export default { StudentHomework };
+export { StudentHomework } from './ui/StudentHomework';

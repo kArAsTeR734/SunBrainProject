@@ -1,7 +1,7 @@
 import { Card } from '@shared/ui';
-import { KNOWLEDGE_TEST_SUBJECTS } from '@features/Test/models/knowledgeTestConfig.ts';
-import { PATHS } from '@app/providers/routes/config.tsx';
+import { KNOWLEDGE_TEST_SUBJECTS } from '@features/Test';
 import './KnowledgeTestSubjectCards.scss';
+import { PATHS } from '@shared/routes';
 
 export const KnowledgeTestSubjectCards = () => {
   return (

@@ -1,6 +1,6 @@
-import { request } from '@shared/api/api-client.ts';
+import { request } from '@shared/api';
 import { api } from '@/api/config/api.config.ts';
-import { Leaderboard } from '@entities/Leaderboard/types.ts';
+import type { Leaderboard } from '@entities/Leaderboard';
 
 export class LeaderboardService {
   public static async getProfileLeaderboard(userId: number): Promise<Leaderboard> {

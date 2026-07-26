@@ -1,9 +1,9 @@
 import './studentAccount.scss';
-import StudentAccountInfo from '@/widgets/StudentAccount/StudentAccountInfo';
-import StudentAccountPosition from '@/widgets/StudentAccount/StudentAccountPosition';
 import { Suspense } from 'react';
-import { useAppSelector } from '@shared/hooks/redux.ts';
+import { useAppSelector } from '@shared/lib';
 import { UserAuthPlaceholder } from '@entities/User';
+import { StudentAccountInfo } from './StudentAccountInfo/StudentAccountInfo';
+import { StudentAccountPosition } from './StudentAccountPosition/StudentAccountPosition';
 
 export const StudentAccount = () => {
   const { isAuth } = useAppSelector((state) => state.userReducer);

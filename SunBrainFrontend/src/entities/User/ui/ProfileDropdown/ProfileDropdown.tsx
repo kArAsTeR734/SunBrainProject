@@ -1,8 +1,8 @@
 import './ProfileDropdown.scss';
-import { useProfile } from '@entities/User/models/useProfile.ts';
+import { useProfileDropdown } from '@entities/User/model/useProfileDropdown.ts';
 
 export const ProfileDropdown = () => {
-  const { handleTest, handleLogout, handleHomeworks, handleAccount } = useProfile();
+  const { handleTest, handleLogout, handleHomeworks, handleAccount } = useProfileDropdown();
 
   return (
     <ul className="profile-dropdown">

@@ -1,3 +1,3 @@
-import { StudentAccount } from './ui/StudentAccount';
+export { StudentAccount } from './ui/StudentAccount';
 
-export default StudentAccount;
+export { PositionList } from './ui/PositionList/PositionList';

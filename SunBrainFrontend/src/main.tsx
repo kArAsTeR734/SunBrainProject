@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import App from './app/App.tsx';
-import { setupStore } from '@/app/store/store.ts';
+import { setupStore } from '@app/store';
 import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 export const store = setupStore();

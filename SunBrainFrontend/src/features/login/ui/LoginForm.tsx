@@ -1,30 +1,23 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useFormValidationContext } from '@shared/hooks/useFormValidationContext.ts';
+import { useFormValidationContext } from '@shared/lib';
 import { SubmitHandler } from 'react-hook-form';
 import { TextField } from '@mui/material';
 import './loginForm.scss';
-import {
-  emailValidation,
-  passwordValidation,
-} from '@features/Authorization/model/config/validationConfig.ts';
 import clsx from 'clsx';
 import '@shared/ui/Button/button.scss';
-import { useLogin } from '@features/login/model/useLogin.ts';
-import { LoginRequest } from '@features/Registration/model/types.ts';
+import { useLogin } from '../api/useLogin.ts';
+import type { LoginRequest } from '@features/Registration';
 import { Button } from '@/shared/ui';
-
-export interface LoginFormInput {
-  email: string;
-  password: string;
-}
+import type { LoginFormValues } from '../model/types';
+import { emailValidation, passwordValidation } from '@shared/lib';
 
 export const LoginForm = () => {
   const { register, handleSubmit, shouldShowError, getErrorMessage, setError } =
-    useFormValidationContext<LoginFormInput>();
+    useFormValidationContext<LoginFormValues>();
   const { mutateAsync: login } = useLogin();
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<LoginFormInput> = async (formData) => {
+  const onSubmit: SubmitHandler<LoginFormValues> = async (formData) => {
     const loginData: LoginRequest = {
       email: formData.email,
       password: formData.password,

@@ -1,11 +1,11 @@
-import {
+import type {
   AuthResponse,
   LoginRequest,
   RefreshResponse,
   RegistrationRequest,
-} from '@features/Registration/model/types.ts';
+} from '@features/Registration';
 import { authApi } from '@/api/config/api.config.ts';
-import { request } from '@shared/api/api-client.ts';
+import { request } from '@shared/api';
 
 export class AuthorizationService {
   public static async login(data: LoginRequest): Promise<AuthResponse> {

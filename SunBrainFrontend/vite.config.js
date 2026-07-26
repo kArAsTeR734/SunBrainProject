@@ -16,7 +16,7 @@ export default defineConfig({
       '@features': path.resolve(__dirname, 'src/features'),
       '@entities': path.resolve(__dirname, 'src/entities'),
       '@shared': path.resolve(__dirname, 'src/shared'),
-      '@styles': path.resolve(__dirname, 'src/styles'),
+      '@styles': path.resolve(__dirname, 'src/app/styles'),
     },
   },
   css: {
@@ -29,7 +29,7 @@ export default defineConfig({
     },
     preprocessorOptions: {
       scss: {
-        loadPaths: [path.resolve(__dirname, 'src/styles')],
+        loadPaths: [path.resolve(__dirname, 'src/app/styles')],
       },
     },
   },

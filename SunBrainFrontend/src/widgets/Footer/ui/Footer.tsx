@@ -1,5 +1,5 @@
 import './footer.scss';
-import { aboutLinks, studyLinks } from '@/shared/constants/footerLinks.ts';
+import { aboutLinks, studyLinks } from '../config/footerLinks.ts';
 
 export const Footer = () => {
   return (

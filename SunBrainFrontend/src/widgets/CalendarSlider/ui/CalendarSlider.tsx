@@ -1,11 +1,10 @@
 import './calendarSlider.scss';
-import CalendarItem from '@/widgets/CalendarSlider/CalendarItem';
-import getCalendarDates from '@features/Calendar/getCalendarDates.ts';
-import { useHomework } from '@features/HomeworkTasks/model/useHomework.ts';
-import { groupHomeworksByDate } from '@features/HomeworkTasks/model/setHomeworks.ts';
-import CalendarTaskList from '@widgets/CalendarSlider/CalendarTaskList';
-import { CalendarCell } from '@/entities/Calendar';
+import { getCalendarDates } from '@features/Calendar';
+import { groupHomeworksByDate, useHomework } from '@features/HomeworkTasks';
 import { DataFallback } from '@shared/ui';
+import { CalendarCell } from './CalendarCell/CalendarCell';
+import { CalendarItem } from './CalendarItem/CalendarItem';
+import { CalendarTaskList } from './CalendarTaskList/CalendarTaskList';
 
 export const CalendarSlider = () => {
   const days = getCalendarDates();

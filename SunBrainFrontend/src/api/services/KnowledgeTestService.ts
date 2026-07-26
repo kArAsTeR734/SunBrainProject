@@ -1,4 +1,4 @@
-import {
+import type {
   FinishTestResponse,
   GenerateTestHomeworkRequest,
   GenerateTestHomeworksData,
@@ -8,8 +8,8 @@ import {
   StartTestResponse,
   SubmitTestAnswerRequest,
   SubmitTestAnswerResponse,
-} from '@features/Test/models/types.ts';
-import { request } from '@shared/api/api-client.ts';
+} from '@features/Test';
+import { request } from '@shared/api';
 import { api } from '@/api/config/api.config.ts';
 
 export class KnowledgeTestService {

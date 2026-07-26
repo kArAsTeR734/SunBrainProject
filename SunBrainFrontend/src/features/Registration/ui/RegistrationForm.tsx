@@ -1,36 +1,27 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useFormValidationContext } from '@shared/hooks/useFormValidationContext.ts';
+import { useFormValidationContext } from '@shared/lib';
 import { SubmitHandler } from 'react-hook-form';
 import { TextField } from '@mui/material';
 import clsx from 'clsx';
 import './registrationForm.scss';
-import {
-  confirmPasswordValidation,
-  emailValidation,
-  fullNameValidation,
-  passwordValidation,
-} from '@features/Authorization/model/config/validationConfig.ts';
 import { useEffect } from 'react';
-import { RegistrationRequest } from '@features/Registration/model/types.ts';
+import type { RegistrationFormValues, RegistrationRequest } from '../model/types';
 import { Button } from '@shared/ui';
 import { useRegistration } from '@features/Registration';
-
-export interface RegistrationFormInput {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  fullName: string;
-  role?: string;
-}
+import { emailValidation, passwordValidation } from '@shared/lib';
+import {
+  confirmPasswordValidation,
+  fullNameValidation,
+} from '../config/validation';
 
 export const RegistrationForm = () => {
   const { register, handleSubmit, shouldShowError, getErrorMessage, reset } =
-    useFormValidationContext<RegistrationFormInput>();
+    useFormValidationContext<RegistrationFormValues>();
 
   const { mutateAsync: registration, reset: clearError } = useRegistration();
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<RegistrationFormInput> = async (formData) => {
+  const onSubmit: SubmitHandler<RegistrationFormValues> = async (formData) => {
     const registerData: RegistrationRequest = {
       email: formData.email,
       password: formData.password,

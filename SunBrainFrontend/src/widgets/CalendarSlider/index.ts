@@ -1,3 +1,1 @@
-import { CalendarSlider } from './ui/CalendarSlider';
-
-export default CalendarSlider;
+export { CalendarSlider } from './ui/CalendarSlider';

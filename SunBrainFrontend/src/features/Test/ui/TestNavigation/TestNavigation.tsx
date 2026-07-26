@@ -1,6 +1,6 @@
 import React from 'react';
 import './TestNavigation.scss';
-import { TestTask } from '@/models/TestTask.ts';
+import type { TestTask } from '../../models/TestTask';
 
 interface TaskNavigationProps {
   tasks: Array<TestTask>;

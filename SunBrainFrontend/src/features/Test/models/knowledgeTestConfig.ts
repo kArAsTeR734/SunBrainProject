@@ -1,4 +1,4 @@
-import { KnowledgeTestSubject } from '@features/Test/models/types.ts';
+import type { KnowledgeTestSubject } from './types';
 
 export const KNOWLEDGE_TEST_SUBJECTS: KnowledgeTestSubject[] = [
   {

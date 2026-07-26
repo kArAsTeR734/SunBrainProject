@@ -1,4 +1,4 @@
-import HomeworkList from '@widgets/StudentHomework/ui/HomeworkList';
+import HomeworkList from './HomeworkList';
 
 export const StudentHomework = () => {
   return (

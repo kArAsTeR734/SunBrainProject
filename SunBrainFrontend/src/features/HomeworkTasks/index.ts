@@ -1,15 +1,11 @@
-export { MarkdownContent } from './ui/HomeworkContent/HomeworkContent';
-
 export { HomeworkTaskList } from './ui/HomeworkTaskList/HomeworkTaskList';
 
 export { SubmitButton } from './ui/SubmitHomework/SubmitHomework';
 
-export { TaskSolution } from './ui/TaskSolution/TaskSolution';
-
 export { groupHomeworksByDate } from './model/setHomeworks';
 
-export { useHomework } from './model/useHomework';
+export { useHomework } from './api/useHomework.ts';
 
-export { useHomeworkTasks } from './model/useHomeworkTasks';
+export { useHomeworkTasks } from './api/useHomeworkTasks.ts';
 
 export { useTask } from './model/useTask';

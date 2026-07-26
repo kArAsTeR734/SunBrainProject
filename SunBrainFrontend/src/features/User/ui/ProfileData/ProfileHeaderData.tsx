@@ -1,7 +1,8 @@
-import { useAppSelector } from '@shared/hooks/redux.ts';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@shared/ui';
 import '@shared/ui/Button/button.scss';
-import { Button, Profile } from '@shared/ui';
+import { Profile } from '@entities/User';
+import { useAppSelector } from '@shared/lib';
 
 export const ProfileHeaderData = () => {
   const navigate = useNavigate();

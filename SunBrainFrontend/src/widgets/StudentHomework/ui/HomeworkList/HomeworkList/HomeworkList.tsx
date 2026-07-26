@@ -1,9 +1,8 @@
-import { SubmitButton } from '@features/HomeworkTasks/ui/SubmitHomework/SubmitHomework.tsx';
+import { SubmitButton, useHomework } from '@features/HomeworkTasks';
 import './HomeworkList.scss';
-import { useHomework } from '@features/HomeworkTasks/model/useHomework.ts';
 import { HomeworkCard } from '@entities/Homework';
 import { DataFallback } from '@shared/ui';
-import { useFinishTestMutation } from '@features/Test/models/hooks/useFinishTestMutation.ts';
+import { useFinishTestMutation } from '@features/Test';
 
 export const HomeworkList = () => {
   const { data: homeworks, isFetching, isLoading, isError, refetch } = useHomework();

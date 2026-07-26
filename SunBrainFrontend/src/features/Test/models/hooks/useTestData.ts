@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { StartTestResponse } from '@features/Test/models/types.ts';
-import { getTestSessionData } from '@features/Test';
-import { useMySearchParams } from '@shared/hooks/useMySearchParams.ts';
+import type { StartTestResponse } from '../types';
+import { getTestSessionData } from '../setTestToSessionStorage';
+import { useMySearchParams } from '@shared/lib';
 
 export const useTestData = () => {
   const searchParams = useMySearchParams('testId');

@@ -1,5 +1,7 @@
 export { ObjectsCatalog } from './ui/ObjectsCatalog';
 
-export { CatalogObjectCards } from './CatalogObjectCards/CatalogObjectCards';
+export { CatalogObjectCards } from './ui/CatalogObjectCards/CatalogObjectCards';
 
-export { TaskThemeList } from './TaskThemeList/TaskThemeList';
+export { TaskThemeList } from './ui/TaskThemeList/TaskThemeList';
+
+export { CatalogLayout } from './ui/СatalogLayout/CatalogLayout';

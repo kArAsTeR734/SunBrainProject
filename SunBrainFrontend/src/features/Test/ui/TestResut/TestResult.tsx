@@ -1,6 +1,6 @@
 import './TestResult.scss';
-import { useTestReview } from '@features/Test/models/hooks/useTestReview.ts';
-import { useMySearchParams } from '@shared/hooks/useMySearchParams.ts';
+import { useTestReview } from '../../api/useTestReview.ts';
+import { useMySearchParams } from '@shared/lib';
 import { DataFallback } from '@shared/ui';
 
 interface TestResultsProps {

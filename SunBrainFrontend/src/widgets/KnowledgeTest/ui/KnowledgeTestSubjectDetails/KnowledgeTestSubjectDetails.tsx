@@ -1,12 +1,14 @@
 import { Link, useParams } from 'react-router-dom';
-import { getKnowledgeTestSubjectById } from '@features/Test/models/knowledgeTestConfig.ts';
-import { PATHS } from '@app/providers/routes/config.tsx';
+import {
+  getKnowledgeTestSubjectById,
+  useGetKnowledgeTestTotalTaskCount,
+  useStartTestMutation,
+  type KnowledgeTestSubjectId,
+} from '@features/Test';
 import './KnowledgeTestSubjectDetails.scss';
-import { useGetKnowledgeTestTotalTaskCount } from '@features/Test/models/hooks/useGetKnowledgeTestTotalTaskCount.ts';
-import { useStartTestMutation } from '@features/Test/models/hooks/useStartTestMutation.ts';
-import { KnowledgeTestSubjectId } from '@features/Test/models/types.ts';
 import React from 'react';
 import { DataFallback } from '@shared/ui';
+import { PATHS } from '@shared/routes';
 
 export const KnowledgeTestSubjectDetails = () => {
   const { subjectId } = useParams<{ subjectId: KnowledgeTestSubjectId }>();

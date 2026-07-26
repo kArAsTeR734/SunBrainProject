@@ -1,6 +1,6 @@
 import './ProfileTrigger.scss';
-import { getUserInitials } from '@shared/utils/getUserInitials.ts';
-import { useAppSelector } from '@shared/hooks/redux.ts';
+import { getUserInitials } from '../../lib/getUserInitials';
+import { useAppSelector } from '@shared/lib';
 import DropdownIcon from '@/assets/chevron-down.svg';
 
 export const ProfileTrigger = () => {

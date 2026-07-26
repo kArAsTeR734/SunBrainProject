@@ -1,3 +1,3 @@
-import { HomeworkList } from '@widgets/StudentHomework/ui/HomeworkList/HomeworkList/HomeworkList.tsx';
+import { HomeworkList } from './HomeworkList/HomeworkList';
 
 export default HomeworkList;

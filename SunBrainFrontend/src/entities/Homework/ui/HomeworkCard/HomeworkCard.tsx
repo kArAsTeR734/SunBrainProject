@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
-import { HomeworkBase } from '@entities/Homework/model/types.ts';
+import type { HomeworkBase } from '../../model/types';
 import './HomeworkCard.scss';
-import { formatHomeworksDeadline } from '@entities/Homework/lib/formatDeadline.ts';
+import { formatHomeworksDeadline } from '../../lib/formatDeadline';
 
 interface HomeworkCardProps {
   homework: HomeworkBase;
