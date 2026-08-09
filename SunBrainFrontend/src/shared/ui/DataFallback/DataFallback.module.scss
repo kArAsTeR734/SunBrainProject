@@ -1,0 +1,35 @@
+@use "@styles/helpers" as *;
+
+.dataFallback {
+  width: 100%;
+  padding: fluid(20, 16);
+  border-radius: rem(10);
+  border: 1px solid #d8d8d8;
+  background-color: #fafafa;
+  margin-block: fluid(70, 36);
+}
+
+.title {
+  font-size: fluid(18, 16);
+  font-weight: 600;
+  color: #1f1f1f;
+}
+
+.description {
+  margin-top: 8px;
+  color: #666666;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.action {
+  margin-top: 14px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border: none;
+  background-color: #ff8000;
+  color: #ffffff;
+  cursor: pointer;
+  max-width: 100%;
+}

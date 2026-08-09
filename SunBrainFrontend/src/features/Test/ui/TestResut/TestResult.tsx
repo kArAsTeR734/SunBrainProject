@@ -1,7 +1,8 @@
-import './TestResult.scss';
-import { useTestReview } from '../../api/useTestReview.ts';
 import { useMySearchParams } from '@shared/lib';
 import { DataFallback } from '@shared/ui';
+
+import { useTestReview } from '../../api/useTestReview.ts';
+import styles from './TestResult.module.scss';
 
 interface TestResultsProps {
   onRestart: () => void;
@@ -23,11 +24,21 @@ const stringifyAnswer = (answer: string | null) => {
   return answer;
 };
 
-export const TestResults = ({ onRestart, onReview, isFinishing = false }: TestResultsProps) => {
+export const TestResults = ({
+  onRestart,
+  onReview,
+  isFinishing = false,
+}: TestResultsProps) => {
   const queryTestId = useMySearchParams('testId');
   const testId = Number(queryTestId);
   const isValidTestId = Number.isFinite(testId) && testId > 0;
-  const { data: reviewData, isLoading, isFetching, isError, refetch } = useTestReview(testId);
+  const {
+    data: reviewData,
+    isLoading,
+    isFetching,
+    isError,
+    refetch,
+  } = useTestReview(testId);
 
   if (!isValidTestId) {
     return (
@@ -45,7 +56,11 @@ export const TestResults = ({ onRestart, onReview, isFinishing = false }: TestRe
     return (
       <DataFallback
         state="loading"
-        title={isFinishing ? 'Завершаем тест и считаем результаты...' : 'Загружаем результаты...'}
+        title={
+          isFinishing
+            ? 'Завершаем тест и считаем результаты...'
+            : 'Загружаем результаты...'
+        }
         description="Обычно это занимает несколько секунд."
       />
     );
@@ -81,61 +96,67 @@ export const TestResults = ({ onRestart, onReview, isFinishing = false }: TestRe
   const scorePercent = totalTasks > 0 ? Math.round((correctTasks / totalTasks) * 100) : 0;
 
   return (
-    <section className="results-container">
-      <div className="results-header">
+    <section className={styles.resultsContainer}>
+      <div className={styles.resultsHeader}>
         <h2>Результаты теста</h2>
-        <div className="score-card">
-          <span className="score-percentage">{scorePercent}%</span>
-          <span className="score-details">
+        <div className={styles.scoreCard}>
+          <span className={styles.scorePercentage}>{scorePercent}%</span>
+          <span className={styles.scoreDetails}>
             {correctTasks} из {totalTasks} верно
           </span>
         </div>
       </div>
 
-      <div className="results-summary">
-        <div className="summary-item correct">
-          <span className="summary-count">{correctTasks}</span>
-          <span className="summary-label">Верных ответов</span>
+      <div className={styles.resultsSummary}>
+        <div className={`${styles.summaryItem} ${styles.correct}`}>
+          <span className={styles.summaryCount}>{correctTasks}</span>
+          <span className={styles.summaryLabel}>Верных ответов</span>
         </div>
-        <div className="summary-item incorrect">
-          <span className="summary-count">{incorrectTasks}</span>
-          <span className="summary-label">Ошибок</span>
+        <div className={`${styles.summaryItem} ${styles.incorrect}`}>
+          <span className={styles.summaryCount}>{incorrectTasks}</span>
+          <span className={styles.summaryLabel}>Ошибок</span>
         </div>
       </div>
 
-      <div className="answers-details">
+      <div className={styles.answersDetails}>
         <h3>Разбор по заданиям</h3>
-        <div className="answers-list">
+        <div className={styles.answersList}>
           {answers.map((answer) => (
             <button
-              className={`answer-item ${answer.isCorrect ? 'correct' : 'incorrect'}`}
+              className={`${styles.answerItem} ${
+                answer.isCorrect ? styles.correct : styles.incorrect
+              }`}
               key={answer.taskId}
               onClick={() => onReview(answer.taskId)}
               type="button"
             >
-              <span className="answer-task-id">№ {answer.taskNumber}</span>
-              <div className="answer-comparison">
-                <p className="user-answer">
+              <span className={styles.answerTaskId}>№ {answer.taskNumber}</span>
+              <div className={styles.answerComparison}>
+                <p className={styles.userAnswer}>
                   Ваш ответ: <strong>{stringifyAnswer(answer.userAnswer)}</strong>
                 </p>
                 {!answer.isCorrect && (
-                  <p className="correct-answer">
+                  <p className={styles.correctAnswer}>
                     Правильный ответ: <strong>{answer.correctAnswer}</strong>
                   </p>
                 )}
-                <p className="correct-answer">
+                <p className={styles.correctAnswer}>
                   Сложность:{' '}
-                  <strong>{DIFFICULTY_LABELS[answer.difficulty] ?? answer.difficulty}</strong>
+                  <strong>
+                    {DIFFICULTY_LABELS[answer.difficulty] ?? answer.difficulty}
+                  </strong>
                 </p>
               </div>
-              <span className="answer-status">{answer.isCorrect ? 'Верно' : 'Ошибка'}</span>
+              <span className={styles.answerStatus}>
+                {answer.isCorrect ? 'Верно' : 'Ошибка'}
+              </span>
             </button>
           ))}
         </div>
       </div>
 
-      <div className="results-actions">
-        <button className="restart-button" onClick={onRestart} type="button">
+      <div className={styles.resultsActions}>
+        <button className={styles.restartButton} onClick={onRestart} type="button">
           Пройти тест заново
         </button>
       </div>

@@ -1,14 +1,21 @@
-import './taskThemeList.scss';
-import { useParams } from 'react-router-dom';
-import { getSubjectTitle } from '@shared/lib';
 import { useTopics } from '@features/Topics';
+import { getSubjectTitle } from '@shared/lib';
 import { DataFallback } from '@shared/ui';
-import TaskTheme from './TaskTheme/TaskTheme.tsx';
+import { useParams } from 'react-router-dom';
+
 import type { SubjectId } from '../../model/Subject';
+import TaskTheme from './TaskTheme/TaskTheme.tsx';
+import styles from './taskThemeList.module.scss';
 
 export const TaskThemeList = () => {
   const { subjectId } = useParams<{ subjectId: SubjectId }>();
-  const { data: themes, isLoading, isFetching, isError, refetch } = useTopics(subjectId ?? '');
+  const {
+    data: themes,
+    isLoading,
+    isFetching,
+    isError,
+    refetch,
+  } = useTopics(subjectId ?? '');
   if (!subjectId) {
     return (
       <DataFallback
@@ -45,19 +52,20 @@ export const TaskThemeList = () => {
   }
 
   return (
-    <section className="themes">
-      <div className="themes__about">
-        <h2 className="themes__header">
-          Задания по предмету: <span className="highlight">{getSubjectTitle(subjectId)}</span>
+    <section className={styles.themes}>
+      <div className={styles.about}>
+        <h2 className={styles.header}>
+          Задания по предмету:{' '}
+          <span className={styles.highlight}>{getSubjectTitle(subjectId)}</span>
         </h2>
-        <p className="themes__description">
-          Задания в каталоге предназначены для самостоятельного решения, просмотр решения в данном
-          разделе <span className="highlight">не предусмотрен</span>. Функция самопроверки{' '}
-          <span className="highlight">доступна</span>.
+        <p className={styles.description}>
+          Задания в каталоге предназначены для самостоятельного решения, просмотр решения
+          в данном разделе <span className={styles.highlight}>не предусмотрен</span>. Функция
+          самопроверки <span className={styles.highlight}>доступна</span>.
         </p>
       </div>
 
-      <div className="themes__list">
+      <div className={styles.list}>
         {themes.map((theme) => (
           <TaskTheme key={theme.id} {...theme} />
         ))}

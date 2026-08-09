@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import hooksPlugin from 'eslint-plugin-react-hooks';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import globals from 'globals';
@@ -14,6 +15,7 @@ export default tseslint.config(
     files: ['**/*.{ts,tsx}'],
     plugins: {
       'react-hooks': hooksPlugin,
+      'simple-import-sort': simpleImportSort,
     },
     languageOptions: {
       globals: globals.browser,
@@ -24,6 +26,9 @@ export default tseslint.config(
     rules: {
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
 
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/explicit-function-return-type': 'off',

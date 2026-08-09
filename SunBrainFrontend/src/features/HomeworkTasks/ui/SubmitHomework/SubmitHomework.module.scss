@@ -1,0 +1,12 @@
+@use "@styles/helpers" as *;
+
+.submitButton{
+  border: none;
+  background: #1c4fbc;
+  color:#fff;
+  border-radius: 12px;
+  padding: 8px 24px;
+  font-weight: 400;
+  font-size: fluid(18, 16);
+  cursor: pointer;
+}

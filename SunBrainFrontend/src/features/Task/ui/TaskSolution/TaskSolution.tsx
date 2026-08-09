@@ -1,7 +1,9 @@
-import { useState } from 'react';
 import 'katex/dist/katex.min.css';
-import './TaskSolution.scss';
+
 import { MarkdownContent } from '@shared/ui';
+import { useState } from 'react';
+
+import styles from './TaskSolution.module.scss';
 
 interface TaskSolutionProps {
   solution: string;
@@ -15,8 +17,8 @@ export const TaskSolution = ({ solution }: TaskSolutionProps) => {
   };
 
   return (
-    <div className="solution">
-      <div className="solution__toggle" onClick={solutionToggle}>
+    <div className={styles.solution}>
+      <div className={styles.toggle} onClick={solutionToggle}>
         {isOpen ? 'Скрыть решение' : 'Показать решение'}
       </div>
 

@@ -1,14 +1,15 @@
-import { Link, useParams } from 'react-router-dom';
 import {
   getKnowledgeTestSubjectById,
+  type KnowledgeTestSubjectId,
   useGetKnowledgeTestTotalTaskCount,
   useStartTestMutation,
-  type KnowledgeTestSubjectId,
 } from '@features/Test';
-import './KnowledgeTestSubjectDetails.scss';
-import React from 'react';
-import { DataFallback } from '@shared/ui';
 import { PATHS } from '@shared/routes';
+import { DataFallback } from '@shared/ui';
+import React from 'react';
+import { Link, useParams } from 'react-router-dom';
+
+import styles from './KnowledgeTestSubjectDetails.module.scss';
 
 export const KnowledgeTestSubjectDetails = () => {
   const { subjectId } = useParams<{ subjectId: KnowledgeTestSubjectId }>();
@@ -40,34 +41,34 @@ export const KnowledgeTestSubjectDetails = () => {
   }
 
   return (
-    <section className="knowledge-test-details">
-      <h1 className="knowledge-test-details__title">{subject?.title}</h1>
+    <section className={styles.knowledgeTestDetails}>
+      <h1 className={styles.title}>{subject?.title}</h1>
 
-      <div className="knowledge-test-details__card">
-        <div className="knowledge-test-details__row">
+      <div className={styles.card}>
+        <div className={styles.row}>
           <span>Формат экзамена</span>
           <strong>{subject?.examLabel}</strong>
         </div>
-        <div className="knowledge-test-details__row">
+        <div className={styles.row}>
           <span>Номеров в экзамене</span>
           <strong>{subject?.examTaskCount}</strong>
         </div>
-        <div className="knowledge-test-details__row">
+        <div className={styles.row}>
           <span>Заданий на каждый номер</span>
           <strong>1-2 уровня сложности</strong>
         </div>
-        <div className="knowledge-test-details__row">
+        <div className={styles.row}>
           <span>Итого заданий</span>
           <strong>{isLoading ? 'Загрузка...' : (totalTasks ?? '—')}</strong>
         </div>
       </div>
 
-      <div className="knowledge-test-details__actions">
-        <Link className="knowledge-test-details__action secondary" to={PATHS.TEST}>
+      <div className={styles.actions}>
+        <Link className={`${styles.action} ${styles.secondary}`} to={PATHS.TEST}>
           Назад к выбору предмета
         </Link>
         <button
-          className="knowledge-test-details__action primary"
+          className={`${styles.action} ${styles.primary}`}
           onClick={handleStartTest}
           disabled={startTestMutation.isPending || isLoading}
         >

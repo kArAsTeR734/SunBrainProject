@@ -4,8 +4,9 @@ import type {
   RefreshResponse,
   RegistrationRequest,
 } from '@features/Registration';
-import { authApi } from '@/api/config/api.config.ts';
 import { request } from '@shared/api';
+
+import { authApi } from '@/api/config/api.config.ts';
 
 export class AuthorizationService {
   public static async login(data: LoginRequest): Promise<AuthResponse> {

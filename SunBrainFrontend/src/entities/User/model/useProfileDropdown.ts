@@ -1,6 +1,7 @@
-import { useNavigate } from 'react-router-dom';
-import { userActions } from './userSlice';
 import { useAppDispatch } from '@shared/lib';
+import { useNavigate } from 'react-router-dom';
+
+import { userActions } from './userSlice';
 
 export const useProfileDropdown = () => {
   const navigate = useNavigate();

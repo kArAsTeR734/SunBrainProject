@@ -1,14 +1,15 @@
-import './positionItem.scss';
-import clsx from 'clsx';
 import type { LeaderboardUser } from '@entities/Leaderboard';
+import clsx from 'clsx';
+
+import styles from './positionItem.module.scss';
 
 export const PositionItem = ({ fullName, position, points }: LeaderboardUser) => {
   return (
     <>
-      <div className="position__item">
-        <div className={clsx('position__item-placement', 'first')}>{position}.</div>
-        <div className="position__item-info">{fullName}</div>
-        <div className="position__item-score">{points} баллов</div>
+      <div className={styles.item}>
+        <div className={clsx(styles.itemPlacement, styles.first)}>{position}.</div>
+        <div className={styles.itemInfo}>{fullName}</div>
+        <div className={styles.itemScore}>{points} баллов</div>
       </div>
     </>
   );

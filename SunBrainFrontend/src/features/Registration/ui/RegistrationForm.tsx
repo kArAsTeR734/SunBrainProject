@@ -1,18 +1,15 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { useFormValidationContext } from '@shared/lib';
-import { SubmitHandler } from 'react-hook-form';
-import { TextField } from '@mui/material';
-import clsx from 'clsx';
-import './registrationForm.scss';
-import { useEffect } from 'react';
-import type { RegistrationFormValues, RegistrationRequest } from '../model/types';
-import { Button } from '@shared/ui';
 import { useRegistration } from '@features/Registration';
+import { TextField } from '@mui/material';
+import { useFormValidationContext } from '@shared/lib';
 import { emailValidation, passwordValidation } from '@shared/lib';
-import {
-  confirmPasswordValidation,
-  fullNameValidation,
-} from '../config/validation';
+import { Button } from '@shared/ui';
+import { useEffect } from 'react';
+import { SubmitHandler } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { confirmPasswordValidation, fullNameValidation } from '../config/validation';
+import type { RegistrationFormValues, RegistrationRequest } from '../model/types';
+import styles from './registrationForm.module.scss';
 
 export const RegistrationForm = () => {
   const { register, handleSubmit, shouldShowError, getErrorMessage, reset } =
@@ -40,11 +37,11 @@ export const RegistrationForm = () => {
   }, [clearError]);
   return (
     <>
-      <section className="registration">
+      <section className={styles.registration}>
         <div className="container">
-          <h2 className="registration__header">Регистрация</h2>
-          <div className="registration__wrapper">
-            <form onSubmit={handleSubmit(onSubmit)} className="registration__form">
+          <h2 className={styles.header}>Регистрация</h2>
+          <div className={styles.wrapper}>
+            <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
               <TextField
                 {...register('email', emailValidation)}
                 type="email"
@@ -59,7 +56,9 @@ export const RegistrationForm = () => {
                 {...register('fullName', fullNameValidation)}
                 type="text"
                 error={shouldShowError('fullName')}
-                helperText={shouldShowError('fullName') ? getErrorMessage('fullName') : ''}
+                helperText={
+                  shouldShowError('fullName') ? getErrorMessage('fullName') : ''
+                }
                 label="Имя и Фамилия"
                 id="fullName"
                 name="fullName"
@@ -69,7 +68,9 @@ export const RegistrationForm = () => {
                 {...register('password', passwordValidation)}
                 type="password"
                 error={shouldShowError('password')}
-                helperText={shouldShowError('password') ? getErrorMessage('password') : ''}
+                helperText={
+                  shouldShowError('password') ? getErrorMessage('password') : ''
+                }
                 label="Пароль"
                 name="password"
                 id="password"
@@ -80,7 +81,9 @@ export const RegistrationForm = () => {
                 type="password"
                 error={shouldShowError('confirmPassword')}
                 helperText={
-                  shouldShowError('confirmPassword') ? getErrorMessage('confirmPassword') : ''
+                  shouldShowError('confirmPassword')
+                    ? getErrorMessage('confirmPassword')
+                    : ''
                 }
                 label="Подтверждение пароля"
                 name="confirmPassword"
@@ -88,11 +91,13 @@ export const RegistrationForm = () => {
                 placeholder="******"
               />
 
-              <div className="registration__actions">
-                <Button className={['button', 'button__auth'].join(' ')}>Зарегистрироваться</Button>
-                <div className="registration__actions_divider">Или</div>
-                <Button className={clsx('button', 'button__auth')}>
-                  <Link className={clsx('button', 'button button__text')} to="/login">
+              <div className={styles.actions}>
+                <Button variant="auth">
+                  Зарегистрироваться
+                </Button>
+                <div className={styles.divider}>Или</div>
+                <Button variant="auth">
+                  <Link to="/login">
                     Уже есть аккаунт
                   </Link>
                 </Button>

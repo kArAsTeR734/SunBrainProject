@@ -1,8 +1,10 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { UserService } from '@/api/services/UserService.ts';
 import { resolveAssetUrl } from '@shared/lib';
-import type { ProfileData } from '../model/types.ts';
 import { useAppDispatch, useAppSelector } from '@shared/lib';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { UserService } from '@/api/services/UserService.ts';
+
+import type { ProfileData } from '../model/types.ts';
 import { userActions } from '../model/userSlice.ts';
 
 export const useAvatar = () => {

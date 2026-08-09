@@ -1,14 +1,20 @@
-import './positionList.scss';
-import clsx from 'clsx';
-import { useAppSelector } from '@shared/lib';
 import { useLeaderboard } from '@entities/User';
+import { useAppSelector } from '@shared/lib';
 import { DataFallback } from '@shared/ui';
 import { useEffect, useState } from 'react';
+
+import positionStyles from './PositionItem/positionItem.module.scss';
 import { PositionItem } from './PositionItem/PositionItem.tsx';
+import styles from './positionList.module.scss';
 
 export const PositionList = () => {
   const { user } = useAppSelector((state) => state.userReducer);
-  const { data: leaderboard, isLoading, isFetching, refetch } = useLeaderboard(user?.id ?? 0);
+  const {
+    data: leaderboard,
+    isLoading,
+    isFetching,
+    refetch,
+  } = useLeaderboard(user?.id ?? 0);
   const [userOnTop, setUserOnTop] = useState<boolean>(false);
 
   useEffect(() => {
@@ -35,12 +41,14 @@ export const PositionList = () => {
   }
 
   return (
-    <div className="position__items">
+    <div className={styles.items}>
       {leaderboard.topUsers.map(({ position, fullName, points }) => (
-        <div className="position__item" key={position}>
-          <div className={clsx('position__item-placement', 'first')}>{position}.</div>
-          <p className="position__item-info">{fullName}</p>
-          <p className="position__item-score">{points} баллов</p>
+        <div className={positionStyles.item} key={position}>
+          <div className={`${positionStyles.itemPlacement} ${positionStyles.first}`}>
+            {position}.
+          </div>
+          <p className={positionStyles.itemInfo}>{fullName}</p>
+          <p className={positionStyles.itemScore}>{points} баллов</p>
         </div>
       ))}
       {!userOnTop && (

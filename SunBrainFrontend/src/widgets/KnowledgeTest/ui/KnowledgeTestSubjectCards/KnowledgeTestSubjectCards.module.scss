@@ -1,0 +1,43 @@
+@use "@styles/helpers" as *;
+
+.knowledgeTestSubjects {
+  padding: fluid(48, 32) 0 fluid(64, 40);
+}
+
+.title {
+  color: var(--text-color);
+  font-size: fluid(34, 26);
+  line-height: 1.25;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  color: #4f4f4f;
+  font-size: fluid(20, 16);
+  line-height: 1.45;
+  margin-bottom: fluid(36, 24);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, #{rem(280)}), 1fr));
+  gap: fluid(24, 18);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.item > a {
+  margin-bottom: rem(14);
+}
+
+.itemMeta {
+  color: #1f1f1f;
+  font-size: 16px;
+  line-height: 22px;
+  padding: 0 16px;
+}

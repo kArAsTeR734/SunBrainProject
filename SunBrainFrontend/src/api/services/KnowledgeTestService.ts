@@ -10,6 +10,7 @@ import type {
   SubmitTestAnswerResponse,
 } from '@features/Test';
 import { request } from '@shared/api';
+
 import { api } from '@/api/config/api.config.ts';
 
 export class KnowledgeTestService {
@@ -41,7 +42,11 @@ export class KnowledgeTestService {
     );
   }
 
-  public static async finishTest({ testId }: { testId: number }): Promise<FinishTestResponse> {
+  public static async finishTest({
+    testId,
+  }: {
+    testId: number;
+  }): Promise<FinishTestResponse> {
     return request(api.post(`/api/test/${testId}/finish`));
   }
 

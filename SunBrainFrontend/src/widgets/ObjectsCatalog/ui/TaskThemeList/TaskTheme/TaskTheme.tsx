@@ -1,8 +1,9 @@
-import './taskTheme.scss';
+import type { Topic } from '@features/Topics';
 import { FC } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import type { SubjectId } from '../../../model/Subject';
-import type { Topic } from '@features/Topics';
+import styles from './taskTheme.module.scss';
 
 const TaskTheme: FC<Topic> = ({ name, id, number }: Topic) => {
   const navigate = useNavigate();
@@ -12,9 +13,9 @@ const TaskTheme: FC<Topic> = ({ name, id, number }: Topic) => {
   };
   return (
     <>
-      <div className="theme-wrapper" onClick={handleClick}>
-        <p className="theme-wrapper-number">{number}.</p>
-        <p className="theme-wrapper-title">{name}</p>
+      <div className={styles.themeWrapper} onClick={handleClick}>
+        <p className={styles.themeWrapperNumber}>{number}.</p>
+        <p className={styles.themeWrapperTitle}>{name}</p>
       </div>
     </>
   );

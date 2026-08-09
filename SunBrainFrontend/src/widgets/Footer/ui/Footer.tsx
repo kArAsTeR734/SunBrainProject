@@ -1,34 +1,34 @@
-import './footer.scss';
 import { aboutLinks, studyLinks } from '../config/footerLinks.ts';
+import styles from './footer.module.scss';
 
 export const Footer = () => {
   return (
-    <section className="footer">
+    <section className={styles.footer}>
       <div className="container">
-        <div className="footer__wrapper">
-          <div className="footer__item">
-            <h3 className="footer__header">О SunBrain</h3>
+        <div className={styles.wrapper}>
+          <div className={styles.item}>
+            <h3 className={styles.header}>О SunBrain</h3>
             {aboutLinks.map(({ href, label }) => (
-              <div key={label} className="footer__item">
-                <a href={href} className="footer__link">
+              <div key={label} className={styles.item}>
+                <a href={href} className={styles.link}>
                   {label}
                 </a>
               </div>
             ))}
           </div>
-          <div className="footer__item">
-            <h3 className="footer__header">Учеба в SunBrain</h3>
+          <div className={styles.item}>
+            <h3 className={styles.header}>Учеба в SunBrain</h3>
             {studyLinks.map(({ href, label }) => (
-              <div key={label} className="footer__item">
-                <a href={href} className="footer__link">
+              <div key={label} className={styles.item}>
+                <a href={href} className={styles.link}>
                   {label}
                 </a>
               </div>
             ))}
           </div>
-          <div className="footer__item">
-            <h3 className="footer__header">Свяжитесь с нами</h3>
-            <a href="tel:+88003020412" className="footer__link">
+          <div className={styles.item}>
+            <h3 className={styles.header}>Свяжитесь с нами</h3>
+            <a href="tel:+88003020412" className={styles.link}>
               +7 (499) 922-89-74
             </a>
           </div>

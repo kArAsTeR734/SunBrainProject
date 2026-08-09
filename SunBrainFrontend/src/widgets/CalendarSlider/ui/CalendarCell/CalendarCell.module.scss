@@ -1,0 +1,17 @@
+@use "@styles/helpers" as *;
+
+.calendarCell {
+  flex: 0 0 rem(220);
+  min-height: rem(200);
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: rem(12);
+  padding: rem(16);
+
+  @include mobile {
+    flex-basis: min(82vw, #{rem(280)});
+  }
+}

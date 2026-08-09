@@ -1,8 +1,7 @@
-import './homeworkTaskList.scss';
 import { useHomeworkTasks } from '@features/HomeworkTasks';
-import { useParams } from 'react-router-dom';
+import { TaskItem, TaskList } from '@features/Task';
 import { DataFallback } from '@shared/ui';
-import { TaskList, TaskItem } from '@features/Task';
+import { useParams } from 'react-router-dom';
 
 export const HomeworkTaskList = () => {
   const { homeworkId } = useParams();
@@ -36,7 +35,9 @@ export const HomeworkTaskList = () => {
   }
 
   if (!homework?.tasks?.length) {
-    return <DataFallback state="empty" title="По этой домашней работе пока нет заданий." />;
+    return (
+      <DataFallback state="empty" title="По этой домашней работе пока нет заданий." />
+    );
   }
 
   return (

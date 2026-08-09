@@ -1,9 +1,8 @@
-import './promo.scss';
-import '@shared/ui/Button/button.scss';
-import clsx from 'clsx';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@shared/ui';
 import { useAppSelector } from '@shared/lib';
+import { Button } from '@shared/ui';
+import { useNavigate } from 'react-router-dom';
+
+import styles from './promo.module.scss';
 
 export const Promo = () => {
   const navigate = useNavigate();
@@ -20,21 +19,27 @@ export const Promo = () => {
     navigate('/student/account');
   };
   return (
-    <section className="promo">
+    <section className={styles.promo}>
       <div className="container">
-        <div className="promo__body">
-          <h1 className="promo__title">
+        <div className={styles.body}>
+          <h1 className={styles.title}>
             Твой личный путь к ЕГЭ – AI создаст план, а ты <br /> достигнешь цели!
           </h1>
-          <p className="promo__subtitle">
-            Измените свои привычки в учебе с помощью индивидуальных идей <br /> искусственного
-            интеллекта.
+          <p className={styles.subtitle}>
+            Измените свои привычки в учебе с помощью индивидуальных идей <br />{' '}
+            искусственного интеллекта.
           </p>
-          <div className="promo__actions">
-            <Button className={clsx('button', 'button__pass-test')} onClick={handleClickTest}>
+          <div className={styles.actions}>
+            <Button
+              variant="passTest"
+              onClick={handleClickTest}
+            >
               Пройти вступительный тест
             </Button>
-            <Button className={clsx('button', 'button__have-account')} onClick={handleClickAccount}>
+            <Button
+              variant="haveAccount"
+              onClick={handleClickAccount}
+            >
               У меня уже есть аккаунт
             </Button>
           </div>

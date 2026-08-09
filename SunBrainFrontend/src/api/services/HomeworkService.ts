@@ -1,6 +1,7 @@
-import { request } from '@shared/api';
-import { api } from '@/api/config/api.config.ts';
 import type { Homework, MyHomeworksResponse } from '@entities/Homework';
+import { request } from '@shared/api';
+
+import { api } from '@/api/config/api.config.ts';
 
 export class HomeworkService {
   static async getUserHomeworkList(): Promise<MyHomeworksResponse> {

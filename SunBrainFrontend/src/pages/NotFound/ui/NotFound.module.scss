@@ -1,0 +1,29 @@
+@use "@styles/helpers" as *;
+
+.notFound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: fluid(50, 28);
+
+  min-height: 100dvh;
+  padding: var(--container-padding-x);
+
+  .header {
+    color: #000000;
+    font-size: fluid(40, 26);
+    margin: 0;
+    text-align: center;
+  }
+
+  .link {
+    color: #000000;
+    text-decoration: underline;
+    transition: color 0.3s ease-in-out ;
+    &:hover {
+      color: #FF8000;
+      opacity: 0.8;
+    }
+  }
+}

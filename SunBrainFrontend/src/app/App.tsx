@@ -1,7 +1,9 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import React from 'react';
 import './styles/main.scss';
+
 import { getRoutesConfig } from '@app/routes/config';
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import { AppInitializer } from './initialization/AppInitializer.tsx';
 
 function App() {

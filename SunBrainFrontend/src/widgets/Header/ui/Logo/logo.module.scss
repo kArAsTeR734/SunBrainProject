@@ -1,0 +1,47 @@
+@use "@styles/helpers" as *;
+
+.logo {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex-shrink: 0;
+
+  .icon {
+    display: flex;
+  }
+
+  svg {
+    width: rem(56);
+    min-width: rem(42);
+  }
+
+  .name {
+    color: #FF8000;
+    font-size: fluid(32, 20);
+    text-align: center;
+    margin-right: 47px;
+    flex-grow: 1;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  @include tablet {
+    min-height: 68px;
+    padding-block: 6px;
+
+    .wrapper {
+      gap: rem(16);
+    }
+
+    .name {
+      margin-right: 0;
+    }
+  }
+
+  @include mobile {
+    svg {
+      width: rem(42);
+    }
+  }
+}

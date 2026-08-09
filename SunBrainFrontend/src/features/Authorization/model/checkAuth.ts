@@ -1,6 +1,7 @@
-import { AuthorizationService } from '@/api/services/AuthorizationService.ts';
 import { userActions } from '@entities/User';
 import { useAppDispatch } from '@shared/lib';
+
+import { AuthorizationService } from '@/api/services/AuthorizationService.ts';
 
 export const checkAuth = () => async () => {
   const { setLoading, setAuth, setError } = userActions;

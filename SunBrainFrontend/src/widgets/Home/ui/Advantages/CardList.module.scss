@@ -1,0 +1,35 @@
+@use "@styles/helpers" as *;
+
+.cardList{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, #{rem(220)}), 1fr));
+  margin-top: fluid(35, 24);
+  gap: rem(20);
+}
+.advantageCard{
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+
+  .title{
+    color: var(--color-accent);
+    font-size: fluid(20, 18);
+    font-weight: 600;
+    line-height: 1.45;
+    text-align: left;
+  }
+
+  .description{
+    margin-top: 5px;
+    color: var(--text-color);
+    max-width: rem(280);
+    line-height: 20px;
+    text-align: left
+  }
+
+  @include mobile {
+    padding: rem(16);
+    border-radius: rem(8);
+    background-color: #fafafa;
+  }
+}

@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-import { UserService } from '@/api/services/UserService.ts';
 import { userActions } from '@entities/User';
 import { useAppDispatch } from '@shared/lib';
 import { resolveAssetUrl } from '@shared/lib';
+import { useQuery } from '@tanstack/react-query';
+
+import { UserService } from '@/api/services/UserService.ts';
 
 export const useUserInfo = () => {
   const { setUser } = userActions;

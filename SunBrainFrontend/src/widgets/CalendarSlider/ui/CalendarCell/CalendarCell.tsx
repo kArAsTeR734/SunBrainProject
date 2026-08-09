@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
-import './CalendarCell.scss';
+
+import styles from './CalendarCell.module.scss';
 
 export const CalendarCell = ({ children }: { children: ReactNode }) => {
-  return <div className="calendar-cell">{children}</div>;
+  return <div className={styles.calendarCell}>{children}</div>;
 };

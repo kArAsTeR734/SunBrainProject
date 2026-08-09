@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
 import { CATALOG_ITEMS, type SubjectPath } from '@entities/Catalog';
 import { PATHS } from '@shared/routes';
+import { useMemo } from 'react';
 
 export const useSubjectPath = () => {
   const catalogItems = useMemo(

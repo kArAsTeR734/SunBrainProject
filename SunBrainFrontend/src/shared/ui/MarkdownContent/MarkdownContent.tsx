@@ -1,10 +1,13 @@
-import ReactMarkdown from 'react-markdown';
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
-import { memo } from 'react';
-import './MarkdownContent.scss';
+
+import clsx from 'clsx';
 import katex from 'katex';
+import { memo } from 'react';
+import ReactMarkdown from 'react-markdown';
+import rehypeKatex from 'rehype-katex';
+import remarkMath from 'remark-math';
+
+import styles from './MarkdownContent.module.scss';
 
 interface MarkdownProps {
   content: string;
@@ -25,7 +28,7 @@ export const MarkdownContent = memo(({ content }: MarkdownProps) => {
       remarkPlugins={[remarkMath]}
       rehypePlugins={[rehypeKatex]}
       components={{
-        p: ({ children }) => <p className="md-paragraph">{children}</p>,
+        p: ({ children }) => <p className={styles.mdParagraph}>{children}</p>,
         img: ({ alt = '', ...props }) => {
           const [kind, payload] = alt.split('|');
 
@@ -40,15 +43,11 @@ export const MarkdownContent = memo(({ content }: MarkdownProps) => {
           }
 
           if (kind === 'formula:inline') {
-            const inlineClassName = ['md-img', 'md-img--inline', props.className]
-              .filter(Boolean)
-              .join(' ');
+            const inlineClassName = clsx(styles.inline, props.className);
             return <img {...props} className={inlineClassName} alt="" />;
           }
 
-          const imageClassName = ['md-img', 'md-img--block', props.className]
-            .filter(Boolean)
-            .join(' ');
+          const imageClassName = clsx(styles.block, props.className);
 
           const normalizedAlt = kind === 'image:block' ? (payload ?? '') : alt;
 

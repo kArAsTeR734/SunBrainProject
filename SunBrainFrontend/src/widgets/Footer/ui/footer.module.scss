@@ -1,0 +1,53 @@
+@use "@styles/helpers" as *;
+
+.footer{
+  min-height: 100px;
+  padding: fluid(30, 24) 0 fluid(83, 42) 0;
+  background-color: #fafafa;
+
+  .wrapper{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: rem(32);
+  }
+
+  .header{
+    margin-top: 14px;
+    color: var(--color-primary);
+    font-size: fluid(24, 18);
+    font-weight: 600;
+    line-height: 1.35;
+    text-align: left;
+  }
+
+  .item{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+  .link{
+    color: var(--text-color);
+    text-decoration: none;
+    transition: 0.2s color ease;
+    &:hover{
+      color: var(--color-primary);
+    }
+  }
+
+  @include tablet {
+    .wrapper {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @include mobile {
+    .wrapper {
+      grid-template-columns: 1fr;
+      gap: rem(22);
+    }
+
+    .header {
+      margin-top: 0;
+    }
+  }
+}

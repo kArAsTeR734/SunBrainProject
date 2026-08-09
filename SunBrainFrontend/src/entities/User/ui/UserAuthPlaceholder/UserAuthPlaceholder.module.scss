@@ -1,0 +1,24 @@
+@use "@styles/helpers" as *;
+
+.authPlaceholder{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+  height: 50vh;
+  padding-inline: var(--container-padding-x);
+
+  .title{
+    font-weight: 600;
+    font-size: fluid(32, 22);
+    text-align: center;
+  }
+  .link{
+    color: #fff;
+    border-radius: 12px;
+    background-color: #1c4fbc;
+    padding: 12px;
+    text-align: center;
+  }
+}

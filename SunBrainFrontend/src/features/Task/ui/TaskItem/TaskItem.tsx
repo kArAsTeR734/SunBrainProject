@@ -1,11 +1,12 @@
-import React, { FC, useState } from 'react';
+import type { CatalogTask, HomeworkTask } from '@entities/Task';
 import { useInput } from '@shared/lib';
-import clsx from 'clsx';
-import './TaskItem.scss';
 import { Button, MarkdownContent } from '@shared/ui';
+import clsx from 'clsx';
+import React, { FC, useState } from 'react';
+
 import { useCheckTask } from '../../api/useCheckTask.ts';
 import { TaskSolution } from '../TaskSolution/TaskSolution';
-import type { CatalogTask, HomeworkTask } from '@entities/Task';
+import styles from './TaskItem.module.scss';
 
 interface TaskItemProps {
   isHomeworkTask: boolean;
@@ -51,22 +52,24 @@ export const TaskItem: FC<TaskItemProps> = ({ task, isHomeworkTask }) => {
 
   return (
     <>
-      <div className="task">
-        <div className="task__header">
+      <div className={styles.task}>
+        <div className={styles.header}>
           <h4>
-            <span className="task__number">Задача {task.id}</span>
+            <span className={styles.number}>Задача {task.id}</span>
           </h4>
-          <span className="task__attempts">Попыток до показа решения осталось: {attemptCount}</span>
+          <span className={styles.attempts}>
+            Попыток до показа решения осталось: {attemptCount}
+          </span>
         </div>
-        <div className="task__text">
+        <div className={styles.text}>
           <MarkdownContent content={taskContent} />
         </div>
-        <div className="task__actions">
-          <div className="task__answer">
+        <div className={styles.actions}>
+          <div className={styles.answer}>
             <input
-              className={clsx('task__answer-field', {
-                'task__answer-field--correct': isChecked && isTaskComplete,
-                'task__answer-field--invalid': isChecked && !isTaskComplete,
+              className={clsx(styles.answerField, {
+                [styles.correct]: isChecked && isTaskComplete,
+                [styles.invalid]: isChecked && !isTaskComplete,
               })}
               type="text"
               id="aswer-field"
@@ -77,7 +80,7 @@ export const TaskItem: FC<TaskItemProps> = ({ task, isHomeworkTask }) => {
           </div>
           <Button
             onClick={checkAnswerCorrect}
-            className="task__check"
+            className={styles.check}
             disabled={checkAnswerMutate.isPending}
           >
             {checkAnswerMutate.isPending ? 'Проверка...' : 'Проверить'}

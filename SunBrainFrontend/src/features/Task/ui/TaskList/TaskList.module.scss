@@ -1,0 +1,17 @@
+@use "@styles/helpers" as *;
+
+.taskList {
+  background-color: rgba(255, 233, 209, 0.4);
+  max-height: 99999px;
+  padding: fluid(30, 20) 0;
+
+  &.header{
+    font-family: Montserrat, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    font-size: fluid(24, 20);
+    line-height: 1.35;
+    margin-bottom: 30px;
+    color: #FF4000;
+  }
+}

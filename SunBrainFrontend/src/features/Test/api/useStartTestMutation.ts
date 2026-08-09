@@ -1,9 +1,11 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { KnowledgeTestService } from '@/api/services/KnowledgeTestService.ts';
-import type { KnowledgeTestSubjectId, StartTestResponse } from '../models/types.ts';
-import { useNavigate } from 'react-router-dom';
 import { PATHS } from '@shared/routes';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+
+import { KnowledgeTestService } from '@/api/services/KnowledgeTestService.ts';
+
 import { setTestSessionData } from '../models/setTestToSessionStorage.ts';
+import type { KnowledgeTestSubjectId, StartTestResponse } from '../models/types.ts';
 
 export const useStartTestMutation = () => {
   const navigate = useNavigate();

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import './TestTask.scss';
 import { MarkdownContent } from '@shared/ui';
+import React, { useState } from 'react';
+
+import styles from './TestTask.module.scss';
 
 interface TaskProps {
   id: number;
@@ -17,15 +18,15 @@ export const TestTask: React.FC<TaskProps> = ({ id, question, onAnswerSubmit }) 
 
   const renderQuestionType = () => {
     return (
-      <div className="text-input-container">
+      <div className={styles.textInputContainer}>
         <textarea
           value={textAnswer}
           onChange={(e) => setTextAnswer(e.target.value)}
-          className="text-input"
+          className={styles.textInput}
           placeholder="Введите ответ"
           rows={3}
         />
-        <button onClick={handleTextSubmit} className="submit-button">
+        <button onClick={handleTextSubmit} className={styles.submitButton}>
           Подтвердить
         </button>
       </div>
@@ -33,12 +34,12 @@ export const TestTask: React.FC<TaskProps> = ({ id, question, onAnswerSubmit }) 
   };
 
   return (
-    <div className="task-container">
-      <div className="task-header">
+    <div className={styles.taskContainer}>
+      <div className={styles.taskHeader}>
         <h3>Задание №{id}</h3>
       </div>
 
-      <div className="task-content">
+      <div className={styles.taskContent}>
         <MarkdownContent content={question} />
 
         {renderQuestionType()}

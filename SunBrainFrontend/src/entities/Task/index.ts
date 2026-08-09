@@ -1,1 +1,6 @@
-export type { CatalogItemsResponse, CatalogTask, HomeworkTask, Task } from './model/types';
+export type {
+  CatalogItemsResponse,
+  CatalogTask,
+  HomeworkTask,
+  Task,
+} from './model/types';

@@ -1,0 +1,62 @@
+@use "@styles/helpers" as *;
+
+.profileTrigger {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .initials {
+    margin-right: 10px;
+    min-width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    background-color: #FF8000;
+
+    p {
+      display: flex;
+      line-height: 36px;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-weight: 700;
+      font-style: normal;
+    }
+  }
+
+  .username {
+    margin-right: 10px;
+
+    p {
+      font-size: 16px;
+      line-height: 16px;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+
+  .dropdownIcon {
+    transition: transform 0.2s ease;
+
+    &.open {
+      transform: rotate(180deg);
+    }
+  }
+
+  @include mobile {
+    gap: rem(6);
+
+    .initials {
+      min-width: rem(34);
+      height: rem(34);
+      margin-right: 0;
+
+      p {
+        line-height: rem(34);
+      }
+    }
+
+    .username {
+      display: none;
+    }
+  }
+}

@@ -1,7 +1,4 @@
-export { HomeworkCard } from './ui/HomeworkCard/HomeworkCard';
-
 export * from './lib/formatDeadline';
-
 export type {
   CheckAnswerResponse,
   Homework,
@@ -10,3 +7,4 @@ export type {
   HomeworkTopic,
   MyHomeworksResponse,
 } from './model/types';
+export { HomeworkCard } from './ui/HomeworkCard/HomeworkCard';

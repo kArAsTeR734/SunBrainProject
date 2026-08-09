@@ -1,8 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
-import { AuthorizationService } from '@/api/services/AuthorizationService.ts';
 import { userActions } from '@entities/User';
 import { resolveAssetUrl } from '@shared/lib';
 import { useAppDispatch } from '@shared/lib';
+import { useMutation } from '@tanstack/react-query';
+
+import { AuthorizationService } from '@/api/services/AuthorizationService.ts';
 
 export const useLogin = () => {
   const { setAuth, setUser } = userActions;

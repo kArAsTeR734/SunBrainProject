@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { AuthorizationService } from '../services/AuthorizationService.ts';
 
 const getDefaultApiBaseUrl = () => {

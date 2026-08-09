@@ -1,9 +1,10 @@
-import './calendarSlider.scss';
 import { getCalendarDates } from '@features/Calendar';
 import { groupHomeworksByDate, useHomework } from '@features/HomeworkTasks';
 import { DataFallback } from '@shared/ui';
+
 import { CalendarCell } from './CalendarCell/CalendarCell';
 import { CalendarItem } from './CalendarItem/CalendarItem';
+import styles from './calendarSlider.module.scss';
 import { CalendarTaskList } from './CalendarTaskList/CalendarTaskList';
 
 export const CalendarSlider = () => {
@@ -17,7 +18,7 @@ export const CalendarSlider = () => {
 
   if (isLoading || isFetching) {
     return (
-      <section className="calendar">
+      <section className={styles.calendar}>
         <DataFallback
           state="loading"
           title="Загружаем календарь..."
@@ -29,7 +30,7 @@ export const CalendarSlider = () => {
 
   if (isError) {
     return (
-      <section className="calendar">
+      <section className={styles.calendar}>
         <DataFallback
           state="error"
           title="Не удалось загрузить календарь."
@@ -41,8 +42,8 @@ export const CalendarSlider = () => {
   }
 
   return (
-    <section className="calendar">
-      <div className="calendar__wrapper">
+    <section className={styles.calendar}>
+      <div className={styles.wrapper}>
         {calendarItems.map((item) => (
           <CalendarCell key={item.date.date}>
             <CalendarItem dataTime={item.date} />

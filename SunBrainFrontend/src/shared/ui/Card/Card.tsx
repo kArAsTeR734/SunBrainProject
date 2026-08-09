@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import './Card.scss';
+
+import styles from './Card.module.scss';
 
 interface CardProps {
   id: string;
@@ -10,8 +11,8 @@ interface CardProps {
 export const Card = ({ id, fullPath, title }: CardProps) => {
   return (
     <Link key={id} to={fullPath}>
-      <div className="card">
-        <div className="card__title">{title}</div>
+      <div className={styles.card}>
+        <div className={styles.title}>{title}</div>
       </div>
     </Link>
   );

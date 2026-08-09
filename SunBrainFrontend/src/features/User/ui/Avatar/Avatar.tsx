@@ -1,5 +1,6 @@
-import { useEffect, useState, useRef, ChangeEvent } from 'react';
-import './Avatar.scss';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+
+import styles from './Avatar.module.scss';
 
 interface AvatarProps {
   currentAvatar?: string;
@@ -56,25 +57,30 @@ export const Avatar = ({ currentAvatar, onUpload, size = 120 }: AvatarProps) => 
   };
 
   return (
-    <div className="avatar-upload" style={{ width: size, height: size }}>
+    <div className={styles.avatarUpload} style={{ width: size, height: size }}>
       <div
-        className="avatar-upload__container"
+        className={styles.container}
         onClick={handleClick}
         style={{ cursor: isUploading ? 'wait' : 'pointer' }}
       >
         {preview ? (
-          <img src={preview} alt="Аватар" className="avatar-upload__image" loading="lazy" />
+          <img
+            src={preview}
+            alt="Аватар"
+            className={styles.image}
+            loading="lazy"
+          />
         ) : (
-          <div className="avatar-upload__placeholder">
-            <span className="avatar-upload__icon">👤</span>
+          <div className={styles.placeholder}>
+            <span className={styles.icon}>👤</span>
           </div>
         )}
 
-        <div className="avatar-upload__overlay">
+        <div className={styles.overlay}>
           {isUploading ? (
-            <div className="avatar-upload__loading">Загрузка...</div>
+            <div className={styles.loading}>Загрузка...</div>
           ) : (
-            <div className="avatar-upload__change">
+            <div className={styles.change}>
               <span>Изменить</span>
             </div>
           )}
@@ -86,7 +92,7 @@ export const Avatar = ({ currentAvatar, onUpload, size = 120 }: AvatarProps) => 
         type="file"
         accept="image/jpeg,image/png,image/gif,image/webp"
         onChange={handleFileChange}
-        className="avatar-upload__input"
+        className={styles.input}
         disabled={isUploading}
       />
     </div>

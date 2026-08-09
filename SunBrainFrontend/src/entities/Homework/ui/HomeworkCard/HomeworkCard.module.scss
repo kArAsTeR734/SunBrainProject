@@ -1,0 +1,113 @@
+@use "@styles/helpers" as *;
+
+.homeworkCard {
+  display: flex;
+  flex-direction: column;
+  min-height: fluid(320, 260);
+  padding: fluid(32, 20);
+  background: #ffffff;
+  border: 1.5px solid #edf2f7;
+  border-radius: rem(20);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    border-color: #3b82f6;
+  }
+
+  .main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: rem(20);
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem(8);
+  }
+
+  .subject {
+    background-color: #eef2ff;
+    color: #4f46e5;
+    font-size: rem(14);
+    font-weight: 700;
+    padding: rem(6) rem(14);
+    border-radius: rem(8);
+    letter-spacing: 0.5px;
+  }
+
+  .type {
+    font-size: rem(14);
+    color: #94a3b8;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .body {
+    margin-top: rem(10);
+  }
+
+  .title {
+    font-size: fluid(28, 22);
+    line-height: 1.2;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: rem(12);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .deadline {
+    font-size: fluid(18, 15);
+    color: #475569;
+    display: flex;
+    align-items: center;
+    gap: rem(6);
+
+    span {
+      color: #dc2626;
+      font-weight: 700;
+    }
+  }
+
+  .actions {
+    margin-top: rem(24);
+
+    .submitButton {
+      width: 100%;
+      height: rem(56);
+      border: none;
+      background: #1e293b;
+      color: #fff;
+      border-radius: rem(12);
+      font-size: fluid(18, 16);
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+
+      &:hover {
+        background: #334155;
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+
+  @include mobile {
+    border-radius: rem(14);
+
+    .deadline {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+}

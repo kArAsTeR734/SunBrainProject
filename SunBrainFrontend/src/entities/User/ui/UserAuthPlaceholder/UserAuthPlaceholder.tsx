@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
-import './UserAuthPlaceholder.scss';
+
+import styles from './UserAuthPlaceholder.module.scss';
 
 export const UserAuthPlaceholder = () => {
   return (
-    <div className="auth-placeholder">
-      <h1 className="auth-placeholder__title">
+    <div className={styles.authPlaceholder}>
+      <h1 className={styles.title}>
         Ошибка! Войдите или зарегистрируйтесь, для доступа к этой странице
       </h1>
-      <Link className="auth-placeholder__link" to="/login">
+      <Link className={styles.link} to="/login">
         Вернуться ко входу
       </Link>
     </div>

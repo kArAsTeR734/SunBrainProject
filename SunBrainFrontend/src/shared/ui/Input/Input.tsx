@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import './input.scss';
+
+import styles from './input.module.scss';
 
 interface InputProps {
   id: string;
@@ -11,11 +12,17 @@ interface InputProps {
 
 export const Input: FC<InputProps> = ({ id, label, name, placeholder, type }) => {
   return (
-    <div className="field">
-      <label className="field__label" htmlFor={id}>
+    <div className={styles.field}>
+      <label className={styles.label} htmlFor={id}>
         {label}
       </label>
-      <input type={type} className="field__input" name={name} id={id} placeholder={placeholder} />
+      <input
+        type={type}
+        className={styles.input}
+        name={name}
+        id={id}
+        placeholder={placeholder}
+      />
     </div>
   );
 };

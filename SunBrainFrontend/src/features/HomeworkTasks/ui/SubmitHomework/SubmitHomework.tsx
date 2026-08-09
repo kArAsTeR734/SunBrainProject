@@ -1,5 +1,6 @@
-import './SubmitHomework.scss';
 import { useNavigate } from 'react-router-dom';
+
+import styles from './SubmitHomework.module.scss';
 
 export const SubmitButton = ({ homeworkId }: { homeworkId: number }) => {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ export const SubmitButton = ({ homeworkId }: { homeworkId: number }) => {
   };
 
   return (
-    <button className="submit-button" onClick={handleHomework}>
+    <button className={styles.submitButton} onClick={handleHomework}>
       Перейти к заданию
     </button>
   );

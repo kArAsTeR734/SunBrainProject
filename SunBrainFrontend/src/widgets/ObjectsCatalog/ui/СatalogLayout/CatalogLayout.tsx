@@ -1,5 +1,5 @@
-import { Outlet, useParams } from 'react-router-dom';
 import { useTopics } from '@features/Topics';
+import { Outlet, useParams } from 'react-router-dom';
 
 export const CatalogLayout = () => {
   const { subjectId } = useParams();

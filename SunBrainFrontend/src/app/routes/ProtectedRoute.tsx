@@ -1,6 +1,6 @@
+import { useAppSelector } from '@shared/lib';
 import { Loader } from '@shared/ui';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useAppSelector } from '@shared/lib';
 
 export const ProtectedRoute = () => {
   const location = useLocation();

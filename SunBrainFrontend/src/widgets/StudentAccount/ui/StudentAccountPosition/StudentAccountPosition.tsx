@@ -1,12 +1,12 @@
-import './studentAccountPosition.scss';
 import { PositionList } from '../PositionList/PositionList';
+import styles from './studentAccountPosition.module.scss';
 
 export const StudentAccountPosition = () => {
   return (
     <>
-      <div className="position">
-        <div className="position__wrapper">
-          <div className="position__header">Текущая позиция в рейтинге</div>
+      <div className={styles.position}>
+        <div className={styles.wrapper}>
+          <div className={styles.header}>Текущая позиция в рейтинге</div>
           <PositionList />
         </div>
       </div>

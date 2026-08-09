@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+
 import { HomeworkService } from '@/api/services/HomeworkService.ts';
 
 export const useHomework = () => {

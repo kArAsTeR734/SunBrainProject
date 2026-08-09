@@ -1,5 +1,7 @@
 import { skipToken, useQuery } from '@tanstack/react-query';
+
 import { KnowledgeTestService } from '@/api/services/KnowledgeTestService.ts';
+
 import type { KnowledgeTestSubjectId } from '../models/types.ts';
 
 export const useGetKnowledgeTestTotalTaskCount = (subjectId?: KnowledgeTestSubjectId) => {

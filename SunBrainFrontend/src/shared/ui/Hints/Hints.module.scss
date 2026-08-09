@@ -1,0 +1,13 @@
+@use "@styles/helpers" as *;
+
+.hints{
+  padding-inline: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: min(100%, #{rem(764)});
+
+  @include mobile {
+    padding-inline: 0;
+  }
+}

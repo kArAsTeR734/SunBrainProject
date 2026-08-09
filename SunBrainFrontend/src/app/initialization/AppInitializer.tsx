@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
 import { userActions, useUserInfo } from '@entities/User';
 import { checkAuth } from '@features/Authorization';
 import { useAppDispatch } from '@shared/lib';
+import { useEffect } from 'react';
 
 export const AppInitializer = () => {
   const dispatch = useAppDispatch();

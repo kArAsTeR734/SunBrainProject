@@ -1,9 +1,9 @@
-import { lazy } from 'react';
-import { RouteObject } from 'react-router-dom';
 import { ProtectedRoute } from '@app/routes/ProtectedRoute.tsx';
 import { HomeworkLayout } from '@shared/layouts';
+import { type AppRouteHandle, PATHS } from '@shared/routes';
 import { CatalogLayout } from '@widgets/ObjectsCatalog';
-import { PATHS, type AppRouteHandle } from '@shared/routes';
+import { lazy } from 'react';
+import { RouteObject } from 'react-router-dom';
 
 const HomePage = lazy(() =>
   import('@pages/HomePage').then(({ HomePage }) => ({ default: HomePage })),
@@ -67,7 +67,9 @@ const TaskThemeList = lazy(() =>
   })),
 );
 const CatalogTaskList = lazy(() =>
-  import('@widgets/CatalogTaskList').then(({ CatalogTaskList }) => ({ default: CatalogTaskList })),
+  import('@widgets/CatalogTaskList').then(({ CatalogTaskList }) => ({
+    default: CatalogTaskList,
+  })),
 );
 const KnowledgeTestSubjectCards = lazy(() =>
   import('@widgets/KnowledgeTest').then(({ KnowledgeTestSubjectCards }) => ({

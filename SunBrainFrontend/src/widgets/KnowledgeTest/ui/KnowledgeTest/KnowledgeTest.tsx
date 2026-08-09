@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import './KnowledgeTest.scss';
+import { TestTask } from '@features/Task';
 import {
   getKnowledgeTestSubjectById,
+  type KnowledgeTestSubjectId,
   TestNavigation,
   TestResults,
   useFinishTestMutation,
   useSubmitTestTaskMutation,
   useTestData,
-  type KnowledgeTestSubjectId,
 } from '@features/Test';
-import { TestTask } from '@features/Task';
-import { DataFallback } from '@shared/ui';
 import { useMySearchParams } from '@shared/lib';
 import { PATHS } from '@shared/routes';
+import { DataFallback } from '@shared/ui';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import styles from './KnowledgeTest.module.scss';
 
 export const KnowledgeTest = () => {
   const { subjectId } = useParams<{ subjectId: KnowledgeTestSubjectId }>();
@@ -132,15 +133,15 @@ export const KnowledgeTest = () => {
   }
 
   return (
-    <div className="math-test-container">
-      <div className="test-header">
+    <div className={styles.mathTestContainer}>
+      <div className={styles.testHeader}>
         <h1>
           {subject?.examLabel} по предмету {subject?.subjectLabel}
         </h1>
       </div>
 
-      <div className="test-content">
-        <div className="task-section">
+      <div className={styles.testContent}>
+        <div className={styles.taskSection}>
           <TestTask
             question={currentTask.content}
             key={currentTask.id}
@@ -149,7 +150,7 @@ export const KnowledgeTest = () => {
           />
         </div>
 
-        <div className="navigation-section">
+        <div className={styles.navigationSection}>
           <TestNavigation
             tasks={navigationTasks}
             onTaskSelect={handleTaskSelect}
@@ -161,16 +162,16 @@ export const KnowledgeTest = () => {
         </div>
       </div>
 
-      <div className="test-progress">
-        <div className="progress-bar">
+      <div className={styles.testProgress}>
+        <div className={styles.progressBar}>
           <div
-            className="progress-fill"
+            className={styles.progressFill}
             style={{
               width: `${(answeredCount / tasks.length) * 100}%`,
             }}
           />
         </div>
-        <div className="progress-text">
+        <div className={styles.progressText}>
           Выполнено: {answeredCount} из {tasks.length} заданий
         </div>
       </div>

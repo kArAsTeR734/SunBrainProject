@@ -1,7 +1,4 @@
-export { RegistrationForm } from './ui/RegistrationForm';
-
 export { useRegistration } from './api/useRegistration.ts';
-
 export type {
   AuthResponse,
   LoginRequest,
@@ -9,3 +6,4 @@ export type {
   RegistrationFormValues,
   RegistrationRequest,
 } from './model/types';
+export { RegistrationForm } from './ui/RegistrationForm';

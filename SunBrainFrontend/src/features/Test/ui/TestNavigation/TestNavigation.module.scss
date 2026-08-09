@@ -1,0 +1,218 @@
+@use "@styles/helpers" as *;
+
+.navigationContainer {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: fluid(20, 14);
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.navigationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+  gap: rem(12);
+}
+
+.navigationHeader h3 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: fluid(24, 19);
+  font-weight: 600;
+}
+
+.progressInfo {
+  background: #e8f4fc;
+  color: #2980b9;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: fluid(20, 16);
+  font-weight: 500;
+}
+
+.tasksGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(#{rem(42)}, 1fr));
+  gap: rem(10);
+  margin-bottom: fluid(25, 18);
+  padding: fluid(15, 10);
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+.taskButton {
+  width: 100%;
+  aspect-ratio: 1;
+  min-height: rem(40);
+  height: auto;
+  border: none;
+  border-radius: 10px;
+  font-size: fluid(22, 16);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.taskButton.unanswered {
+  background: #ffffff;
+  border: 2px solid #e0e0e0;
+  color: #7f8c8d;
+}
+
+.taskButton.answered {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  color: white;
+  box-shadow: 0 4px 8px rgba(46, 204, 113, 0.2);
+}
+
+.taskButton.current {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+  transform: scale(1.1);
+  border: none;
+  z-index: 1;
+}
+
+.taskButton:hover:not(.current) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.navigationFooter {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.prevButton,
+.nextButton,
+.finishButton {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: fluid(21, 16);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  min-width: 80px;
+}
+
+.prevButton {
+  background: #f8f9fa;
+  color: #495057;
+  border: 2px solid #e9ecef;
+}
+
+.prevButton:hover:not(:disabled) {
+  background: #e9ecef;
+  transform: translateY(-1px);
+}
+
+.prevButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nextButton {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+}
+
+.nextButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+}
+
+.nextButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.finishButton {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  flex-basis: 100%;
+  margin-top: 10px;
+}
+
+.finishButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3);
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: fluid(18, 15);
+  color: #5d6d7e;
+}
+
+.legendDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legendDot.answered {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.legendDot.unanswered {
+  background: #e0e0e0;
+}
+
+.legendDot.current {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+@include tablet {
+  .navigationContainer {
+    position: static;
+  }
+
+  .navigationFooter {
+    flex-direction: column;
+  }
+
+  .prevButton,
+  .nextButton,
+  .finishButton {
+    width: 100%;
+  }
+}
+
+@include mobile {
+  .navigationHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .legend {
+    padding: rem(12);
+  }
+}

@@ -1,0 +1,80 @@
+@use "@styles/helpers" as *;
+
+.registration {
+  min-height: rem(690);
+  padding: fluid(36, 28) 0;
+  background-color: #fff;
+
+  .header {
+    color: #FF8000;
+    font-size: fluid(36, 28);
+    line-height: 1.4;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: fluid(50, 28);
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    width: min(100%, #{rem(445)});
+
+    > .MuiFormControlRoot {
+      width: 100%;
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .divider {
+      position: relative;
+      color: #FF6200;
+      text-align: center;
+      margin-top: 15px;
+      text-transform: uppercase;
+      font-size: 15px;
+      font-weight: 500;
+
+      &:before {
+        display: block;
+        position: absolute;
+        top: 8px;
+        right: 40px;
+        content: '';
+        width: min(#{rem(150)}, 32vw);
+        height: 2px;
+        background-color: #FF8000;
+      }
+
+      &:after {
+        display: block;
+        position: absolute;
+        top: 8px;
+        left: 40px;
+        content: '';
+        width: min(#{rem(150)}, 32vw);
+        height: 2px;
+        background-color: #FF8000;
+      }
+    }
+  }
+
+  @include mobile {
+    min-height: auto;
+
+    .actions {
+      width: 100%;
+    }
+  }
+}

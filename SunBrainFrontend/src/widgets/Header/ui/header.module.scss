@@ -1,0 +1,17 @@
+@use "@styles/helpers" as *;
+
+
+.header {
+  position: relative;
+  min-height: 88px;
+  padding-block: 10px;
+  z-index: 100;
+
+  .wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: rem(24);
+  }
+}

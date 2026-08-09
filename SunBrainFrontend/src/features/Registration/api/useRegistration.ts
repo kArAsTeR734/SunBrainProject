@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+
 import { AuthorizationService } from '@/api/services/AuthorizationService.ts';
 
 export const useRegistration = () => {

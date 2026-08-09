@@ -1,4 +1,4 @@
-import './DataFallback.scss';
+import styles from './DataFallback.module.scss';
 
 type DataFallbackState = 'loading' | 'error' | 'empty';
 
@@ -18,11 +18,11 @@ export const DataFallback = ({
   onAction,
 }: DataFallbackProps) => {
   return (
-    <div className={`data-fallback data-fallback--${state}`}>
-      <p className="data-fallback__title">{title}</p>
-      {description && <p className="data-fallback__description">{description}</p>}
+    <div className={styles.dataFallback} data-state={state}>
+      <p className={styles.title}>{title}</p>
+      {description && <p className={styles.description}>{description}</p>}
       {onAction && (
-        <button className="data-fallback__action" type="button" onClick={onAction}>
+        <button className={styles.action} type="button" onClick={onAction}>
           {actionLabel}
         </button>
       )}

@@ -1,7 +1,8 @@
 import React, { ReactNode } from 'react';
-import type { HomeworkBase } from '../../model/types';
-import './HomeworkCard.scss';
+
 import { formatHomeworksDeadline } from '../../lib/formatDeadline';
+import type { HomeworkBase } from '../../model/types';
+import styles from './HomeworkCard.module.scss';
 
 interface HomeworkCardProps {
   homework: HomeworkBase;
@@ -11,21 +12,21 @@ interface HomeworkCardProps {
 export const HomeworkCard: React.FC<HomeworkCardProps> = ({ homework, action }) => {
   const deadline = formatHomeworksDeadline(homework.deadline);
   return (
-    <div className="homework-card">
-      <div className="homework-card__main">
-        <div className="homework-card__header">
-          <span className="homework-card__subject">{homework.subject}</span>
-          <span className="homework-card__type">Домашнее задание</span>
+    <div className={styles.homeworkCard}>
+      <div className={styles.main}>
+        <div className={styles.header}>
+          <span className={styles.subject}>{homework.subject}</span>
+          <span className={styles.type}>Домашнее задание</span>
         </div>
 
-        <div className="homework-card__body">
-          <h3 className="homework-card__title">{homework.title}</h3>
-          <p className="homework-card__deadline">
+        <div className={styles.body}>
+          <h3 className={styles.title}>{homework.title}</h3>
+          <p className={styles.deadline}>
             <span>Дедлайн:</span> {deadline}
           </p>
         </div>
       </div>
-      {action && <div className="homework-card__actions">{action}</div>}
+      {action && <div className={styles.actions}>{action}</div>}
     </div>
   );
 };

@@ -1,5 +1,5 @@
-import { useMatches } from 'react-router-dom';
 import type { AppRouteHandle } from '@shared/routes';
+import { useMatches } from 'react-router-dom';
 
 const useBreadcrumbs = () => {
   const matches = useMatches();
@@ -16,7 +16,9 @@ const useBreadcrumbs = () => {
       const handle = match.handle as AppRouteHandle;
 
       const label =
-        typeof handle.breadcrumb === 'function' ? handle.breadcrumb(match) : handle.breadcrumb;
+        typeof handle.breadcrumb === 'function'
+          ? handle.breadcrumb(match)
+          : handle.breadcrumb;
 
       return {
         label,

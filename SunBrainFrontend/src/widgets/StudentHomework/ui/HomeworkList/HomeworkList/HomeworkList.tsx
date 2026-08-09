@@ -1,8 +1,9 @@
-import { SubmitButton, useHomework } from '@features/HomeworkTasks';
-import './HomeworkList.scss';
 import { HomeworkCard } from '@entities/Homework';
-import { DataFallback } from '@shared/ui';
+import { SubmitButton, useHomework } from '@features/HomeworkTasks';
 import { useFinishTestMutation } from '@features/Test';
+import { DataFallback } from '@shared/ui';
+
+import styles from './HomeworkList.module.scss';
 
 export const HomeworkList = () => {
   const { data: homeworks, isFetching, isLoading, isError, refetch } = useHomework();
@@ -29,11 +30,13 @@ export const HomeworkList = () => {
   }
 
   if (!homeworks?.length) {
-    return <DataFallback state="empty" title="У вас пока нет назначенных домашних заданий." />;
+    return (
+      <DataFallback state="empty" title="У вас пока нет назначенных домашних заданий." />
+    );
   }
 
   return (
-    <div className="homework-list">
+    <div className={styles.homeworkList}>
       {homeworks.map((homework) => (
         <HomeworkCard
           key={homework.id}

@@ -1,6 +1,7 @@
-import { api } from '../config/api.config.ts';
 import type { AvatarUpload, ProfileData } from '@entities/User';
 import { request } from '@shared/api';
+
+import { api } from '../config/api.config.ts';
 
 export class UserService {
   public static async getUserInfo(): Promise<ProfileData> {

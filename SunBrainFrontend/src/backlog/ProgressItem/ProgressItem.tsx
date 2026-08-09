@@ -1,12 +1,12 @@
-import './progressItem.css';
+import styles from './progressItem.module.scss';
 
 const ProgressItem = () => {
   return (
     <>
-      <div className="item">
-        <div className="item_subject">Математика</div>
-        <div className="item__progress--container">
-          <div className="item__progress"></div>
+      <div className={styles.item}>
+        <div className={styles.subject}>Математика</div>
+        <div className={styles.progressContainer}>
+          <div className={styles.progress}></div>
         </div>
       </div>
     </>

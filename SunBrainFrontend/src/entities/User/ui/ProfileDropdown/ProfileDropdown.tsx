@@ -1,21 +1,23 @@
-import './ProfileDropdown.scss';
 import { useProfileDropdown } from '@entities/User/model/useProfileDropdown.ts';
 
+import styles from './ProfileDropdown.module.scss';
+
 export const ProfileDropdown = () => {
-  const { handleTest, handleLogout, handleHomeworks, handleAccount } = useProfileDropdown();
+  const { handleTest, handleLogout, handleHomeworks, handleAccount } =
+    useProfileDropdown();
 
   return (
-    <ul className="profile-dropdown">
-      <li className="profile-dropdown__item" onClick={handleAccount}>
+    <ul className={styles.profileDropdown}>
+      <li className={styles.item} onClick={handleAccount}>
         Личный кабинет
       </li>
-      <li className="profile-dropdown__item" onClick={handleHomeworks}>
+      <li className={styles.item} onClick={handleHomeworks}>
         Домашние работы
       </li>
-      <li className="profile-dropdown__item" onClick={handleTest}>
+      <li className={styles.item} onClick={handleTest}>
         Пройти тест
       </li>
-      <li className="profile-dropdown__item logout" onClick={handleLogout}>
+      <li className={`${styles.item} ${styles.logout}`} onClick={handleLogout}>
         Выйти
       </li>
     </ul>

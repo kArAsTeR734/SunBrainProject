@@ -1,6 +1,7 @@
 import React from 'react';
-import './TestNavigation.scss';
+
 import type { TestTask } from '../../models/TestTask';
+import styles from './TestNavigation.module.scss';
 
 interface TaskNavigationProps {
   tasks: Array<TestTask>;
@@ -27,19 +28,21 @@ export const TestNavigation: React.FC<TaskNavigationProps> = ({
       : null;
 
   return (
-    <div className="navigation-container">
-      <div className="navigation-header">
+    <div className={styles.navigationContainer}>
+      <div className={styles.navigationHeader}>
         <h3>Навигация по заданиям</h3>
-        <div className="progress-info">
+        <div className={styles.progressInfo}>
           Задание {currentTask} из {totalTasks}
         </div>
       </div>
 
-      <div className="tasks-grid">
+      <div className={styles.tasksGrid}>
         {tasks.map((task) => (
           <button
             key={task.id}
-            className={`task-button ${task.isCurrent ? 'current' : ''} ${task.isAnswered ? 'answered' : 'unanswered'}`}
+            className={`${styles.taskButton} ${task.isCurrent ? styles.current : ''} ${
+              task.isAnswered ? styles.answered : styles.unanswered
+            }`}
             onClick={() => onTaskSelect(task.id)}
           >
             {task.orderIndex + 1}
@@ -47,9 +50,9 @@ export const TestNavigation: React.FC<TaskNavigationProps> = ({
         ))}
       </div>
 
-      <div className="navigation-footer">
+      <div className={styles.navigationFooter}>
         <button
-          className="prev-button"
+          className={styles.prevButton}
           onClick={() => prevTaskId !== null && onTaskSelect(prevTaskId)}
           disabled={prevTaskId === null}
         >
@@ -57,29 +60,29 @@ export const TestNavigation: React.FC<TaskNavigationProps> = ({
         </button>
 
         <button
-          className="next-button"
+          className={styles.nextButton}
           onClick={() => nextTaskId !== null && onTaskSelect(nextTaskId)}
           disabled={nextTaskId === null}
         >
           Вперёд
         </button>
 
-        <button className="finish-button" onClick={onFinish} disabled={isFinishing}>
+        <button className={styles.finishButton} onClick={onFinish} disabled={isFinishing}>
           {isFinishing ? 'Завершение...' : 'Завершить тест'}
         </button>
       </div>
 
-      <div className="legend">
-        <div className="legend-item">
-          <span className="legend-dot answered"></span>
+      <div className={styles.legend}>
+        <div className={styles.legendItem}>
+          <span className={`${styles.legendDot} ${styles.answered}`}></span>
           <span>Отвечено</span>
         </div>
-        <div className="legend-item">
-          <span className="legend-dot unanswered"></span>
+        <div className={styles.legendItem}>
+          <span className={`${styles.legendDot} ${styles.unanswered}`}></span>
           <span>Не отвечено</span>
         </div>
-        <div className="legend-item">
-          <span className="legend-dot current"></span>
+        <div className={styles.legendItem}>
+          <span className={`${styles.legendDot} ${styles.current}`}></span>
           <span>Текущее</span>
         </div>
       </div>

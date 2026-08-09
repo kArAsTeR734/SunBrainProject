@@ -1,7 +1,8 @@
-import './studentAccount.scss';
-import { Suspense } from 'react';
-import { useAppSelector } from '@shared/lib';
 import { UserAuthPlaceholder } from '@entities/User';
+import { useAppSelector } from '@shared/lib';
+import { Suspense } from 'react';
+
+import styles from './studentAccount.module.scss';
 import { StudentAccountInfo } from './StudentAccountInfo/StudentAccountInfo';
 import { StudentAccountPosition } from './StudentAccountPosition/StudentAccountPosition';
 
@@ -9,13 +10,13 @@ export const StudentAccount = () => {
   const { isAuth } = useAppSelector((state) => state.userReducer);
   return (
     <>
-      <section className="account">
+      <section className={styles.account}>
         <div className="container">
           {isAuth ? (
             <Suspense fallback={<UserAuthPlaceholder />}>
-              <div className="account__wrapper">
+              <div className={styles.wrapper}>
                 <StudentAccountInfo />
-                <div className="account__special--info">
+                <div className={styles.specialInfo}>
                   <StudentAccountPosition />
                 </div>
               </div>

@@ -1,0 +1,50 @@
+@use "@styles/helpers" as *;
+
+.solution {
+  border-top: 1px solid #ecf3f5;
+}
+
+.toggle {
+  padding: fluid(20, 16) rem(48) fluid(20, 16) 0;
+  cursor: pointer;
+  position: relative;
+  font-weight: 600;
+  font-size: fluid(28, 20);
+  line-height: 1;
+  color: #191919;
+  user-select: none;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: rem(18);
+    width: 15px;
+    height: 15px;
+    border-top: 2px solid var(--secondary, #000);
+    border-right: 2px solid var(--secondary, #000);
+    transform: translateY(-50%) rotate(135deg);
+  }
+}
+
+.content {
+  margin-top: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: fluid(20, 14);
+  border-left: 4px solid #27ae60;
+  overflow-x: auto;
+}
+
+.content :global(.katex) {
+  display: inline;
+  line-height: 2;
+}
+
+.content :global(.katex-display) {
+  display: block;
+}
+
+.content :global(.katex .mord) {
+  font-size: 1.1rem;
+}

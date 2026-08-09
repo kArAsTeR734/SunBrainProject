@@ -1,20 +1,27 @@
-import { Card } from '@shared/ui';
 import { KNOWLEDGE_TEST_SUBJECTS } from '@features/Test';
-import './KnowledgeTestSubjectCards.scss';
 import { PATHS } from '@shared/routes';
+import { Card } from '@shared/ui';
+
+import styles from './KnowledgeTestSubjectCards.module.scss';
 
 export const KnowledgeTestSubjectCards = () => {
   return (
-    <section className="knowledge-test-subjects">
-      <h1 className="knowledge-test-subjects__title">Выберите предмет для тестирования</h1>
-      <p className="knowledge-test-subjects__subtitle">
+    <section className={styles.knowledgeTestSubjects}>
+      <h1 className={styles.title}>
+        Выберите предмет для тестирования
+      </h1>
+      <p className={styles.subtitle}>
         Для каждого номера экзамена будут доступны 3 задания разного уровня сложности.
       </p>
 
-      <div className="knowledge-test-subjects__grid">
+      <div className={styles.grid}>
         {KNOWLEDGE_TEST_SUBJECTS.map((subject) => (
-          <div className="knowledge-test-subjects__item" key={subject.id}>
-            <Card id={subject.id} fullPath={PATHS.TEST_SUBJECT(subject.id)} title={subject.title} />
+          <div className={styles.item} key={subject.id}>
+            <Card
+              id={subject.id}
+              fullPath={PATHS.TEST_SUBJECT(subject.id)}
+              title={subject.title}
+            />
           </div>
         ))}
       </div>

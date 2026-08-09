@@ -1,12 +1,13 @@
 import { useHomeworkTasks } from '@features/HomeworkTasks';
-import { useLocation, useParams } from 'react-router-dom';
-import { getSubjectTitle } from '@shared/lib';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import React from 'react';
-import './Breadcrumbs.scss';
 import { useTopics } from '@features/Topics';
-import { Link } from 'react-router-dom';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { getSubjectTitle } from '@shared/lib';
 import { PATHS } from '@shared/routes';
+import React from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import styles from './Breadcrumbs.module.scss';
 
 export const Breadcrumbs = () => {
   const { pathname } = useLocation();
@@ -47,15 +48,17 @@ export const Breadcrumbs = () => {
   }
 
   return (
-    <section className="breadcrumbs">
-      <nav className="breadcrumbs__links">
+    <section className={styles.breadcrumbs}>
+      <nav className={styles.links}>
         {crumbs.map((link, index) => (
           <React.Fragment key={link.href}>
-            <Link className="breadcrumbs__link" to={link.href}>
+            <Link className={styles.link} to={link.href}>
               {link.label}
             </Link>
 
-            {index < crumbs.length - 1 && <ArrowForwardIcon className="breadcrumbs__separator" />}
+            {index < crumbs.length - 1 && (
+              <ArrowForwardIcon className={styles.separator} />
+            )}
           </React.Fragment>
         ))}
       </nav>

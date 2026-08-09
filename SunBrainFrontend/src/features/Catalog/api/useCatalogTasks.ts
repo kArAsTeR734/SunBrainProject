@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+
 import { TaskService } from '@/api/services/TaskService.ts';
 
 export const useCatalogTasks = (themeId: number) => {

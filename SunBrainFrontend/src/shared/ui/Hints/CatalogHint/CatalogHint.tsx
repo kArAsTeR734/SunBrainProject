@@ -1,29 +1,38 @@
-import './catalogHint.scss';
-import formulaHint from '@/assets/formulaHint.svg';
-import taskHint from '@/assets/taskHint.svg';
+import FormulaHint from '@shared/assets/formulaHint.svg?react';
+import TaskHint from '@shared/assets/taskHint.svg?react';
+import { ReactNode } from 'react';
+
+import styles from './catalogHint.module.scss';
+
+interface Hint {
+  number: number;
+  image: ReactNode;
+  title: string;
+}
+
+const catalogHints: Hint[] = [
+  {
+    number: 1,
+    image: <FormulaHint />,
+    title: 'Вспоминай формулы по каждой теме',
+  },
+  {
+    number: 2,
+    image: <TaskHint />,
+    title: 'Решай новые задачи каждый день',
+  },
+];
 
 const CatalogHint = () => {
-  const catalogHints = [
-    {
-      number: 1,
-      imgSrc: formulaHint,
-      title: 'Вспоминай формулы по каждой теме',
-    },
-    {
-      number: 2,
-      imgSrc: taskHint,
-      title: 'Решай новые задачи каждый день',
-    },
-  ];
   return (
     <>
-      {catalogHints.map(({ number, imgSrc, title }) => (
-        <div className="catalog-hint" key={number}>
-          <div className="catalog-hint__img">
-            <img src={imgSrc} alt="formulaHint" loading="lazy" />
-            <span className="catalog-hint__number">{number}</span>
+      {catalogHints.map(({ number, image, title }) => (
+        <div className={styles.catalogHint} key={number}>
+          <div className={styles.img}>
+            {image}
+            <span className={styles.number}>{number}</span>
           </div>
-          <div className="catalog-hint__title">{title}</div>
+          <div className={styles.title}>{title}</div>
         </div>
       ))}
     </>

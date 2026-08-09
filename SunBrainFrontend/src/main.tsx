@@ -1,8 +1,9 @@
-import { createRoot } from 'react-dom/client';
-import App from './app/App.tsx';
 import { setupStore } from '@app/store';
-import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+
+import App from './app/App.tsx';
 export const store = setupStore();
 export const queryClient = new QueryClient();
 
