@@ -1,7 +1,7 @@
 services:
   frontend:
     build:
-      context: ./SunBrainFrontend
+      context: ./sun-brain-frontend
       dockerfile: Dockerfile.prod
       args:
         VITE_API_URL: https://api.sunbrain.crazedns.ru
@@ -15,13 +15,13 @@ services:
 
   backend:
     build:
-      context: ./SunBrainBackend
+      context: ./sun-brain-backend
       dockerfile: Dockerfile.prod
     image: sunbrain_backend_prod
     container_name: sunbrain_backend
     restart: unless-stopped
     env_file:
-      - ./SunBrainBackend/.env.production
+      - ./sun-brain-backend/.env.production
     ports:
       - "5000:5000"
     depends_on:

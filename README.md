@@ -46,8 +46,8 @@ SunBrain — образовательная веб-платформа для п�
 
 ```text
 SunBrainProject/
-├── SunBrainFrontend/       # React-приложение
-├── SunBrainBackend/        # REST API и серверная бизнес-логика
+├── sun-brain-frontend/       # React-приложение
+├── sun-brain-backend/        # REST API и серверная бизнес-логика
 │   ├── scripts/            # Вспомогательные скрипты
 │   └── src/
 │       ├── controllers/    # Обработчики HTTP-запросов
@@ -70,7 +70,7 @@ SunBrainProject/
 
 ### 1. Настройте backend
 
-Создайте файл `SunBrainBackend/.env`:
+Создайте файл `sun-brain-backend/.env`:
 
 ```dotenv
 NODE_ENV=development
@@ -140,18 +140,18 @@ make restore-db
 ### Backend
 
 1. Создайте базу `SunBrain_dev` и при необходимости восстановите в неё `SunBrain_dev.backup` с помощью `pg_restore`.
-2. Создайте `SunBrainBackend/.env` по примеру выше, заменив `DB_HOST=db` на `DB_HOST=localhost`.
+2. Создайте `sun-brain-backend/.env` по примеру выше, заменив `DB_HOST=db` на `DB_HOST=localhost`.
 3. Установите зависимости и запустите сервер:
 
 ```bash
-cd SunBrainBackend
+cd sun-brain-backend
 npm ci
 npm run dev
 ```
 
 ### Frontend
 
-При необходимости создайте `SunBrainFrontend/.env`:
+При необходимости создайте `sun-brain-frontend/.env`:
 
 ```dotenv
 VITE_API_URL=http://localhost:5000
@@ -161,7 +161,7 @@ VITE_RUN=development
 Затем запустите клиент:
 
 ```bash
-cd SunBrainFrontend
+cd sun-brain-frontend
 npm ci
 npm run dev
 ```
@@ -183,7 +183,7 @@ npm run dev
 | `make down` | Остановить dev-окружение |
 | `make restart` | Перезапустить dev-окружение |
 
-Проверки frontend выполняются из каталога `SunBrainFrontend`:
+Проверки frontend выполняются из каталога `sun-brain-frontend`:
 
 ```bash
 npm run lint
@@ -217,7 +217,7 @@ Authorization: Bearer <access_token>
 
 Перед production-запуском:
 
-1. задайте безопасные значения в `SunBrainBackend/.env.production`;
+1. задайте безопасные значения в `sun-brain-backend/.env.production`;
 2. укажите публичный адрес API в аргументе `VITE_API_URL` файла `docker-compose.yml`;
 3. убедитесь, что внешний том `sunbrainproject_postgres18_data` создан и содержит актуальную базу.
 

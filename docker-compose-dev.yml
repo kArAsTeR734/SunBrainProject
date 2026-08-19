@@ -1,7 +1,7 @@
 services:
   frontend:
     build:
-      context: ./SunBrainFrontend
+      context: ./sun-brain-frontend
       dockerfile: Dockerfile.dev
     image: sunbrain_frontend_dev
     ports:
@@ -13,15 +13,15 @@ services:
 
   backend:
     build:
-      context: ./SunBrainBackend
+      context: ./sun-brain-backend
       dockerfile: Dockerfile.dev
     image: sunbrain_backend_dev
     ports:
       - "5000:5000"
     env_file:
-      - ./SunBrainBackend/.env
+      - ./sun-brain-backend/.env
     volumes:
-      - ./SunBrainBackend:/app
+      - ./sun-brain-backend:/app
       - /app/node_modules
     depends_on:
       - db

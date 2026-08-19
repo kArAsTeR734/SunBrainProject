@@ -1,0 +1,10 @@
+export { userActions, userReducer } from './model/userSlice';
+export { Profile } from './ui/profile/Profile';
+export { ProfileDropdown } from './ui/profile-dropdown/ProfileDropdown';
+export { ProfileTrigger } from './ui/profile-trigger/ProfileTrigger';
+export { UserAuthPlaceholder } from './ui/user-auth-placeholder/UserAuthPlaceholder';
+export { useAvatar } from '@entities/user/api/useAvatar.ts';
+export { useLeaderboard } from '@entities/user/api/useLeaderboard.ts';
+export { useUserInfo } from '@entities/user/api/useUserInfo.ts';
+export type { AvatarUpload, ProfileData, ProfileUser } from '@entities/user/model/types';
+export { useProfileDropdown } from '@entities/user/model/useProfileDropdown.ts';
