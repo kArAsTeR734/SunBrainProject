@@ -1,12 +1,12 @@
 import { useAvatar } from '@entities/user';
+import { useUserState } from '@entities/user';
 import { Avatar } from '@features/user';
-import { useAppSelector } from '@shared/lib';
 
 import styles from './studentAccountInfo.module.scss';
 
 export const StudentAccountInfo = () => {
   const uploadAvatarMutation = useAvatar();
-  const { user } = useAppSelector((state) => state.userReducer);
+  const { user } = useUserState();
   const handleUpload = async (file: File) => {
     await uploadAvatarMutation.mutateAsync(file);
   };

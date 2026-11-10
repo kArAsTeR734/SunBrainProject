@@ -1,5 +1,6 @@
-import { KnowledgeTestService } from '@shared/api/services/KnowledgeTestService.ts';
 import { useQuery } from '@tanstack/react-query';
+
+import { KnowledgeTestService } from './KnowledgeTestService';
 
 export const useTestReview = (testId: number) => {
   return useQuery({

@@ -1,5 +1,6 @@
-import type { ProfileUser } from '@entities/user';
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+
+import type { ProfileUser } from './types';
 
 export interface UserState {
   isAuth: boolean;

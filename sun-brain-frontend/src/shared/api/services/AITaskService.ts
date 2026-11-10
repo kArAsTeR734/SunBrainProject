@@ -1,4 +1,4 @@
-import { api } from '@shared/api/config/api.config.ts';
+import { api } from '../client';
 
 export class AIService {
   public static async test(): Promise<string> {

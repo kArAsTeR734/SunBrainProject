@@ -1,0 +1,191 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model homework_answers {
+  id             Int       @id @default(autoincrement())
+  user_id        Int?
+  task_id        Int?
+  answer         String
+  is_correct     Boolean?  @default(false)
+  points_awarded Int?      @default(0)
+  created_at     DateTime? @default(now()) @db.Timestamp(6)
+  users          users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model homework_assignments {
+  id           Int       @id @default(autoincrement())
+  homework_id  Int
+  user_id      Int
+  assigned_at  DateTime? @default(now()) @db.Timestamp(6)
+  completed_at DateTime? @db.Timestamp(6)
+  users        users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_homework_assignments_user")
+}
+
+model homework_tasks {
+  id          Int  @id @default(autoincrement())
+  homework_id Int
+  task_id     Int
+  order_index Int? @default(0)
+}
+
+model homeworks {
+  id         Int       @id @default(autoincrement())
+  title      String    @db.VarChar(255)
+  subject_id Int
+  deadline   DateTime  @db.Timestamp(6)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  updated_at DateTime? @default(now()) @db.Timestamp(6)
+  topic_id   Int?
+  subjects   subjects  @relation(fields: [subject_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_homeworks_subject")
+  topics     topics?   @relation(fields: [topic_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model leaderboard {
+  id                Int       @id @default(autoincrement())
+  user_id           Int       @unique
+  total_points      Int?      @default(0)
+  tasks_solved      Int?      @default(0)
+  correct_solutions Int?      @default(0)
+  last_activity_at  DateTime? @default(now()) @db.Timestamp(6)
+  created_at        DateTime? @default(now()) @db.Timestamp(6)
+  users             users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([total_points(sort: Desc)], map: "idx_leaderboard_total_points")
+}
+
+model solutions {
+  id          Int       @id @default(autoincrement())
+  user_id     Int
+  task_id     Int
+  user_answer String    @db.VarChar(500)
+  is_correct  Boolean
+  created_at  DateTime? @default(now()) @db.Timestamp(6)
+  homework_id Int?
+  users       users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([user_id, task_id], map: "idx_unique_solution")
+  @@index([created_at], map: "idx_solutions_created_at")
+  @@index([task_id], map: "idx_solutions_task_id")
+  @@index([user_id], map: "idx_solutions_user_id")
+}
+
+model study_recommendations {
+  id                Int       @id @default(autoincrement())
+  user_id           Int
+  subject_id        Int
+  topic_id          Int
+  mastery_level     Int?      @default(0)
+  recommended_tasks Int?      @default(5)
+  created_at        DateTime? @default(now()) @db.Timestamp(6)
+  updated_at        DateTime? @default(now()) @db.Timestamp(6)
+  subjects          subjects  @relation(fields: [subject_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rec_subject")
+  topics            topics    @relation(fields: [topic_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rec_topic")
+  users             users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_rec_user")
+}
+
+model subjects {
+  id                    Int                     @id @default(autoincrement())
+  name                  String                  @unique @db.VarChar(100)
+  code                  String                  @unique @db.VarChar(20)
+  homeworks             homeworks[]
+  study_recommendations study_recommendations[]
+  tests                 tests[]
+  topics                topics[]
+}
+
+model tasks {
+  id             Int            @id @default(autoincrement())
+  content        String
+  original_tex   String?
+  solution       String?
+  correct_answer String?
+  points         Int?           @default(1)
+  topic_id       Int?
+  difficulty     String?
+  exam_type      String?
+  answer_format  String?
+  created_at     DateTime?      @default(now()) @db.Timestamp(6)
+  updated_at     DateTime?      @default(now()) @db.Timestamp(6)
+  topics         topics?        @relation(fields: [topic_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  test_answers   test_answers[]
+  test_tasks     test_tasks[]
+}
+
+model test_answers {
+  id          Int       @id @default(autoincrement())
+  test_id     Int?
+  user_id     Int?
+  task_id     Int?
+  task_number Int?
+  difficulty  String?   @db.VarChar(10)
+  user_answer String?
+  is_correct  Boolean?
+  answered_at DateTime? @default(now()) @db.Timestamp(6)
+  tasks       tasks?    @relation(fields: [task_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  tests       tests?    @relation(fields: [test_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users       users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([test_id], map: "idx_test_answers_test_id")
+}
+
+model test_tasks {
+  id          Int     @id @default(autoincrement())
+  test_id     Int?
+  task_id     Int?
+  task_number Int?
+  difficulty  String? @db.VarChar(10)
+  order_index Int?
+  tasks       tasks?  @relation(fields: [task_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tests       tests?  @relation(fields: [test_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([test_id], map: "idx_test_tasks_test_id")
+}
+
+model tests {
+  id              Int            @id @default(autoincrement())
+  user_id         Int
+  subject_id      Int
+  started_at      DateTime?      @default(now()) @db.Timestamp(6)
+  completed_at    DateTime?      @db.Timestamp(6)
+  total_questions Int?
+  correct_answers Int?           @default(0)
+  status          String?        @default("in_progress") @db.VarChar(20)
+  test_answers    test_answers[]
+  test_tasks      test_tasks[]
+  subjects        subjects       @relation(fields: [subject_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_tests_subject")
+  users           users          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_tests_user")
+}
+
+model topics {
+  id                    Int                     @id @default(autoincrement())
+  subject_code          String                  @db.VarChar(50)
+  name                  String                  @db.VarChar(200)
+  number                Int?
+  homeworks             homeworks[]
+  study_recommendations study_recommendations[]
+  tasks                 tasks[]
+  subjects              subjects                @relation(fields: [subject_code], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "fk_topics_subjects_code")
+
+  @@index([subject_code], map: "idx_topics_subject_code")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model users {
+  id                    Int                     @id @default(autoincrement())
+  email                 String                  @unique @db.VarChar(255)
+  password_hash         String                  @db.VarChar(255)
+  full_name             String                  @db.VarChar(150)
+  role                  String                  @db.VarChar(20)
+  refresh_token         String?                 @db.VarChar(500)
+  created_at            DateTime?               @default(now()) @db.Timestamp(6)
+  avatar_url            String?                 @db.VarChar(500)
+  homework_answers      homework_answers[]
+  homework_assignments  homework_assignments[]
+  leaderboard           leaderboard?
+  solutions             solutions[]
+  study_recommendations study_recommendations[]
+  test_answers          test_answers[]
+  tests                 tests[]
+}

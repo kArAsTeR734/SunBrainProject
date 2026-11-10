@@ -1,4 +1,4 @@
-import { HomeworkService } from '@shared/api/services/HomeworkService.ts';
+import { HomeworkService } from '@entities/homework';
 import { useQuery } from '@tanstack/react-query';
 
 export const useHomework = () => {

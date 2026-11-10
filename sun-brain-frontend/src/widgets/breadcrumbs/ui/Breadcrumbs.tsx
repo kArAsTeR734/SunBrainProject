@@ -1,7 +1,7 @@
+import { getSubjectTitle } from '@entities/catalog';
 import { useHomeworkTasks } from '@features/homework-tasks';
 import { useTopics } from '@features/topics';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { getSubjectTitle } from '@shared/lib';
 import { PATHS } from '@shared/routes';
 import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';

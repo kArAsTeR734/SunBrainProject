@@ -1,5 +1,5 @@
 import { UserAuthPlaceholder } from '@entities/user';
-import { useAppSelector } from '@shared/lib';
+import { useUserState } from '@entities/user';
 import { Suspense } from 'react';
 
 import { StudentAccountInfo } from './student-account-info/StudentAccountInfo';
@@ -7,7 +7,7 @@ import { StudentAccountPosition } from './student-account-position/StudentAccoun
 import styles from './studentAccount.module.scss';
 
 export const StudentAccount = () => {
-  const { isAuth } = useAppSelector((state) => state.userReducer);
+  const { isAuth } = useUserState();
   return (
     <>
       <section className={styles.account}>

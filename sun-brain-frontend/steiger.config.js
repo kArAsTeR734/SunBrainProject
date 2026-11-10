@@ -6,7 +6,6 @@ export default defineConfig([
   {
     files: ['./src/**'],
     rules: {
-      'fsd/forbidden-imports': 'off',
       // `pluralize` treats the uncountable word "Homework" as plural and
       // suggests renaming it to the identical singular name.
       'fsd/inconsistent-naming': 'off',

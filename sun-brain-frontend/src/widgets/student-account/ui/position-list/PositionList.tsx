@@ -1,5 +1,5 @@
-import { useLeaderboard } from '@entities/user';
-import { useAppSelector } from '@shared/lib';
+import { useLeaderboard } from '@entities/leaderboard';
+import { useUserState } from '@entities/user';
 import { DataFallback } from '@shared/ui';
 import { useEffect, useState } from 'react';
 
@@ -8,7 +8,7 @@ import { PositionItem } from './position-item/PositionItem.tsx';
 import styles from './positionList.module.scss';
 
 export const PositionList = () => {
-  const { user } = useAppSelector((state) => state.userReducer);
+  const { user } = useUserState();
   const {
     data: leaderboard,
     isLoading,

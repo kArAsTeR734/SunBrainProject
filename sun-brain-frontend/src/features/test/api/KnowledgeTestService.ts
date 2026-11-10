@@ -1,3 +1,6 @@
+import { request } from '@shared/api';
+import { api } from '@shared/api';
+
 import type {
   FinishTestResponse,
   GenerateTestHomeworkRequest,
@@ -8,9 +11,7 @@ import type {
   StartTestResponse,
   SubmitTestAnswerRequest,
   SubmitTestAnswerResponse,
-} from '@features/test';
-import { request } from '@shared/api';
-import { api } from '@shared/api/config/api.config.ts';
+} from '../models/types';
 
 export class KnowledgeTestService {
   public static async getTestMetaData({

@@ -1,14 +1,14 @@
 import { CatalogHints } from '@shared/ui';
-import { Breadcrumbs } from '@widgets/breadcrumbs';
+import type { ReactNode } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import styles from './objectsCatalog.module.scss';
 
-export const ObjectsCatalog = () => {
+export const ObjectsCatalog = ({ breadcrumbs }: { breadcrumbs: ReactNode }) => {
   return (
     <section className={styles.objectsCatalog}>
       <div className="container">
-        <Breadcrumbs />
+        {breadcrumbs}
         <CatalogHints />
         <Outlet />
       </div>

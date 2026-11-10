@@ -1,5 +1,6 @@
-import { KnowledgeTestService } from '@shared/api/services/KnowledgeTestService.ts';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { KnowledgeTestService } from './KnowledgeTestService';
 
 export const useFinishTestMutation = () => {
   const queryClient = useQueryClient();

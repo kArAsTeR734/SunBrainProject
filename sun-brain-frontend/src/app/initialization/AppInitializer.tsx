@@ -1,20 +1,16 @@
-import { userActions, useUserInfo } from '@entities/user';
-import { useAppDispatch } from '@shared/lib';
+import { useUserInfo } from '@entities/user';
 import { useEffect } from 'react';
-import { checkAuth } from 'src/features/auth-check';
+import { useDispatch } from 'react-redux';
+
+import { checkAuth } from './checkAuth';
 
 export const AppInitializer = () => {
-  const dispatch = useAppDispatch();
-  const { setUser } = userActions;
-  const { data: user } = useUserInfo();
+  const dispatch = useDispatch();
+  useUserInfo();
 
   useEffect(() => {
-    dispatch(checkAuth());
+    void checkAuth(dispatch);
   }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(setUser(user ?? null));
-  }, [dispatch, user, setUser]);
 
   return null;
 };

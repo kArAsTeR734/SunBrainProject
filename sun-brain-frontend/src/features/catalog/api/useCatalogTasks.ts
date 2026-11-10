@@ -1,4 +1,4 @@
-import { TaskService } from '@shared/api/services/TaskService.ts';
+import { TaskService } from '@entities/task';
 import { useQuery } from '@tanstack/react-query';
 
 export const useCatalogTasks = (themeId: number) => {

@@ -1,10 +1,10 @@
-import { useAppSelector } from '@shared/lib';
+import { useUserState } from '@entities/user';
 import { Loader } from '@shared/ui';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 export const ProtectedRoute = () => {
   const location = useLocation();
-  const { isAuth, isLoading } = useAppSelector((state) => state.userReducer);
+  const { isAuth, isLoading } = useUserState();
 
   if (isLoading) {
     return <Loader />;

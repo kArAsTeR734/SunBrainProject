@@ -1,12 +1,15 @@
-import { userActions } from '@entities/user';
-import { UserService } from '@shared/api/services/UserService.ts';
-import { useAppDispatch } from '@shared/lib';
 import { resolveAssetUrl } from '@shared/lib';
 import { useQuery } from '@tanstack/react-query';
+import { useDispatch } from 'react-redux';
+
+import { userActions } from '../model/userSlice';
+import { useUserState } from '../model/useUserState';
+import { UserService } from './UserService';
 
 export const useUserInfo = () => {
   const { setUser } = userActions;
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
+  const { isAuth } = useUserState();
 
   return useQuery({
     queryKey: ['userInfo'],
@@ -32,7 +35,7 @@ export const useUserInfo = () => {
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
     refetchOnMount: true,
-    enabled: !!localStorage.getItem('access_token'),
+    enabled: isAuth,
     select: (data) => data?.user ?? null,
   });
 };

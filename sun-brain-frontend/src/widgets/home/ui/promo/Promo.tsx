@@ -1,4 +1,4 @@
-import { useAppSelector } from '@shared/lib';
+import { useUserState } from '@entities/user';
 import { Button } from '@shared/ui';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ import styles from './promo.module.scss';
 
 export const Promo = () => {
   const navigate = useNavigate();
-  const { isAuth } = useAppSelector((state) => state.userReducer);
+  const { isAuth } = useUserState();
 
   const handleClickTest = () => {
     navigate('/student/test');

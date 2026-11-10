@@ -1,4 +1,4 @@
-import { Task } from '@entities/task';
+import type { Task } from '@entities/task/@x/homework';
 
 export interface HomeworkBase {
   id: number;
@@ -25,9 +25,4 @@ export interface HomeworkListItem extends HomeworkBase {
 
 export interface MyHomeworksResponse {
   homeworks: HomeworkListItem[];
-}
-
-export interface CheckAnswerResponse {
-  correct: boolean;
-  points: number;
 }

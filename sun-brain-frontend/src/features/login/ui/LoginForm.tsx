@@ -1,4 +1,4 @@
-import type { LoginRequest } from '@features/registration';
+import type { LoginRequest } from '@entities/user';
 import { TextField } from '@mui/material';
 import { useFormValidationContext } from '@shared/lib';
 import { emailValidation, passwordValidation } from '@shared/lib';

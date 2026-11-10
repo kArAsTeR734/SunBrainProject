@@ -1,7 +1,7 @@
-import type { CheckAnswerResponse } from '@entities/homework';
-import type { CatalogItemsResponse } from '@entities/task';
 import { request } from '@shared/api';
-import { api } from '@shared/api/config/api.config.ts';
+import { api } from '@shared/api';
+
+import type { CatalogItemsResponse, CheckAnswerResponse } from '../model/types';
 
 export class TaskService {
   static async checkTaskAnswer(

@@ -1,15 +1,16 @@
-import { UserService } from '@shared/api/services/UserService.ts';
 import { resolveAssetUrl } from '@shared/lib';
-import { useAppDispatch, useAppSelector } from '@shared/lib';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useDispatch } from 'react-redux';
 
 import type { ProfileData } from '../model/types.ts';
 import { userActions } from '../model/userSlice.ts';
+import { useUserState } from '../model/useUserState';
+import { UserService } from './UserService';
 
 export const useAvatar = () => {
   const queryClient = useQueryClient();
-  const dispatch = useAppDispatch();
-  const currentUser = useAppSelector((state) => state.userReducer.user);
+  const dispatch = useDispatch();
+  const currentUser = useUserState().user;
   const { setUser } = userActions;
 
   return useMutation({

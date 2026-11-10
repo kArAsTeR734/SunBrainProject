@@ -1,5 +1,4 @@
-import { PositionList } from '@widgets/student-account';
-
+import { PositionList } from '../../index';
 import styles from './studentAccountPosition.module.scss';
 
 export const StudentAccountPosition = () => {

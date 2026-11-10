@@ -1,5 +1,6 @@
-import { TopicService } from '@shared/api/services/TopicService.ts';
 import { useQuery } from '@tanstack/react-query';
+
+import { TopicService } from './TopicService';
 
 export const useTopics = (subjectId: string) => {
   return useQuery({

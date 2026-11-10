@@ -1,4 +1,4 @@
-import { AuthorizationService } from '@shared/api/services/AuthorizationService.ts';
+import { AuthorizationService } from '@entities/user';
 import { useMutation } from '@tanstack/react-query';
 
 export const useRegistration = () => {

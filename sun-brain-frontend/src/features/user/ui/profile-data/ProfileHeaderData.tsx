@@ -1,5 +1,5 @@
 import { Profile } from '@entities/user';
-import { useAppSelector } from '@shared/lib';
+import { useUserState } from '@entities/user';
 import { Button } from '@shared/ui';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ import styles from './ProfileHeaderData.module.scss';
 
 export const ProfileHeaderData = () => {
   const navigate = useNavigate();
-  const { isAuth } = useAppSelector((state) => state.userReducer);
+  const { isAuth } = useUserState();
   return (
     <>
       <div className={styles.userActions}>

@@ -1,6 +1,6 @@
+export { HomeworkService } from './api/HomeworkService';
 export * from './lib/formatDeadline';
 export type {
-  CheckAnswerResponse,
   Homework,
   HomeworkBase,
   HomeworkListItem,

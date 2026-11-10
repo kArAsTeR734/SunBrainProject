@@ -1,7 +1,8 @@
-import { ProfileDropdown, ProfileTrigger } from '@entities/user';
 import { useHover } from '@shared/lib';
 import { useRef } from 'react';
 
+import { ProfileDropdown } from '../profile-dropdown/ProfileDropdown';
+import { ProfileTrigger } from '../profile-trigger/ProfileTrigger';
 import styles from './Profile.module.scss';
 
 export const Profile = () => {

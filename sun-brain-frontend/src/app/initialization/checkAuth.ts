@@ -1,14 +1,13 @@
 import { userActions } from '@entities/user';
-import { AuthorizationService } from '@shared/api/services/AuthorizationService.ts';
-import { useAppDispatch } from '@shared/lib';
+import type { Dispatch } from '@reduxjs/toolkit';
+import { refreshSession } from '@shared/api';
 
-export const checkAuth = () => async () => {
+export const checkAuth = async (dispatch: Dispatch) => {
   const { setLoading, setAuth, setError } = userActions;
-  const dispatch = useAppDispatch();
   try {
     dispatch(setLoading(true));
 
-    const response = await AuthorizationService.refresh();
+    const response = await refreshSession();
     localStorage.setItem('access_token', response.accessToken);
 
     dispatch(setAuth(true));

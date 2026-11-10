@@ -1,8 +1,8 @@
-import FormulaHint from '@shared/assets/formulaHint.svg?react';
-import TaskHint from '@shared/assets/taskHint.svg?react';
 import { ReactNode } from 'react';
 
 import styles from './catalogHint.module.scss';
+import FormulaHint from './formulaHint.svg?react';
+import TaskHint from './taskHint.svg?react';
 
 interface Hint {
   number: number;

@@ -1,4 +1,4 @@
-import { useRegistration } from '@features/registration';
+import type { RegistrationRequest } from '@entities/user';
 import { TextField } from '@mui/material';
 import { useFormValidationContext } from '@shared/lib';
 import { emailValidation, passwordValidation } from '@shared/lib';
@@ -7,8 +7,9 @@ import { useEffect } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { useRegistration } from '../api/useRegistration';
 import { confirmPasswordValidation, fullNameValidation } from '../config/validation';
-import type { RegistrationFormValues, RegistrationRequest } from '../model/types';
+import type { RegistrationFormValues } from '../model/types';
 import styles from './registrationForm.module.scss';
 
 export const RegistrationForm = () => {

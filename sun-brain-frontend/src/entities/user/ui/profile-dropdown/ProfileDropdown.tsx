@@ -1,5 +1,4 @@
-import { useProfileDropdown } from '@entities/user/model/useProfileDropdown.ts';
-
+import { useProfileDropdown } from '../../model/useProfileDropdown.ts';
 import styles from './ProfileDropdown.module.scss';
 
 export const ProfileDropdown = () => {

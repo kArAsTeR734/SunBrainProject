@@ -1,4 +1,4 @@
-import { CATALOG_ITEMS } from '@entities/catalog';
+import { CATALOG_ITEMS } from './catalog';
 
 function getSubjectTitle(path: string | undefined): string {
   return CATALOG_ITEMS.find((item) => item.path === path)?.title ?? '';

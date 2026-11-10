@@ -1,10 +1,10 @@
-import { KnowledgeTestService } from '@shared/api/services/KnowledgeTestService.ts';
 import { PATHS } from '@shared/routes';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { setTestSessionData } from '../models/setTestToSessionStorage.ts';
 import type { KnowledgeTestSubjectId, StartTestResponse } from '../models/types.ts';
+import { KnowledgeTestService } from './KnowledgeTestService';
 
 export const useStartTestMutation = () => {
   const navigate = useNavigate();

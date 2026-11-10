@@ -1,8 +1,8 @@
-import DropdownIcon from '@shared/assets/chevron-down.svg?react';
-import { useAppSelector } from '@shared/lib';
 import clsx from 'clsx';
 
 import { getUserInitials } from '../../lib/getUserInitials';
+import { useUserState } from '../../model/useUserState';
+import DropdownIcon from './chevron-down.svg?react';
 import styles from './ProfileTrigger.module.scss';
 
 interface ProfileTriggerProps {
@@ -10,7 +10,7 @@ interface ProfileTriggerProps {
 }
 
 export const ProfileTrigger = ({ isOpen }: ProfileTriggerProps) => {
-  const { user } = useAppSelector((state) => state.userReducer);
+  const { user } = useUserState();
 
   return (
     <div className={styles.profileTrigger}>

@@ -52,7 +52,7 @@ const StudentHomework = lazy(() =>
   })),
 );
 const HomeworkTaskList = lazy(() =>
-  import('@features/homework-tasks').then(({ HomeworkTaskList }) => ({
+  import('@widgets/student-homework').then(({ HomeworkTaskList }) => ({
     default: HomeworkTaskList,
   })),
 );

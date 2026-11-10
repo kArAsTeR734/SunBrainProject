@@ -1,3 +1,4 @@
+import { Breadcrumbs } from '@widgets/breadcrumbs';
 import { ObjectsCatalog } from '@widgets/objects-catalog';
 
 import { Footer } from '@/widgets/footer';
@@ -7,7 +8,7 @@ export const StudentObjectCatalogPage = () => {
   return (
     <>
       <Header />
-      <ObjectsCatalog />
+      <ObjectsCatalog breadcrumbs={<Breadcrumbs />} />
       <Footer />
     </>
   );

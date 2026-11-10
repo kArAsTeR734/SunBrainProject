@@ -1,4 +1,4 @@
-import { useTopics } from '@features/topics';
+import { useTopics } from '../api/useTopics';
 
 export const useGetTopic = (topicId: string) => {
   const { data: topics } = useTopics(topicId);

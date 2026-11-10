@@ -1,5 +1,6 @@
-import { LeaderboardService } from '@shared/api/services/LeaderboardService.ts';
 import { useQuery } from '@tanstack/react-query';
+
+import { LeaderboardService } from './LeaderboardService';
 
 export const useLeaderboard = (userId: number) => {
   return useQuery({

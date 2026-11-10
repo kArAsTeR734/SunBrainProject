@@ -1,4 +1,4 @@
-import { TaskService } from '@shared/api/services/TaskService.ts';
+import { TaskService } from '@entities/task';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 type UseSubmitTaskParams = {

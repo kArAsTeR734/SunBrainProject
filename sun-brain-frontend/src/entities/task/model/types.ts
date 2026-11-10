@@ -27,3 +27,8 @@ export interface CatalogItemsInterface {
 }
 
 export type CatalogItemsResponse = CatalogItemsInterface;
+
+export interface CheckAnswerResponse {
+  correct: boolean;
+  points: number;
+}

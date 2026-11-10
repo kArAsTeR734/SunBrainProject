@@ -1,4 +1,4 @@
-import { API_BASE_URL } from '@shared/api/config/api.config.ts';
+import { API_BASE_URL } from '@shared/api';
 
 export const resolveAssetUrl = (value?: string | null) => {
   if (!value) {

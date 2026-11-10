@@ -1,3 +1,4 @@
+export { TaskService } from './api/TaskService';
 export type {
   CatalogItemsResponse,
   CatalogTask,

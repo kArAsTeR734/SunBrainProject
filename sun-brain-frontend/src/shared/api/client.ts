@@ -1,5 +1,6 @@
-import { AuthorizationService } from '@shared/api/services/AuthorizationService.ts';
 import axios from 'axios';
+
+import { request } from './api-client';
 
 const getDefaultApiBaseUrl = () => {
   if (typeof window === 'undefined') {
@@ -27,6 +28,9 @@ export const authApi = axios.create({
   withCredentials: true,
 });
 
+export const refreshSession = () =>
+  request<{ accessToken: string }>(authApi.post('/api/auth/refresh'));
+
 api.interceptors.request.use(async (config) => {
   config.headers.Authorization = `Bearer ${localStorage.getItem('access_token')}`;
   return config;
@@ -40,12 +44,13 @@ api.interceptors.response.use(
 
     if (
       error.response?.status === 401 &&
+      originalRequest &&
       !originalRequest._retry &&
       !originalRequest.url?.includes('/auth/refresh')
     ) {
       originalRequest._retry = true;
       try {
-        const response = await AuthorizationService.refresh();
+        const response = await refreshSession();
 
         localStorage.setItem('access_token', response.accessToken);
 

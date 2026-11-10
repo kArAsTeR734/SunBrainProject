@@ -1,14 +1,14 @@
-import { AuthorizationService } from '@shared/api/services/AuthorizationService.ts';
-import { useAppDispatch } from '@shared/lib';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import { AuthorizationService } from '../api/AuthorizationService';
 import { userActions } from './userSlice';
 
 export const useProfileDropdown = () => {
   const navigate = useNavigate();
 
   const { logout } = userActions;
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const handleLogout = async () => {
     dispatch(logout());

@@ -1,2 +1,2 @@
-export { useTopics } from '@features/topics/api/useTopics.ts';
-export type { Topic, TopicResponse } from '@features/topics/model/types';
+export { useTopics } from './api/useTopics.ts';
+export type { Topic, TopicResponse } from './model/types';

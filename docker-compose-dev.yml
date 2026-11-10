@@ -7,9 +7,10 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - VITE_RUN=development
+      VITE_RUN: development
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
 
   backend:
     build:
@@ -19,12 +20,26 @@ services:
     ports:
       - "5000:5000"
     env_file:
-      - ./sun-brain-backend/.env
-    volumes:
-      - ./sun-brain-backend:/app
-      - /app/node_modules
+      - path: ./sun-brain-backend/.env
+        required: false
+    environment:
+      NODE_ENV: development
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: SunBrain_dev
+      DB_USER: postgres
+      DB_PASSWORD: root
+      DATABASE_URL: postgresql://postgres:root@db:5432/SunBrain_dev?schema=public
+    command: sh -c "npm run migrate:deploy && npm run dev"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:5000/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 15s
 
   db:
     image: postgres:18-alpine
@@ -43,4 +58,3 @@ services:
 volumes:
   postgres18_data:
     name: sunbrainproject_postgres18_data
-    external: true

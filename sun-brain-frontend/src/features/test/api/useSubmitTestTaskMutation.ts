@@ -1,5 +1,6 @@
-import { KnowledgeTestService } from '@shared/api/services/KnowledgeTestService.ts';
 import { useMutation } from '@tanstack/react-query';
+
+import { KnowledgeTestService } from './KnowledgeTestService';
 
 interface SubmitMutationParams {
   testId: number;
