@@ -1,6 +1,6 @@
 import { resolveAssetUrl } from '@shared/lib';
+import { useAppDispatch } from '@shared/lib';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useDispatch } from 'react-redux';
 
 import type { ProfileData } from '../model/types.ts';
 import { userActions } from '../model/userSlice.ts';
@@ -9,7 +9,7 @@ import { UserService } from './UserService';
 
 export const useAvatar = () => {
   const queryClient = useQueryClient();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const currentUser = useUserState().user;
   const { setUser } = userActions;
 

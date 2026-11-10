@@ -1,6 +1,6 @@
 import { resolveAssetUrl } from '@shared/lib';
+import { useAppDispatch } from '@shared/lib';
 import { useQuery } from '@tanstack/react-query';
-import { useDispatch } from 'react-redux';
 
 import { userActions } from '../model/userSlice';
 import { useUserState } from '../model/useUserState';
@@ -8,7 +8,7 @@ import { UserService } from './UserService';
 
 export const useUserInfo = () => {
   const { setUser } = userActions;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { isAuth } = useUserState();
 
   return useQuery({

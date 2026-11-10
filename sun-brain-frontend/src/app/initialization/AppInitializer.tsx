@@ -1,11 +1,11 @@
 import { useUserInfo } from '@entities/user';
+import { useAppDispatch } from '@shared/lib';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { checkAuth } from './checkAuth';
 
 export const AppInitializer = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useUserInfo();
 
   useEffect(() => {

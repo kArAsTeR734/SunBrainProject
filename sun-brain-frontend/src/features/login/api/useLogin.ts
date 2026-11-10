@@ -1,12 +1,12 @@
 import { userActions } from '@entities/user';
 import { AuthorizationService } from '@entities/user';
 import { resolveAssetUrl } from '@shared/lib';
+import { useAppDispatch } from '@shared/lib';
 import { useMutation } from '@tanstack/react-query';
-import { useDispatch } from 'react-redux';
 
 export const useLogin = () => {
   const { setAuth, setUser } = userActions;
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return useMutation({
     mutationFn: AuthorizationService.login,
