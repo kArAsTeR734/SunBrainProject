@@ -1,6 +1,6 @@
 import { ProfileHeaderData } from '@features/user';
 import { BurgerMenu } from '@shared/ui';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { NavbarMenu } from '@/widgets/header/ui/navbar-menu/NavbarMenu.tsx';
 
@@ -9,6 +9,7 @@ import { Logo } from './logo/Logo';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const burgerRef = useRef<HTMLButtonElement>(null);
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -21,10 +22,18 @@ export const Header = () => {
   return (
     <section className={styles.header}>
       <div className="container">
-        <header className={styles.wrapper}>
+        <header
+          className={styles.wrapper}
+          onKeyDown={(event) => {
+            if (isMenuOpen && event.key === 'Escape') {
+              closeMenu();
+              burgerRef.current?.focus();
+            }
+          }}
+        >
           <Logo />
+          <BurgerMenu ref={burgerRef} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
           <NavbarMenu isMenuOpen={isMenuOpen} closeBurger={closeMenu} />
-          <BurgerMenu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
           <ProfileHeaderData />
         </header>
       </div>

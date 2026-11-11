@@ -1,4 +1,7 @@
 import { useAppDispatch } from '@shared/lib';
+import { PATHS } from '@shared/routes';
+import { useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { AuthorizationService } from '../api/AuthorizationService';
@@ -6,33 +9,26 @@ import { userActions } from './userSlice';
 
 export const useProfileDropdown = () => {
   const navigate = useNavigate();
-
-  const { logout } = userActions;
   const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [logoutError, setLogoutError] = useState('');
 
   const handleLogout = async () => {
-    dispatch(logout());
-    await AuthorizationService.logout();
-    localStorage.removeItem('access_token');
-    alert('Вы вышли из аккаунта!');
+    setIsLoggingOut(true);
+    setLogoutError('');
+    try {
+      await AuthorizationService.logout();
+      localStorage.removeItem('access_token');
+      dispatch(userActions.logout());
+      queryClient.clear();
+      navigate(PATHS.LOGIN);
+    } catch {
+      setLogoutError('Не удалось выйти. Попробуйте ещё раз.');
+    } finally {
+      setIsLoggingOut(false);
+    }
   };
 
-  const handleTest = () => {
-    navigate('/student/test');
-  };
-
-  const handleAccount = () => {
-    navigate('/student/account');
-  };
-
-  const handleHomeworks = () => {
-    navigate('/student/homework');
-  };
-
-  return {
-    handleLogout,
-    handleTest,
-    handleAccount,
-    handleHomeworks,
-  };
+  return { handleLogout, isLoggingOut, logoutError };
 };

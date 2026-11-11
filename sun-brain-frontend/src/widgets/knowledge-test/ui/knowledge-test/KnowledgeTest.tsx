@@ -8,9 +8,16 @@ import {
   useSubmitTestTaskMutation,
   useTestData,
 } from '@features/test';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from '@mui/material';
 import { useMySearchParams } from '@shared/lib';
 import { PATHS } from '@shared/routes';
-import { DataFallback } from '@shared/ui';
+import { Button, DataFallback } from '@shared/ui';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -33,6 +40,7 @@ export const KnowledgeTest = () => {
   const [currentTaskIndex, setCurrentTaskIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<Record<number, string>>({});
   const [showResults, setShowResults] = useState(false);
+  const [isFinishDialogOpen, setIsFinishDialogOpen] = useState(false);
 
   useEffect(() => {
     setCurrentTaskIndex(0);
@@ -71,6 +79,7 @@ export const KnowledgeTest = () => {
       return;
     }
 
+    setIsFinishDialogOpen(false);
     // Показываем результаты сразу, а генерация домашек продолжается в фоне.
     setShowResults(true);
     finishTest.mutate({ testId });
@@ -120,7 +129,8 @@ export const KnowledgeTest = () => {
     isCurrent: task.id === currentTask.id,
     orderIndex: task.orderIndex,
   }));
-  const answeredCount = Object.keys(userAnswers).length;
+  const answeredCount = tasks.filter((task) => userAnswers[task.id] !== undefined).length;
+  const unansweredCount = tasks.length - answeredCount;
 
   if (showResults) {
     return (
@@ -156,11 +166,45 @@ export const KnowledgeTest = () => {
             onTaskSelect={handleTaskSelect}
             currentTask={currentTask.orderIndex + 1}
             totalTasks={tasks.length}
-            onFinish={handleFinishTest}
+            onFinish={() => {
+              if (unansweredCount > 0) {
+                setIsFinishDialogOpen(true);
+              } else {
+                handleFinishTest();
+              }
+            }}
             isFinishing={finishTest.isPending}
           />
         </div>
       </div>
+
+      <Dialog
+        open={isFinishDialogOpen}
+        onClose={() => setIsFinishDialogOpen(false)}
+        aria-labelledby="finish-test-title"
+        aria-describedby="finish-test-description"
+        maxWidth="xs"
+        fullWidth
+        slotProps={{ paper: { className: styles.finishDialog } }}
+      >
+        <DialogTitle id="finish-test-title">Завершить тест?</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="finish-test-description">
+            Заданий без ответа: {unansweredCount} из {tasks.length}. Они будут учтены как
+            нерешённые.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions className={styles.finishActions}>
+          <Button
+            variant="haveAccount"
+            autoFocus
+            onClick={() => setIsFinishDialogOpen(false)}
+          >
+            Продолжить тест
+          </Button>
+          <Button onClick={handleFinishTest}>Завершить</Button>
+        </DialogActions>
+      </Dialog>
 
       <div className={styles.testProgress}>
         <div className={styles.progressBar}>

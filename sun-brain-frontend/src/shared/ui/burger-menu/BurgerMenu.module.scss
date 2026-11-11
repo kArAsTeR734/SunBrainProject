@@ -5,8 +5,8 @@
 
   display: none;
 
-  width: 32px;
-  height: 24px;
+  width: 44px;
+  height: 44px;
   padding: 0;
 
   border: none;
@@ -15,11 +15,11 @@
 
   .line {
     position: absolute;
-    left: 0;
+    left: 10px;
 
     display: block;
 
-    width: 100%;
+    width: 24px;
     height: 3px;
 
     border-radius: 2px;
@@ -32,7 +32,7 @@
   }
 
   .line:nth-child(1) {
-    top: 0;
+    top: 12px;
   }
 
   .line:nth-child(2) {
@@ -41,7 +41,7 @@
   }
 
   .line:nth-child(3) {
-    top: calc(100% - 3px);
+    top: 29px;
   }
 
   &.open {

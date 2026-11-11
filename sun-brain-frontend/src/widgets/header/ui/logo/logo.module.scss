@@ -1,47 +1,20 @@
 @use "@shared/styles/helpers" as *;
 
 .logo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  min-width: 0;
+  gap: rem(8);
+  min-height: rem(44);
   flex-shrink: 0;
-
-  .icon {
-    display: flex;
-  }
+  color: var(--text-color);
+  font-family: var(--font-family-accent);
+  font-size: fluid(26, 18);
+  font-weight: 700;
+  white-space: nowrap;
 
   svg {
-    width: rem(56);
-    min-width: rem(42);
-  }
-
-  .name {
-    color: #FF8000;
-    font-size: fluid(32, 20);
-    text-align: center;
-    margin-right: 47px;
-    flex-grow: 1;
-    cursor: pointer;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  @include tablet {
-    min-height: 68px;
-    padding-block: 6px;
-
-    .wrapper {
-      gap: rem(16);
-    }
-
-    .name {
-      margin-right: 0;
-    }
-  }
-
-  @include mobile {
-    svg {
-      width: rem(42);
-    }
+    width: fluid(38, 26);
+    height: auto;
+    color: var(--color-primary);
   }
 }

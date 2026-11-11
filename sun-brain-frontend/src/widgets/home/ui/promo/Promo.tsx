@@ -1,4 +1,5 @@
 import { useUserState } from '@entities/user';
+import { PATHS } from '@shared/routes';
 import { Button } from '@shared/ui';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,39 +9,23 @@ export const Promo = () => {
   const navigate = useNavigate();
   const { isAuth } = useUserState();
 
-  const handleClickTest = () => {
-    navigate('/student/test');
-  };
-
-  const handleClickAccount = () => {
-    if (!isAuth) {
-      navigate('/login');
-    }
-    navigate('/student/account');
-  };
   return (
     <section className={styles.promo}>
       <div className="container">
         <div className={styles.body}>
-          <h1 className={styles.title}>
-            Твой личный путь к ЕГЭ – AI создаст план, а ты <br /> достигнешь цели!
-          </h1>
+          <p className={styles.eyebrow}>Математика и физика · ОГЭ и ЕГЭ</p>
+          <h1 className={styles.title}>Подготовка к экзаменам в своём темпе</h1>
           <p className={styles.subtitle}>
-            Измените свои привычки в учебе с помощью индивидуальных идей <br />{' '}
-            искусственного интеллекта.
+            Проверьте знания на диагностическом тесте и узнайте, какие темы стоит
+            повторить.
           </p>
           <div className={styles.actions}>
-            <Button
-              variant="passTest"
-              onClick={handleClickTest}
-            >
-              Пройти вступительный тест
-            </Button>
+            <Button onClick={() => navigate(PATHS.TEST)}>Пройти диагностику</Button>
             <Button
               variant="haveAccount"
-              onClick={handleClickAccount}
+              onClick={() => navigate(isAuth ? PATHS.STUDENT.ACCOUNT : PATHS.LOGIN)}
             >
-              У меня уже есть аккаунт
+              {isAuth ? 'Личный кабинет' : 'У меня есть аккаунт'}
             </Button>
           </div>
         </div>

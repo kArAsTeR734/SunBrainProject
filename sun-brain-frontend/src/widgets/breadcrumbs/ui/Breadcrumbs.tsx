@@ -49,7 +49,7 @@ export const Breadcrumbs = () => {
 
   return (
     <section className={styles.breadcrumbs}>
-      <nav className={styles.links}>
+      <nav className={styles.links} aria-label="Путь по сайту">
         {crumbs.map((link, index) => (
           <React.Fragment key={link.href}>
             <Link className={styles.link} to={link.href}>

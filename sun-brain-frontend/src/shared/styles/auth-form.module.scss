@@ -1,0 +1,64 @@
+@use "@shared/styles/helpers" as *;
+
+.page {
+  min-height: calc(100dvh - #{rem(72)});
+  padding: fluid(48, 20) var(--container-padding-x);
+  background: var(--color-surface);
+}
+
+.card {
+  width: min(100%, #{rem(460)});
+  margin-inline: auto;
+  padding: fluid(32, 20);
+  border: 1px solid var(--color-border);
+  border-radius: rem(20);
+  background: var(--color-light);
+}
+
+.header {
+  font-size: fluid(34, 26);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.description {
+  margin: rem(8) 0 rem(24);
+  color: var(--color-muted);
+}
+
+.form {
+  display: grid;
+  gap: rem(16);
+
+  :global(.MuiOutlinedInput-root) {
+    border-radius: rem(10);
+  }
+
+  :global(.MuiFormLabel-root.Mui-focused:not(.Mui-error)) {
+    color: var(--color-primary);
+  }
+
+  :global(.MuiOutlinedInput-root.Mui-focused:not(.Mui-error) .MuiOutlinedInput-notchedOutline) {
+    border-color: var(--color-primary);
+  }
+}
+
+.actions {
+  display: grid;
+  gap: rem(14);
+  margin-top: rem(4);
+}
+
+.alternative {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: rem(14);
+  text-align: center;
+
+  a {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+}

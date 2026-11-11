@@ -1,8 +1,17 @@
 @use '@shared/styles/helpers' as *;
 
 :root{
-  --color-primary: #FF5C00FF;
-  --color-accent: #FF8000;
+  --color-primary: #ad370c;
+  --color-primary-hover: #8c2c08;
+  --color-accent: #ad370c;
+  --color-brand-soft: #fff2e8;
+  --color-surface: #faf8f6;
+  --color-border: #e8ddd5;
+  --color-muted: #5f5954;
+  --color-danger: #a52828;
+  --color-focus: #1c4fbc;
+  --color-scroll-thumb: #8c8278;
+  --color-scroll-track: #f4efeb;
 
   --text-color: #101010FF;
 

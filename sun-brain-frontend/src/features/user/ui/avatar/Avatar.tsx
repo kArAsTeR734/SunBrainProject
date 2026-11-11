@@ -1,4 +1,5 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import { ChangeEvent, useRef, useState } from 'react';
 
 import styles from './Avatar.module.scss';
 
@@ -9,46 +10,34 @@ interface AvatarProps {
 }
 
 export const Avatar = ({ currentAvatar, onUpload, size = 120 }: AvatarProps) => {
-  const [preview, setPreview] = useState<string>(currentAvatar || '');
+  const [uploadError, setUploadError] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    setPreview(currentAvatar || '');
-  }, [currentAvatar]);
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
+    event.target.value = '';
+    setUploadError('');
 
-    if (!file.type.startsWith('image/')) {
-      alert('Пожалуйста, выберите изображение');
+    if (!['image/jpeg', 'image/png', 'image/gif', 'image/webp'].includes(file.type)) {
+      setUploadError('Выберите изображение в формате JPEG, PNG, GIF или WebP.');
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      alert('Файл слишком большой. Максимум 5MB');
+      setUploadError('Размер изображения должен быть не больше 5 МБ.');
       return;
     }
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setPreview(e.target?.result as string);
-    };
-    reader.readAsDataURL(file);
 
     try {
       setIsUploading(true);
       await onUpload(file);
     } catch (error) {
       console.error('Ошибка загрузки:', error);
-      alert('Ошибка при загрузке аватарки');
-      setPreview(currentAvatar || '');
+      setUploadError('Не удалось загрузить аватар. Попробуйте ещё раз.');
     } finally {
       setIsUploading(false);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
     }
   };
 
@@ -57,44 +46,41 @@ export const Avatar = ({ currentAvatar, onUpload, size = 120 }: AvatarProps) => 
   };
 
   return (
-    <div className={styles.avatarUpload} style={{ width: size, height: size }}>
-      <div
+    <div className={styles.avatarUpload}>
+      <button
+        type="button"
         className={styles.container}
         onClick={handleClick}
-        style={{ cursor: isUploading ? 'wait' : 'pointer' }}
+        style={{ width: size, height: size }}
+        aria-label="Изменить аватар"
+        disabled={isUploading}
       >
-        {preview ? (
-          <img
-            src={preview}
-            alt="Аватар"
-            className={styles.image}
-            loading="lazy"
-          />
+        {currentAvatar ? (
+          <img src={currentAvatar} alt="" className={styles.image} loading="lazy" />
         ) : (
-          <div className={styles.placeholder}>
-            <span className={styles.icon}>👤</span>
-          </div>
+          <PersonOutlineIcon className={styles.icon} aria-hidden="true" />
         )}
-
-        <div className={styles.overlay}>
-          {isUploading ? (
-            <div className={styles.loading}>Загрузка...</div>
-          ) : (
-            <div className={styles.change}>
-              <span>Изменить</span>
-            </div>
-          )}
-        </div>
-      </div>
-
+      </button>
       <input
         ref={fileInputRef}
         type="file"
         accept="image/jpeg,image/png,image/gif,image/webp"
         onChange={handleFileChange}
-        className={styles.input}
+        hidden
         disabled={isUploading}
       />
+      {isUploading ? (
+        <p className={styles.hint} role="status">
+          Загружаем аватар…
+        </p>
+      ) : (
+        <p className={styles.hint}>Нажмите, чтобы изменить аватар</p>
+      )}
+      {uploadError && (
+        <p className={styles.error} role="alert">
+          {uploadError}
+        </p>
+      )}
     </div>
   );
 };

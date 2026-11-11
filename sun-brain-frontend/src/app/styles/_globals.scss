@@ -7,6 +7,8 @@
 }
 
 html {
+  scrollbar-color: var(--color-scroll-thumb) var(--color-scroll-track);
+
   &.is-lock {
     overflow: hidden;
   }
@@ -34,7 +36,7 @@ h3, .h3,
 h4, .h4,
 h5, .h5,
 h6, .h6 {
-  color: var(--color-light);
+  color: inherit;
 }
 
 h1, .h1,
@@ -109,7 +111,18 @@ video {
 }
 
 :focus-visible {
-  outline: rem(2) dashed var(--color-light);
-  outline-offset: rem(4);
+  outline: rem(2) solid var(--color-focus);
+  outline-offset: rem(3);
   transition-duration: 0s !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
