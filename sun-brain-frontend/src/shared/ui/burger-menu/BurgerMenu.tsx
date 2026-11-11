@@ -1,3 +1,5 @@
+import { forwardRef } from 'react';
+
 import styles from './BurgerMenu.module.scss';
 
 interface BurgerProps {
@@ -5,11 +7,16 @@ interface BurgerProps {
   toggleMenu: () => void;
 }
 
-export const BurgerMenu = ({ isMenuOpen, toggleMenu }: BurgerProps) => {
+export const BurgerMenu = forwardRef<HTMLButtonElement, BurgerProps>(function BurgerMenu(
+  { isMenuOpen, toggleMenu },
+  ref,
+) {
   return (
     <button
       className={`${styles.burgerMenu} ${isMenuOpen ? styles.open : ''}`}
+      ref={ref}
       type="button"
+      aria-controls="header-navigation"
       aria-label={isMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
       aria-expanded={isMenuOpen}
       onClick={toggleMenu}
@@ -19,4 +26,4 @@ export const BurgerMenu = ({ isMenuOpen, toggleMenu }: BurgerProps) => {
       <span className={styles.line} />
     </button>
   );
-};
+});

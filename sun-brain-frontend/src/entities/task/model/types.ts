@@ -24,6 +24,7 @@ export type CatalogTask = {
 
 export interface CatalogItemsInterface {
   catalogTasks: CatalogTask[];
+  nextCursor: number | null;
 }
 
 export type CatalogItemsResponse = CatalogItemsInterface;

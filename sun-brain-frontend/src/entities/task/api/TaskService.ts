@@ -11,7 +11,16 @@ export class TaskService {
     return request(api.post(`/api/tasks/${taskId}/check`, { answer }));
   }
 
-  static async getCatalogTasks(themeId: number): Promise<CatalogItemsResponse> {
-    return request(api.get(`/api/tasks/catalog/${themeId}`));
+  static async getCatalogTasks(
+    themeId: number,
+    cursor: number | null = null,
+    signal?: AbortSignal,
+  ): Promise<CatalogItemsResponse> {
+    return request(
+      api.get(`/api/tasks/catalog/${themeId}`, {
+        params: { limit: 12, ...(cursor === null ? {} : { cursor }) },
+        signal,
+      }),
+    );
   }
 }

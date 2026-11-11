@@ -6,9 +6,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { AppInitializer } from './initialization/AppInitializer.tsx';
 
-function App() {
-  const router = createBrowserRouter(getRoutesConfig());
+const router = createBrowserRouter(getRoutesConfig());
 
+function App() {
   return (
     <React.Suspense fallback={<div>Загрузка...</div>}>
       <AppInitializer />

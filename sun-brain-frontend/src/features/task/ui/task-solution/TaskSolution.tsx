@@ -1,6 +1,6 @@
 import 'katex/dist/katex.min.css';
 
-import { MarkdownContent } from '@shared/ui';
+import { MarkdownContent } from '@shared/ui/markdown-content';
 import { useState } from 'react';
 
 import styles from './TaskSolution.module.scss';

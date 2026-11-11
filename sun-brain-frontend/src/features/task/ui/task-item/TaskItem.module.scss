@@ -69,7 +69,6 @@
       width: 100%;
       position: relative;
       height: rem(60);
-      outline: none;
       line-height: rem(58);
       font-size: fluid(24, 18);
       padding: 0 rem(20);
@@ -90,8 +89,6 @@
   }
 
   .check {
-    background-color: #f5f5f5;
-    color: #000;
     border-radius: 6px;
     width: 160px;
     height: rem(60);

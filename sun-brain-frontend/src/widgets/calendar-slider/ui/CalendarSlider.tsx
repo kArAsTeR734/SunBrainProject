@@ -42,7 +42,11 @@ export const CalendarSlider = () => {
   }
 
   return (
-    <section className={styles.calendar}>
+    <section
+      className={styles.calendar}
+      tabIndex={0}
+      aria-label="Календарь заданий, прокручивается по горизонтали"
+    >
       <div className={styles.wrapper}>
         {calendarItems.map((item) => (
           <CalendarCell key={item.date.date}>

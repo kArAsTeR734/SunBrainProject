@@ -3,7 +3,7 @@ import React, { ButtonHTMLAttributes, FC } from 'react';
 
 import styles from './button.module.scss';
 
-type ButtonVariant = 'auth' | 'haveAccount' | 'logout' | 'passTest' | 'passTestStudent' | 'signIn';
+type ButtonVariant = 'auth' | 'haveAccount' | 'signIn';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
@@ -12,10 +12,17 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
 }
 
-export const Button: FC<ButtonProps> = ({ children, className, variant, ...props }) => {
+export const Button: FC<ButtonProps> = ({
+  children,
+  className,
+  variant,
+  type = 'button',
+  ...props
+}) => {
   return (
     <button
       {...props}
+      type={type}
       className={clsx(styles.button, variant && styles[variant], className)}
     >
       {children}

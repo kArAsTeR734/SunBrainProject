@@ -114,7 +114,9 @@ html {
     Убираем скачок интерфейса по горизонтали
     при появлении / исчезновении скроллбара
    */
-  scrollbar-gutter: stable;
+  @media (hover: hover) {
+    scrollbar-gutter: stable;
+  }
   /**
     Плавный скролл
    */

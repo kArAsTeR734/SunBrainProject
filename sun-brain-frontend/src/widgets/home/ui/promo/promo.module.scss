@@ -1,52 +1,52 @@
 @use "@shared/styles/helpers" as *;
 
-.promo{
-  padding-block: fluid(60, 32);
+.promo {
+  padding-block: fluid(32, 16) fluid(42, 24);
+}
 
-  .body{
-    display: flex;
+.body {
+  display: grid;
+  justify-items: center;
+  gap: fluid(20, 14);
+  padding: fluid(76, 28) fluid(48, 16);
+  border: 1px solid var(--color-border);
+  border-radius: fluid(28, 18);
+  background: linear-gradient(155deg, var(--color-brand-soft), var(--color-surface));
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: fluid(15, 12);
+  font-weight: 700;
+  letter-spacing: 0.035em;
+}
+
+.title {
+  max-width: 23ch;
+  font-size: fluid(60, 32);
+  font-weight: 700;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.subtitle {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: fluid(19, 16);
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: rem(12);
+  width: 100%;
+  margin-top: rem(8);
+
+  @include mobile-s {
     flex-direction: column;
-    row-gap: fluid(50, 24);
-    align-items: center;
-  }
-
-  .title{
-    color: var(--color-primary);
-    max-width: rem(1040);
-    font-size: fluid(40, 28);
-    font-weight: 700;
-    line-height: 1.2;
-    text-align: center;
-  }
-
-  .subtitle{
-    color: var(--color-primary);
-    max-width: rem(920);
-    font-size: fluid(20, 16);
-    font-weight: 600;
-    line-height: 1.5;
-    text-align: center;
-  }
-
-  .actions{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: rem(24);
-    width: 100%;
-  }
-
-  @include mobile {
-    .title,
-    .subtitle {
-      br {
-        display: none;
-      }
-    }
-
-    .actions {
-      flex-direction: column;
-      gap: rem(14);
-    }
   }
 }

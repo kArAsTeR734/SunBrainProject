@@ -40,6 +40,8 @@ export const TestNavigation: React.FC<TaskNavigationProps> = ({
         {tasks.map((task) => (
           <button
             key={task.id}
+            aria-current={task.isCurrent ? 'step' : undefined}
+            aria-label={`Задание ${task.orderIndex + 1}, ${task.isAnswered ? 'отвечено' : 'без ответа'}`}
             className={`${styles.taskButton} ${task.isCurrent ? styles.current : ''} ${
               task.isAnswered ? styles.answered : styles.unanswered
             }`}

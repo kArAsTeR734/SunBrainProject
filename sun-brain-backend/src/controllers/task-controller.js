@@ -68,11 +68,17 @@ class TaskController {
     try {
       const { themeId } = req.params;
 
-      if (!themeId) {
-        return res.status(404).json(errorResponse("Не указан topicId"));
+      const { cursor = '0', limit = '12' } = req.query;
+      const isInteger = (value) => typeof value === 'string' && /^(0|[1-9]\d*)$/.test(value)
+        && Number.isSafeInteger(Number(value)) && Number(value) <= 2147483647;
+      if (!isInteger(themeId) || Number(themeId) === 0 || !isInteger(cursor)
+        || !isInteger(limit) || Number(limit) < 1 || Number(limit) > 50) {
+        return res.status(400).json(errorResponse("Некорректные параметры каталога"));
       }
 
-      const tasks = await TaskService.getTasksByTopicId(themeId);
+      const tasks = await TaskService.getTasksByTopicId(Number(themeId), {
+        cursor: Number(cursor), limit: Number(limit),
+      });
 
       return res.status(200).json(successResponse(tasks));
     } catch (error) {
