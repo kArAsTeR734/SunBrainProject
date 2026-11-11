@@ -1,7 +1,6 @@
 import { ProtectedRoute } from '@app/routes/ProtectedRoute.tsx';
 import { HomeworkLayout } from '@shared/layouts';
 import { type AppRouteHandle, PATHS } from '@shared/routes';
-import { CatalogLayout } from '@widgets/objects-catalog';
 import { lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
 
@@ -55,6 +54,9 @@ const HomeworkTaskList = lazy(() =>
   import('@widgets/student-homework').then(({ HomeworkTaskList }) => ({
     default: HomeworkTaskList,
   })),
+);
+const CatalogLayout = lazy(() =>
+  import('@widgets/objects-catalog').then(({ CatalogLayout }) => ({ default: CatalogLayout })),
 );
 const CatalogObjectCards = lazy(() =>
   import('@widgets/objects-catalog').then(({ CatalogObjectCards }) => ({

@@ -129,19 +129,20 @@ class TaskService {
     };
   }
 
-  static async getTasksByTopicId(themeId) {
+  static async getTasksByTopicId(themeId, { cursor = 0, limit = 12 } = {}) {
     if (!themeId) {
       throw new Error("topicId is not found and required in this method");
     }
 
-    const tasks = await TaskModel.getTasksByTopicId(themeId);
+    const tasks = await TaskModel.getTasksByTopicId(themeId, { cursor, limit });
 
     if (!tasks) {
       throw new Error("Tasks for this theme non founded");
     }
 
     return {
-      catalogTasks: tasks,
+      catalogTasks: tasks.slice(0, limit),
+      nextCursor: tasks.length > limit ? tasks[limit - 1].id : null,
     };
   }
 

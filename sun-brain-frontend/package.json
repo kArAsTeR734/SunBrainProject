@@ -12,7 +12,8 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md,json}\" package.json eslint.config.js lint-staged.config.js .prettierrc",
     "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css,md,json}\" package.json eslint.config.js lint-staged.config.js .prettierrc",
     "prepare": "cd .. && husky sun-brain-frontend/.husky",
-    "steiger": "npx steiger ./src"
+    "steiger": "npx steiger ./src",
+    "test:performance": "npm run build && playwright test"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -36,6 +37,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@feature-sliced/steiger-plugin": "^0.7.0",
+    "@playwright/test": "^1.65.0",
     "@types/node": "^24.5.2",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",

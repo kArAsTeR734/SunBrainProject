@@ -26,42 +26,67 @@ export const authApi = axios.create({
     'Content-Type': 'application/json',
   },
   withCredentials: true,
+  timeout: 10000,
 });
 
-export const refreshSession = () =>
-  request<{ accessToken: string }>(authApi.post('/api/auth/refresh'));
+export const SESSION_EXPIRED_EVENT = 'sunbrain:session-expired';
+let refreshPromise: Promise<{ accessToken: string }> | null = null;
 
-api.interceptors.request.use(async (config) => {
-  config.headers.Authorization = `Bearer ${localStorage.getItem('access_token')}`;
+const expireSession = () => {
+  localStorage.removeItem('access_token');
+  window.dispatchEvent(new Event(SESSION_EXPIRED_EVENT));
+};
+
+export const refreshSession = () => {
+  if (!refreshPromise) {
+    refreshPromise = request<{ accessToken: string }>(authApi.post('/api/auth/refresh'))
+      .then((session) => {
+        localStorage.setItem('access_token', session.accessToken);
+        return session;
+      })
+      .catch((error) => {
+        expireSession();
+        throw error;
+      })
+      .finally(() => {
+        refreshPromise = null;
+      });
+  }
+  return refreshPromise;
+};
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('access_token');
+  config.headers.set('Authorization', token ? `Bearer ${token}` : undefined);
   return config;
 });
 
 api.interceptors.response.use(
   (response) => response,
-
   async (error) => {
     const originalRequest = error.config;
-
-    if (
-      error.response?.status === 401 &&
-      originalRequest &&
-      !originalRequest._retry &&
-      !originalRequest.url?.includes('/auth/refresh')
-    ) {
-      originalRequest._retry = true;
-      try {
-        const response = await refreshSession();
-
-        localStorage.setItem('access_token', response.accessToken);
-
-        originalRequest.headers.Authorization = `Bearer ${response.accessToken}`;
-
-        return api(originalRequest);
-      } catch (refreshError) {
-        localStorage.removeItem('access_token');
-        return Promise.reject(refreshError);
-      }
+    if (error.response?.status !== 401 || !originalRequest) {
+      return Promise.reject(error);
     }
-    return Promise.reject(error);
+    if (originalRequest._retry) {
+      expireSession();
+      return Promise.reject(error);
+    }
+    originalRequest._retry = true;
+
+    // A late 401 may belong to the token another request has already replaced.
+    const token = localStorage.getItem('access_token');
+    if (!token && originalRequest.headers.has('Authorization')) {
+      return Promise.reject(error);
+    }
+    if (token && originalRequest.headers.get('Authorization') !== `Bearer ${token}`) {
+      return api(originalRequest);
+    }
+    try {
+      await refreshSession();
+      return api(originalRequest);
+    } catch (refreshError) {
+      return Promise.reject(refreshError);
+    }
   },
 );

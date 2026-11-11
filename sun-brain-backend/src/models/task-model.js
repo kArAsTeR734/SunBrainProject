@@ -53,7 +53,7 @@ export default class TaskModel {
     return rows[0];
   }
 
-  static async getTasksByTopicId(themeId){
+  static async getTasksByTopicId(themeId, { cursor, limit }){
     const query = `
     SELECT
       id,
@@ -65,11 +65,12 @@ export default class TaskModel {
       points,
       solution AS "solutionLatex"
     FROM tasks
-      WHERE topic_id = $1
+      WHERE topic_id = $1 AND id > $2
       ORDER BY id
+      LIMIT $3
     `;
 
-    const { rows } = await pool.query(query, [themeId]);
+    const { rows } = await pool.query(query, [themeId, cursor, limit + 1]);
 
     return rows;
   }

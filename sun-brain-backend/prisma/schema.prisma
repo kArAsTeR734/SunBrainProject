@@ -111,6 +111,8 @@ model tasks {
   topics         topics?        @relation(fields: [topic_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   test_answers   test_answers[]
   test_tasks     test_tasks[]
+
+  @@index([topic_id, id], map: "idx_tasks_topic_id_id")
 }
 
 model test_answers {

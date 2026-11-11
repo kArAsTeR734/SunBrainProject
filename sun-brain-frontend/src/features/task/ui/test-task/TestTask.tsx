@@ -1,4 +1,4 @@
-import { MarkdownContent } from '@shared/ui';
+import { MarkdownContent } from '@shared/ui/markdown-content';
 import React, { useState } from 'react';
 
 import styles from './TestTask.module.scss';

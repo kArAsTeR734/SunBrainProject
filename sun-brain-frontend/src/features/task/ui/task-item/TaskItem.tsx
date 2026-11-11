@@ -1,6 +1,7 @@
 import type { CatalogTask, HomeworkTask } from '@entities/task';
 import { useInput } from '@shared/lib';
-import { Button, MarkdownContent } from '@shared/ui';
+import { Button } from '@shared/ui';
+import { MarkdownContent } from '@shared/ui/markdown-content';
 import clsx from 'clsx';
 import React, { FC, useState } from 'react';
 
