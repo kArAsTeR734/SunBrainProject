@@ -11,6 +11,6 @@ export const useGetKnowledgeTestTotalTaskCount = (subjectId?: KnowledgeTestSubje
       : skipToken,
     enabled: !!subjectId,
     retry: 3,
-    select: (data) => data.targetTotalTasks,
+    select: (data) => data.plannedTotalTasks,
   });
 };

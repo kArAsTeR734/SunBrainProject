@@ -93,6 +93,7 @@ class TestController {
         error.message === "User is not authenticated" ||
         error.message === "subjectCode is required" ||
         error.message === "subjectCode is not supported" ||
+        error.message === "No tasks available for this test" ||
         error.message?.includes("No tasks found for task number") ||
         error.message?.includes("Cannot build test with target")
       ) {

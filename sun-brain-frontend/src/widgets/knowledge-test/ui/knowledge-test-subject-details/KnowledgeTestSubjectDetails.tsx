@@ -63,6 +63,10 @@ export const KnowledgeTestSubjectDetails = () => {
         </div>
       </div>
 
+      {!isLoading && totalTasks === 0 && (
+        <p>Для этого предмета пока нет заданий для тестирования.</p>
+      )}
+
       <div className={styles.actions}>
         <Link className={`${styles.action} ${styles.secondary}`} to={PATHS.TEST}>
           Назад к выбору предмета
@@ -70,7 +74,7 @@ export const KnowledgeTestSubjectDetails = () => {
         <button
           className={`${styles.action} ${styles.primary}`}
           onClick={handleStartTest}
-          disabled={startTestMutation.isPending || isLoading}
+          disabled={startTestMutation.isPending || isLoading || totalTasks === 0}
         >
           {startTestMutation.isPending ? 'Запускаем тест...' : 'Начать тестирование'}
         </button>

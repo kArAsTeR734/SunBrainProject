@@ -149,6 +149,7 @@ class TaskService {
   static async generateTestTasks(
     subjectId,
     taskNumbers = this.TEST_TASK_NUMBERS,
+    targetTotalTasks = this.TEST_TARGET_TOTAL_TASKS,
   ) {
     const result = [];
     const numbersMeta = [];
@@ -170,7 +171,7 @@ class TaskService {
       });
     }
 
-    const plannedCounts = this.planTasksCountByNumber(numbersMeta);
+    const plannedCounts = this.planTasksCountByNumber(numbersMeta, targetTotalTasks);
 
     for (const meta of numbersMeta) {
       const tasksCount = plannedCounts[meta.taskNumber] || 1;
@@ -288,6 +289,7 @@ class TaskService {
       subjectName: subject.name,
       testTaskNumbers: this.TEST_TASK_NUMBERS,
       targetTotalTasks: this.TEST_TARGET_TOTAL_TASKS,
+      plannedTotalTasks: Math.min(this.TEST_TARGET_TOTAL_TASKS, maxPossibleTotalTasks),
       minPossibleTotalTasks,
       maxPossibleTotalTasks,
       canBuildTarget,
@@ -297,7 +299,7 @@ class TaskService {
     };
   }
 
-  static planTasksCountByNumber(numbersMeta) {
+  static planTasksCountByNumber(numbersMeta, targetTotal = this.TEST_TARGET_TOTAL_TASKS) {
     const counts = {};
 
     for (const meta of numbersMeta) {
@@ -308,7 +310,6 @@ class TaskService {
     const minPossible = totalNumbers * this.TEST_TASKS_PER_NUMBER_MIN;
     const twoTaskCandidates = numbersMeta.filter((meta) => meta.canPickTwo);
     const maxPossible = minPossible + twoTaskCandidates.length;
-    const targetTotal = this.TEST_TARGET_TOTAL_TASKS;
     const targetOutOfRange =
       targetTotal < minPossible || targetTotal > maxPossible;
 
