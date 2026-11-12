@@ -52,46 +52,42 @@ export const TaskItem: FC<TaskItemProps> = ({ task, isHomeworkTask }) => {
   }
 
   return (
-    <>
-      <div className={styles.task}>
-        <div className={styles.header}>
-          <h4>
-            <span className={styles.number}>Задача {task.id}</span>
-          </h4>
-          <span className={styles.attempts}>
-            Попыток до показа решения осталось: {attemptCount}
-          </span>
-        </div>
-        <div className={styles.text}>
-          <MarkdownContent content={taskContent} />
-        </div>
-        <div className={styles.actions}>
-          <div className={styles.answer}>
-            <input
-              className={clsx(styles.answerField, {
-                [styles.correct]: isChecked && isTaskComplete,
-                [styles.invalid]: isChecked && !isTaskComplete,
-              })}
-              type="text"
-              id="aswer-field"
-              placeholder="Ответ"
-              value={answer.value}
-              onChange={handleAnswerChange}
-            />
-          </div>
-          <Button
-            onClick={checkAnswerCorrect}
-            className={styles.check}
-            disabled={checkAnswerMutate.isPending}
-          >
-            {checkAnswerMutate.isPending ? 'Проверка...' : 'Проверить'}
-          </Button>
-        </div>
-
-        {(attemptCount === 0 || (isChecked && isTaskComplete)) && (
-          <TaskSolution solution={task.solutionLatex} />
-        )}
+    <div className={styles.task}>
+      <div className={styles.header}>
+        <h4 className={styles.number}>{task.id}</h4>
+        <span className={styles.attempts}>
+          Попыток до показа решения осталось: {attemptCount}
+        </span>
       </div>
-    </>
+      <div className={styles.text}>
+        <MarkdownContent content={taskContent} />
+      </div>
+      <div className={styles.actions}>
+        <div className={styles.answer}>
+          <input
+            className={clsx(styles.answerField, {
+              [styles.correct]: isChecked && isTaskComplete,
+              [styles.invalid]: isChecked && !isTaskComplete,
+            })}
+            type="text"
+            id="aswer-field"
+            placeholder="Ответ"
+            value={answer.value}
+            onChange={handleAnswerChange}
+          />
+        </div>
+        <Button
+          onClick={checkAnswerCorrect}
+          className={styles.check}
+          disabled={checkAnswerMutate.isPending}
+        >
+          {checkAnswerMutate.isPending ? 'Проверка...' : 'Проверить'}
+        </Button>
+      </div>
+
+      {(attemptCount === 0 || (isChecked && isTaskComplete)) && (
+        <TaskSolution solution={task.solutionLatex} />
+      )}
+    </div>
   );
 };

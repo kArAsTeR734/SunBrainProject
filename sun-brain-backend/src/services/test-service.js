@@ -43,10 +43,8 @@ class TestService {
     const meta = await TaskService.getTestPoolMeta(subjectCode);
     const normalizedSubjectId = Number(meta.subjectId);
 
-    if (!meta.canBuildTarget) {
-      throw new Error(
-        `Cannot build test with target ${meta.targetTotalTasks}: available range is ${meta.minPossibleTotalTasks}-${meta.maxPossibleTotalTasks}`,
-      );
+    if (meta.plannedTotalTasks === 0) {
+      throw new Error("No tasks available for this test");
     }
 
     const test = await TestModel.create(userId, normalizedSubjectId);
@@ -54,6 +52,7 @@ class TestService {
     const tasks = await TaskService.generateTestTasks(
       normalizedSubjectId,
       meta.availableTaskNumbers,
+      meta.plannedTotalTasks,
     );
 
     await TestModel.addTasks(test.id, tasks);

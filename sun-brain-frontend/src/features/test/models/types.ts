@@ -22,6 +22,7 @@ export interface GetTestPoolMetaData {
   subjectName: string;
   testTaskNumbers: number[]; // [1..12]
   targetTotalTasks: number; // сейчас 20
+  plannedTotalTasks: number;
   minPossibleTotalTasks: number;
   maxPossibleTotalTasks: number;
   canBuildTarget: boolean;
