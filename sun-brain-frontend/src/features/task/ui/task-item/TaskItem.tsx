@@ -54,7 +54,7 @@ export const TaskItem: FC<TaskItemProps> = ({ task, isHomeworkTask }) => {
   return (
     <div className={styles.task}>
       <div className={styles.header}>
-        <h4 className={styles.number}>{task.id}</h4>
+        <h4 className={styles.number}>Задание {task.id}</h4>
         <span className={styles.attempts}>
           Попыток до показа решения осталось: {attemptCount}
         </span>
