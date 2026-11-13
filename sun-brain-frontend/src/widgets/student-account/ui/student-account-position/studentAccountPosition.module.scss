@@ -2,20 +2,27 @@
 
 .position {
   .wrapper {
-    min-width: 0;
-    padding: fluid(32, 24);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-card);
-    background: var(--color-light);
-    box-shadow: var(--shadow-card);
-  }
+    .position {
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        padding: fluid(32, 24);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-card);
+        background: var(--color-light);
+        box-shadow: var(--shadow-card);
+        background: #fff;
+      }
 
-  .header {
-    margin-bottom: var(--space-3);
-    font-family: var(--font-family-accent);
-    font-size: rem(22);
-    font-weight: 600;
-    letter-spacing: -0.035em;
-    line-height: 1.4;
+      .header {
+        margin-bottom: var(--space-3);
+        font-weight: 600;
+        font-size: fluid(28, 22);
+        letter-spacing: -0.035em;
+        line-height: 1.4;
+        color: #171a1f;
+      }
+    }
   }
 }

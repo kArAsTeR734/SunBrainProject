@@ -19,16 +19,12 @@ export const StudentAccountInfo = () => {
           onUpload={handleUpload}
           size={150}
         />
-        <dl className={styles.info}>
-          <div className={styles.item}>
-            <dt>Имя и фамилия</dt>
-            <dd>{user?.fullName ?? ''}</dd>
-          </div>
-          <div className={styles.item}>
-            <dt>Электронная почта</dt>
-            <dd>{user?.email ?? ''}</dd>
-          </div>
-        </dl>
+        <div className={styles.info}>
+          <p className={styles.item}><span>ФИО</span>{user?.fullName ?? ''}</p>
+          <p className={styles.item}>
+            <span>Адрес электронной почты</span>{user?.email ?? ''}
+          </p>
+        </div>
       </div>
     </>
   );
