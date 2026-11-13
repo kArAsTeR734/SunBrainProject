@@ -7,6 +7,7 @@ const StudentAccountProgress = () => {
     <>
       <div className={styles.progress}>
         <h2 className={styles.header}>Прогресс обучения</h2>
+        <p className={styles.note}>Пример отображения прогресса</p>
         <ProgressList />
       </div>
     </>

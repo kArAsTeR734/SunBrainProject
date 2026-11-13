@@ -13,8 +13,12 @@
   box-shadow: var(--shadow-card);
 
   .header {
-    font-size: rem(22);
     line-height: 1.4;
+    margin: 0;
+    color: #171a1f;
+    font-size: fluid(28, 22);
+    font-weight: 600;
+    text-align: center;
   }
 
   .info {
@@ -23,25 +27,73 @@
     padding-top: var(--space-3);
     border-top: 1px solid var(--color-border);
   }
+}
 
-  .item {
-    display: grid;
-    gap: rem(6);
-    overflow-wrap: anywhere;
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: rem(5);
+  margin: 0;
+  padding: rem(14) rem(16);
+  border-radius: rem(14);
+  background: #f6f8f6;
+  color: #252d28;
+  font-size: rem(16);
+  overflow-wrap: anywhere;
 
-    dt {
-      color: var(--color-muted);
-      font-size: rem(13);
-    }
-
-    dd {
-      font-size: rem(15);
-      font-weight: 500;
-    }
-  }
-
-  @include tablet {
-    flex-basis: auto;
-    width: 100%;
+  span {
+    color: #78847b;
+    font-size: rem(13);
   }
 }
+
+@include tablet {
+  flex-basis: auto;
+  width: 100%;
+}
+
+.item {
+  display: grid;
+  gap: rem(6);
+  overflow-wrap: anywhere;
+
+  dt {
+    color: var(--color-muted);
+    font-size: rem(13);
+  }
+
+  dd {
+    font-size: rem(15);
+    font-weight: 500;
+  }
+}
+
+@include tablet {
+  flex-basis: auto;
+  width: 100%;
+}
+
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: rem(5);
+  margin: 0;
+  padding: rem(14) rem(16);
+  border-radius: rem(14);
+  background: #f6f8f6;
+  color: #252d28;
+  font-size: rem(16);
+  overflow-wrap: anywhere;
+
+  span {
+    color: #78847b;
+    font-size: rem(13);
+  }
+}
+
+@include tablet {
+  flex-basis: auto;
+  width: 100%;
+}
+

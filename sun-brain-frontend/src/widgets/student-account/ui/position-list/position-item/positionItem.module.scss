@@ -10,27 +10,39 @@
   background: var(--color-background);
   font-size: rem(15);
   line-height: 1.5;
+  margin-top: rem(10);
+  background: #f3f8f2;
 
   .itemPlacement {
     flex-shrink: 0;
     min-width: rem(24);
     color: var(--color-primary);
     font-weight: 600;
+    display: grid;
+    place-items: center;
+    width: rem(36);
+    height: rem(36);
+    border-radius: rem(12);
+    background: #dceedd;
+    font-size: rem(16);
   }
 
   .itemInfo {
     flex: 1;
     min-width: 0;
     margin: 0;
+    color: #25372a;
+    font-size: rem(16);
+    text-transform: capitalize;
     overflow-wrap: anywhere;
   }
 
   .itemScore {
     flex-shrink: 0;
     margin: 0;
-    color: var(--color-success);
-    font-size: rem(14);
+    font-size: rem(15);
     font-weight: 600;
+    color: var(--color-success);
   }
 
   @include mobile {
@@ -43,5 +55,9 @@
     .itemScore {
       padding-left: rem(40);
     }
+    .itemInfo { flex-basis: calc(100% - #{rem(48)}); }
+    .itemScore { width: 100%; padding-left: rem(48); }
+    .itemInfo { flex-basis: calc(100% - #{rem(48)}); }
+    .itemScore { width: 100%; padding-left: rem(48); }
   }
 }
