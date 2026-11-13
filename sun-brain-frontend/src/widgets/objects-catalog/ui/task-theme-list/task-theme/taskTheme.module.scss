@@ -1,53 +1,51 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
 .themeWrapper {
-  width: 100%;
-  min-height: rem(64);
-  height: auto;
   display: flex;
   align-items: center;
-  border-radius: 8px;
-  background-color: #fff;
-  color: #1c1c1c;
-  padding: rem(18) rem(20);
+  gap: var(--space-2);
+  width: 100%;
+  min-height: rem(80);
+  padding: rem(20);
   margin: 0;
-  transition: all 0.3s ease;
-  cursor: pointer;
+  border: 1px solid var(--color-border);
+  border-radius: rem(16);
+  background: var(--color-light);
+  color: var(--text-color);
+  transition-property: border-color, box-shadow, background-color;
 
   &:hover {
-    background-color: #FF8000;
-    color: #fff;
+    border-color: #c4a18d;
+    background: #fffcf9;
+    box-shadow: var(--shadow-card);
   }
 
-  .themeWrapperNumber{
-    color: inherit;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 17px;
-    text-align: left;
-    text-transform: uppercase;
+  .themeWrapperNumber {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    min-width: rem(36);
+    height: rem(36);
+    margin: 0;
+    border-radius: rem(10);
+    color: var(--color-primary);
+    background: var(--color-brand-soft);
+    font-size: rem(14);
+    font-weight: 600;
   }
 
   .themeWrapperTitle {
+    flex: 1;
     min-width: 0;
-    color: inherit;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 17px;
-    text-align: left;
-    padding-left: 10px;
-    text-transform: uppercase;
-    flex-grow: 2;
+    margin: 0;
+    font-size: rem(16);
+    font-weight: 500;
+    line-height: 1.55;
     overflow-wrap: anywhere;
   }
 
   @include mobile {
     align-items: flex-start;
     padding: rem(16);
-
-    .themeWrapperNumber,
-    .themeWrapperTitle {
-      line-height: 1.35;
-    }
   }
 }

@@ -1,52 +1,222 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
 .promo {
-  padding-block: fluid(32, 16) fluid(42, 24);
+  padding-block: fluid(40, 20) fluid(64, 32);
 }
 
 .body {
   display: grid;
-  justify-items: center;
-  gap: fluid(20, 14);
-  padding: fluid(76, 28) fluid(48, 16);
-  border: 1px solid var(--color-border);
-  border-radius: fluid(28, 18);
-  background: linear-gradient(155deg, var(--color-brand-soft), var(--color-surface));
-  text-align: center;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: fluid(64, 32);
+  padding: fluid(64, 24);
+  border: 1px solid #e9dfd0;
+  border-radius: rem(28);
+  background: #f3ede1;
+  overflow: hidden;
+}
+
+.content {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-3);
+  min-width: 0;
 }
 
 .eyebrow {
   margin: 0;
   color: var(--color-primary);
-  font-size: fluid(15, 12);
-  font-weight: 700;
-  letter-spacing: 0.035em;
+  font-size: rem(13);
+  font-weight: 600;
+  line-height: 1.6;
 }
 
 .title {
-  max-width: 23ch;
-  font-size: fluid(60, 32);
-  font-weight: 700;
-  line-height: 1.1;
+  max-width: 19ch;
+  font-size: fluid(54, 32);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.045em;
   text-wrap: balance;
+
+  > span {
+    display: block;
+    color: var(--color-primary);
+  }
 }
 
 .subtitle {
-  max-width: 52ch;
+  max-width: 45ch;
   margin: 0;
   color: var(--color-muted);
-  font-size: fluid(19, 16);
-  line-height: 1.6;
+  font-size: fluid(18, 16);
+  line-height: 1.75;
 }
 
 .actions {
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
   gap: rem(12);
-  width: 100%;
   margin-top: rem(8);
+  font-size: rem(14);
+}
 
-  @include mobile-s {
-    flex-direction: column;
+.visual {
+  position: relative;
+  min-width: 0;
+  padding-top: rem(54);
+}
+
+.sun {
+  position: absolute;
+  top: rem(-36);
+  right: rem(-12);
+  display: grid;
+  place-items: center;
+  width: rem(150);
+  height: rem(150);
+  border-radius: 50%;
+  color: #8a4c16;
+  background: #f0c36c;
+  font-size: rem(114);
+  line-height: 1;
+  transform: rotate(12deg);
+}
+
+.route {
+  position: relative;
+  display: grid;
+  gap: rem(12);
+  padding: fluid(28, 20);
+  border: 1px solid rgb(255 255 255 / 80%);
+  border-radius: rem(24);
+  background: #e8ece1;
+  box-shadow: 0 16px 40px rgb(50 57 41 / 8%);
+  transform: rotate(-2deg);
+}
+
+.routeLabel {
+  margin: 0 0 rem(8);
+  color: #53634d;
+  font-size: rem(11);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: rem(14);
+  padding: rem(18) rem(16);
+  border: 1px solid rgb(255 255 255 / 80%);
+  border-radius: rem(14);
+  background: rgb(255 255 255 / 68%);
+
+  > div {
+    display: grid;
+    gap: rem(4);
+    min-width: 0;
+  }
+
+  strong {
+    font-size: rem(14);
+    font-weight: 600;
+  }
+
+  div > span {
+    color: var(--color-muted);
+    font-size: rem(12);
+  }
+
+  &:nth-child(2) {
+    background: var(--color-light);
+    box-shadow: var(--shadow-card);
+  }
+}
+
+.stepNumber {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: rem(36);
+  height: rem(36);
+  border-radius: 50%;
+  background: #dde5d7;
+  color: #465a3b;
+  font-size: rem(12);
+  font-weight: 600;
+}
+
+.stepArrow {
+  margin-left: auto;
+  color: var(--color-primary);
+  font-size: rem(24);
+}
+
+.routeNote {
+  margin: rem(8) 0 0;
+  color: #53634d;
+  font-size: rem(12);
+  text-align: center;
+}
+
+@include tablet {
+  .body {
+    grid-template-columns: 1fr;
+    gap: rem(56);
+  }
+
+  .title {
+    max-width: 24ch;
+  }
+
+  .visual {
+    width: min(100%, #{rem(480)});
+    justify-self: center;
+    padding-top: rem(24);
+  }
+}
+
+@include mobile {
+  .body {
+    border-radius: rem(20);
+  }
+
+  .title {
+    font-size: clamp(#{rem(28)}, 8vw, #{rem(36)});
+  }
+
+  .content {
+    gap: rem(20);
+  }
+
+  .actions {
+    width: 100%;
+
+    > button {
+      width: 100%;
+    }
+  }
+
+  .sun {
+    top: rem(-24);
+    right: 0;
+    width: rem(100);
+    height: rem(100);
+    font-size: rem(76);
+  }
+
+  .route {
+    transform: none;
+    padding: rem(16);
+  }
+
+  .step {
+    gap: rem(10);
+    padding: rem(14) rem(12);
+  }
+
+  .stepArrow {
+    display: none;
   }
 }

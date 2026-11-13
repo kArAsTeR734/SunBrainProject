@@ -4,12 +4,16 @@ import styles from './CardList.module.scss';
 interface CardProps {
   title: string;
   description: string;
+  index: number;
 }
 
-const CardItem = ({ title, description }: CardProps) => {
+const CardItem = ({ title, description, index }: CardProps) => {
   return (
     <div className={styles.advantageCard}>
-      <div className={styles.title}>{title}</div>
+      <span className={styles.number} aria-hidden="true">
+        0{index + 1}
+      </span>
+      <h3 className={styles.title}>{title}</h3>
       <div className={styles.description}>{description}</div>
     </div>
   );
@@ -18,8 +22,8 @@ const CardItem = ({ title, description }: CardProps) => {
 export const CardList = () => {
   return (
     <div className={styles.cardList}>
-      {advantages.map(({ title, description }) => (
-        <CardItem key={title} title={title} description={description} />
+      {advantages.map(({ title, description }, index) => (
+        <CardItem key={title} title={title} description={description} index={index} />
       ))}
     </div>
   );

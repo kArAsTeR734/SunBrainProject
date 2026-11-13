@@ -1,4 +1,4 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
 .mathTestContainer {
   max-width: rem(1200);
@@ -7,11 +7,11 @@
 }
 
 .testHeader {
-  background: linear-gradient(135deg, #ff8a00 0%, #ff5c00 100%);
-  color: white;
-  padding: fluid(20, 16);
+  background: var(--text-color);
+  color: var(--color-light);
+  padding: fluid(28, 20);
   font-size: 1.2em;
-  border-radius: rem(10);
+  border-radius: var(--radius-card);
   margin-bottom: rem(20);
   display: flex;
   justify-content: space-between;
@@ -34,7 +34,7 @@
 
 .testContent {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: minmax(0, 1fr) rem(340);
   gap: fluid(30, 18);
   margin-bottom: fluid(30, 20);
 }
@@ -42,24 +42,25 @@
 .taskSection,
 .navigationSection,
 .testProgress {
-  background: white;
-  border-radius: rem(10);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: var(--color-light);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
 }
 
 .taskSection {
   min-width: 0;
-  padding: fluid(25, 14);
+  padding: fluid(32, 20);
 }
 
 .navigationSection,
 .testProgress {
-  padding: fluid(20, 14);
+  padding: fluid(24, 20);
 }
 
 .progressBar {
   height: rem(10);
-  background: #f0f0f0;
+  background: var(--color-surface);
   border-radius: rem(5);
   overflow: hidden;
   margin-bottom: rem(10);
@@ -67,14 +68,14 @@
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  background: var(--color-success);
   transition: width 0.3s ease;
 }
 
 .progressText {
   text-align: center;
-  color: #666;
-  font-size: fluid(22, 16);
+  color: var(--color-muted);
+  font-size: rem(14);
   font-weight: 500;
 }
 

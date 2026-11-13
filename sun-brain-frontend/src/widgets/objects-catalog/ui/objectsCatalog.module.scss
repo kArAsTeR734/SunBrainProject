@@ -1,11 +1,8 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
 .objectsCatalog {
-  background-color: #F2F2F2;
-  min-height: calc(100dvh - #{rem(88)});
-  padding-bottom: fluid(56, 32);
-
-  @include tablet {
-    min-height: calc(100dvh - #{rem(68)});
-  }
+  flex: 1;
+  min-width: 0;
+  padding-bottom: fluid(64, 40);
+  background: var(--color-background);
 }

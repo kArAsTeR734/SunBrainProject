@@ -5,9 +5,8 @@ export const StudentHomework = () => {
   return (
     <>
       <section className={styles.studentHomework} aria-label="homework">
-        <div className="container">
-          <HomeworkList />
-        </div>
+        <h1 className={styles.title}>Домашние задания</h1>
+        <HomeworkList />
       </section>
     </>
   );

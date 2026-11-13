@@ -1,7 +1,7 @@
 @use '@shared/styles/helpers' as *;
 
 .trigger {
-  margin-block: rem(24) rem(16);
+  margin-top: var(--space-3);
 }
 .form {
   display: grid;

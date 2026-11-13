@@ -1,44 +1,36 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
 .themes {
-  padding: fluid(50, 28) 0 fluid(30, 24) 0;
+  padding-block: fluid(48, 32) var(--space-3);
 
   .about {
-    display: flex;
-    flex-direction: column;
-    row-gap: fluid(25, 16);
-    align-items: flex-start;
+    display: grid;
+    gap: var(--space-2);
   }
 
   .header {
     color: var(--text-color);
-    font-size: fluid(20, 17);
-    font-weight: 500;
+    font-size: fluid(30, 24);
+    font-weight: 600;
     line-height: 1.35;
-    margin-left: 20px;
   }
 
   .description {
-    max-width: 720px;
-    margin-left: 20px;
-    line-height: 28px;
+    max-width: rem(760);
+    color: var(--color-muted);
+    line-height: 1.75;
   }
 
   .list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, #{rem(360)}), 1fr));
-    gap: rem(16);
-    margin-top: fluid(50, 28);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+    margin-top: var(--space-4);
   }
 
   @include mobile {
-    .header,
-    .description {
-      margin-left: 0;
-    }
-
-    .description {
-      line-height: 1.6;
+    .list {
+      grid-template-columns: 1fr;
     }
   }
 }

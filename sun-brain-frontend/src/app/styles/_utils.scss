@@ -1,6 +1,7 @@
 @use '@shared/styles/helpers' as *;
 
 .container {
+  width: 100%;
   max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
   margin-inline: auto;
   padding-inline: var(--container-padding-x);
@@ -22,12 +23,11 @@
   }
 }
 
-.icon-menu{
-
+.icon-menu {
 }
 
-.divider{
-  background-color: #FF8000;
+.divider {
+  background-color: #ff8000;
   height: 2px;
   width: 100%;
   margin-top: 40px;

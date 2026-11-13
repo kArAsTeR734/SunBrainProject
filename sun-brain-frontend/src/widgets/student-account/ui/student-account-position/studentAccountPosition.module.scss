@@ -1,27 +1,21 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
-.position{
-  min-height: rem(448);
-  padding: 0;
-
-  .wrapper{
-    display: flex;
-    flex-direction: column;
+.position {
+  .wrapper {
     min-width: 0;
-    padding: fluid(24, 16);
-    margin: 0;
-    background-color: #fff;
-    border-radius: 4px;
-  }
-  .header{
-    color: rgb(23, 26, 31);
-    font-size: fluid(32, 24);
-    font-weight: 400;
-    line-height: 1.35;
-    text-align: left;
+    padding: fluid(32, 24);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    background: var(--color-light);
+    box-shadow: var(--shadow-card);
   }
 
-  @include tablet {
-    min-height: auto;
+  .header {
+    margin-bottom: var(--space-3);
+    font-family: var(--font-family-accent);
+    font-size: rem(22);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.4;
   }
 }

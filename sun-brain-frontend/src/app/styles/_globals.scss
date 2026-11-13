@@ -15,68 +15,96 @@ html {
 }
 
 body {
-  @include fluid-text(18, 14);
+  @include fluid-text(17, 16);
 
   display: flex;
   flex-direction: column;
   font-family: var(--font-family-base), sans-serif;
   letter-spacing: 0;
   color: var(--color-dark);
-  background-color: var(--color-light);
+  background-color: var(--color-background);
   overflow-x: hidden;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100dvh;
 }
 
 main {
   flex-grow: 1;
+  min-width: 0;
+  width: 100%;
 }
 
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4,
-h5, .h5,
-h6, .h6 {
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
   color: inherit;
 }
 
-h1, .h1,
-h2, .h2,
-h3, .h3 {
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
   font-family: var(--font-family-accent), sans-serif;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: -0.035em;
 }
 
-h4, .h4,
-h5, .h5,
-h6, .h6 {
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
   font-weight: 600;
 }
 
-h1, .h1 {
+h1,
+.h1 {
   @include fluid-text(70, 30);
 
   line-height: 1.2;
 }
 
-h2, .h2 {
+h2,
+.h2 {
   @include fluid-text(58, 28);
 
   line-height: 1.3;
 }
 
-h3, .h3 {
+h3,
+.h3 {
   @include fluid-text(40, 24);
 }
 
-h4, .h4 {
+h4,
+.h4 {
   @include fluid-text(26, 18);
 }
 
-h5, .h5 {
+h5,
+.h5 {
   @include fluid-text(24, 18);
 }
 
-h6, .h6 {
+h6,
+.h6 {
   @include fluid-text(20, 16);
 }
 
@@ -96,6 +124,11 @@ svg * {
 
 a {
   text-decoration: none;
+}
+
+::selection {
+  background: #f6d9bd;
+  color: var(--text-color);
 }
 
 img,
@@ -121,7 +154,9 @@ video {
     scroll-behavior: auto;
   }
 
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }

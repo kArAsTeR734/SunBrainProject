@@ -1,14 +1,15 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
 .calendarCell {
   flex: 0 0 rem(220);
-  min-height: rem(200);
+  min-height: rem(220);
   height: auto;
 
   display: flex;
   flex-direction: column;
-  background: white;
-  border-radius: rem(12);
+  background: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-radius: rem(16);
   padding: rem(16);
 
   @include mobile {

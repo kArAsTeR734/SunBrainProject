@@ -5,24 +5,32 @@
   gap: rem(8);
   min-width: 0;
   width: 100%;
-  margin-bottom: rem(22);
 }
 .label {
   color: var(--text-color);
   font-size: rem(14);
-  font-weight: 500;
+  font-weight: 600;
 }
 .input {
   box-sizing: border-box;
   width: 100%;
   min-width: 0;
-  min-height: rem(46);
-  padding: rem(10) rem(12);
+  min-height: rem(48);
+  padding: rem(11) rem(16);
   border: 1px solid var(--color-border);
-  border-radius: rem(10);
+  border-radius: rem(12);
   background: var(--color-light);
   color: var(--text-color);
   font: inherit;
+  font-size: rem(16);
+  line-height: 1.5;
+  transition-property: border-color, box-shadow;
+  &::placeholder {
+    color: var(--color-muted);
+  }
+  &:hover:not(:disabled) {
+    border-color: #a4afa4;
+  }
   &:focus-visible {
     outline: 2px solid var(--color-focus);
     outline-offset: 2px;

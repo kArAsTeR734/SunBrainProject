@@ -1,3 +1,4 @@
+import { Button } from '@shared/ui';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './SubmitHomework.module.scss';
@@ -9,8 +10,8 @@ export const SubmitButton = ({ homeworkId }: { homeworkId: number }) => {
   };
 
   return (
-    <button className={styles.submitButton} onClick={handleHomework}>
+    <Button className={styles.submitButton} onClick={handleHomework}>
       Перейти к заданию
-    </button>
+    </Button>
   );
 };

@@ -5,8 +5,7 @@ import {
   useStartTestMutation,
 } from '@features/test';
 import { PATHS } from '@shared/routes';
-import { DataFallback } from '@shared/ui';
-import React from 'react';
+import { Button, DataFallback } from '@shared/ui';
 import { Link, useParams } from 'react-router-dom';
 
 import styles from './KnowledgeTestSubjectDetails.module.scss';
@@ -23,8 +22,7 @@ export const KnowledgeTestSubjectDetails = () => {
   } = useGetKnowledgeTestTotalTaskCount(subject?.id);
   const startTestMutation = useStartTestMutation();
 
-  const handleStartTest = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleStartTest = () => {
     if (!subjectId) return;
     startTestMutation.mutate(subjectId);
   };
@@ -71,13 +69,13 @@ export const KnowledgeTestSubjectDetails = () => {
         <Link className={`${styles.action} ${styles.secondary}`} to={PATHS.TEST}>
           Назад к выбору предмета
         </Link>
-        <button
-          className={`${styles.action} ${styles.primary}`}
+        <Button
+          className={styles.action}
           onClick={handleStartTest}
           disabled={startTestMutation.isPending || isLoading || totalTasks === 0}
         >
           {startTestMutation.isPending ? 'Запускаем тест...' : 'Начать тестирование'}
-        </button>
+        </Button>
       </div>
     </section>
   );

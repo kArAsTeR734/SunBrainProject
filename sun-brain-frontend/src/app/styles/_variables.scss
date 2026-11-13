@@ -1,41 +1,53 @@
 @use '@shared/styles/helpers' as *;
 
-:root{
-  --color-primary: #ad370c;
-  --color-primary-hover: #8c2c08;
-  --color-accent: #ad370c;
-  --color-brand-soft: #fff2e8;
-  --color-surface: #faf8f6;
-  --color-border: #e8ddd5;
-  --color-muted: #5f5954;
-  --color-danger: #a52828;
-  --color-focus: #1c4fbc;
-  --color-scroll-thumb: #8c8278;
-  --color-scroll-track: #f4efeb;
+:root {
+  --color-primary: #b5472a;
+  --color-primary-hover: #93391f;
+  --color-accent: var(--color-primary);
+  --color-brand-soft: #fbede5;
+  --color-background: #f8f7f4;
+  --color-surface: #f1f0ec;
+  --color-border: #e3e3dc;
+  --color-muted: #626963;
+  --color-danger: #b22d35;
+  --color-success: #2e6b50;
+  --color-success-soft: #edf4ee;
+  --color-focus: #356b58;
+  --color-scroll-thumb: #b3b7af;
+  --color-scroll-track: var(--color-surface);
+  --shadow-card: 0 4px 20px rgb(35 45 38 / 4%);
+  --shadow-raised: 0 12px 32px rgb(35 45 38 / 8%);
 
-  --text-color: #101010FF;
+  --space-1: #{rem(8)};
+  --space-2: #{rem(16)};
+  --space-3: #{rem(24)};
+  --space-4: #{rem(32)};
+  --space-5: #{rem(48)};
+  --radius-card: #{rem(20)};
 
-  --color-light: #FFFFFF;
+  --text-color: #252e28;
 
-  --color-dark: #141414;
-  --color-dark-10: #1A1A1A;
+  --color-light: #ffffff;
+
+  --color-dark: var(--text-color);
+  --color-dark-10: #1a1a1a;
   --color-dark-15: #262626;
   --color-dark-20: #333333;
   --color-dark-40: #666666;
 
-  --color-gray-50: #7E7E81;
-  --color-gray-60: #98989A;
+  --color-gray-50: #7e7e81;
+  --color-gray-60: #98989a;
 
   --font-family-base: 'Inter', sans-serif;
   --font-family-accent: 'Montserrat', sans-serif;
 
-  --container-width: #{rem(1600)};
-  --container-padding-x: #{rem(16)};
+  --container-width: #{rem(1280)};
+  --container-padding-x: #{rem(32)};
 
   --transition-duration: 0.2s;
 
   @include laptop {
-    --container-width: #{rem(1280)};
+    --container-width: #{rem(1200)};
   }
 
   @include tablet {
@@ -48,6 +60,6 @@
   }
 
   @include mobile-s {
-    --container-padding-x: #{rem(12)};
+    --container-padding-x: #{rem(16)};
   }
 }

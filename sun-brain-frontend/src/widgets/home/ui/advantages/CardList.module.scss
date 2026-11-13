@@ -1,33 +1,60 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
-.cardList{
+.cardList {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, #{rem(220)}), 1fr));
-  margin-top: fluid(35, 24);
-  gap: rem(20);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: var(--space-4);
+  gap: var(--space-2);
+
+  @include tablet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include mobile-s {
+    grid-template-columns: 1fr;
+  }
 }
-.advantageCard{
+
+.advantageCard {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: fluid(22, 16);
+  padding: fluid(28, 20);
   border: 1px solid var(--color-border);
-  border-radius: rem(16);
+  border-radius: var(--radius-card);
   background: var(--color-light);
 
-  .title{
-    color: var(--color-accent);
-    font-size: fluid(20, 18);
+  .number {
+    display: grid;
+    place-items: center;
+    width: rem(40);
+    height: rem(40);
+    margin-bottom: rem(28);
+    border-radius: rem(12);
+    background: var(--color-brand-soft);
+    color: var(--color-primary);
+    font-size: rem(13);
     font-weight: 600;
+  }
+
+  &:nth-child(even) .number {
+    background: var(--color-success-soft);
+    color: var(--color-success);
+  }
+
+  .title {
+    color: var(--text-color);
+    font-family: var(--font-family-base);
+    font-size: rem(18);
+    font-weight: 600;
+    letter-spacing: -0.02em;
     line-height: 1.45;
-    text-align: left;
   }
 
-  .description{
-    margin-top: 5px;
+  .description {
+    margin-top: rem(12);
     color: var(--color-muted);
-    line-height: 1.55;
-    text-align: left
+    font-size: rem(15);
+    line-height: 1.7;
   }
-
 }
