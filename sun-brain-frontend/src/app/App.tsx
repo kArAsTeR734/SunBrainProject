@@ -1,4 +1,4 @@
-import './styles/main.scss';
+import '@shared/styles/main.scss';
 
 import { getRoutesConfig } from '@app/routes/config';
 import { Loader } from '@shared/ui';

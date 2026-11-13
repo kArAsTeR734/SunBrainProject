@@ -7,7 +7,6 @@
   min-width: 0;
   padding: rem(16);
   border-radius: rem(12);
-  background: var(--color-background);
   font-size: rem(15);
   line-height: 1.5;
   margin-top: rem(10);
@@ -49,15 +48,12 @@
     flex-wrap: wrap;
 
     .itemInfo {
-      flex-basis: calc(100% - #{rem(56)});
+      flex-basis: calc(100% - #{rem(52)});
     }
 
     .itemScore {
-      padding-left: rem(40);
+      width: 100%;
+      padding-left: rem(52);
     }
-    .itemInfo { flex-basis: calc(100% - #{rem(48)}); }
-    .itemScore { width: 100%; padding-left: rem(48); }
-    .itemInfo { flex-basis: calc(100% - #{rem(48)}); }
-    .itemScore { width: 100%; padding-left: rem(48); }
   }
 }
