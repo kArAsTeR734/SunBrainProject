@@ -20,9 +20,9 @@ export const StudentAccountInfo = () => {
           size={150}
         />
         <div className={styles.info}>
-          <p className={styles.item}>ФИО: {user?.fullName ?? ''}</p>
+          <p className={styles.item}><span>ФИО</span>{user?.fullName ?? ''}</p>
           <p className={styles.item}>
-            Адрес электронной почты: {user?.email ?? ''}
+            <span>Адрес электронной почты</span>{user?.email ?? ''}
           </p>
         </div>
       </div>

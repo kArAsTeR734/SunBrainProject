@@ -1,37 +1,35 @@
 @use "@shared/styles/helpers" as *;
 
-.account {  
+.account {
   min-height: rem(520);
   max-width: 100%;
-  padding: fluid(50, 28) 0 fluid(36, 28) 0;
+  padding: fluid(50, 28) 0 fluid(36, 28);
 
   .wrapper {
-    background-color: #F7F7F7;
     display: flex;
+    align-items: flex-start;
     gap: rem(24);
-    padding: rem(24);
-    border-radius: rem(8);
+    padding: fluid(24, 16);
+    background: #f3f6f3;
+    border-radius: rem(28);
   }
 
   .specialInfo {
     display: flex;
     flex-direction: column;
+    gap: rem(24);
     flex: 1 1 auto;
     min-width: 0;
   }
 
   @include tablet {
     min-height: auto;
-
-    .wrapper {
-      flex-direction: column;
-    }
+    .wrapper { flex-direction: column; }
+    .specialInfo { width: 100%; }
   }
 
   @include mobile {
-    .wrapper {
-      padding: rem(12);
-      gap: rem(12);
-    }
+    .wrapper { padding: rem(12); gap: rem(12); border-radius: rem(20); }
+    .specialInfo { gap: rem(12); }
   }
 }

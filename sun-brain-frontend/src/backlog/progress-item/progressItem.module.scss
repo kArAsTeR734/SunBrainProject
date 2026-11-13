@@ -1,28 +1,15 @@
+@use "@shared/styles/helpers" as *;
+
 .item {
-  width: 100%;
-  height: 56px;
-  margin-top: 10px;
+  margin-top: rem(20);
 
-  .subject {
-    color: #000;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 26px;
-    text-align: left;
+  .subject { color: #25372a; font-size: rem(16); font-weight: 500; }
+  .progressContainer {
+    height: rem(12);
+    margin-top: rem(10);
+    overflow: hidden;
+    background: #e5eee5;
+    border-radius: rem(12);
   }
-  .progressContainer{
-    margin-top: 10px;
-    width: 100%;
-    background: #ddd;
-    border-radius: 10px;
-  }
-
-  .progress{
-    border-radius: 10px;
-    height: 20px;
-    background: #76b852;
-    width: 70%;
-    max-width: inherit;
-    transition: width 0.5s;
-  }
+  .progress { width: 70%; height: 100%; background: #76b852; border-radius: inherit; }
 }
