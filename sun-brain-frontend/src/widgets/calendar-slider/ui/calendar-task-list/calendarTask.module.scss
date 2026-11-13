@@ -22,7 +22,7 @@
 .taskWrapper {
   display: grid;
   gap: rem(12);
-  padding: rem(16);
+  padding: rem(12);
 }
 
 .taskSubject {
@@ -31,7 +31,7 @@
   border-radius: rem(6);
   background: var(--color-success-soft);
   color: var(--color-success);
-  font-size: rem(11);
+  font-size: rem(14.6);
   font-weight: 600;
   line-height: 1.5;
 }
@@ -39,7 +39,7 @@
 .taskTitle {
   color: var(--text-color);
   font-family: var(--font-family-base);
-  font-size: rem(14);
+  font-size: rem(15);
   font-weight: 600;
   letter-spacing: 0;
   line-height: 1.5;
@@ -48,14 +48,14 @@
 .taskTheme {
   margin: 0;
   color: var(--color-muted);
-  font-size: rem(13);
+  font-size: rem(14.6);
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
 
 .taskDeadline {
   color: var(--color-primary);
-  font-size: rem(12);
+  font-size: rem(16);
   font-weight: 500;
   line-height: 1.6;
 }

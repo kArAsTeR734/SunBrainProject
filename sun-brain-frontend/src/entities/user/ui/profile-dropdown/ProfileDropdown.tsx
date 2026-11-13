@@ -22,6 +22,7 @@ export const ProfileDropdown = ({
 
   return (
     <Menu
+      disableScrollLock
       anchorEl={anchor}
       open={Boolean(anchor)}
       onClose={onClose}
