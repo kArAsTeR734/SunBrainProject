@@ -1,13 +1,18 @@
 import { HomeworkCard } from '@entities/homework';
+import { CreateHomework } from '@features/create-homework';
 import { SubmitButton, useHomework } from '@features/homework-tasks';
 import { useFinishTestMutation } from '@features/test';
 import { DataFallback } from '@shared/ui';
 
-import { CreateHomework } from './CreateHomework';
 import styles from './HomeworkList.module.scss';
 
 export const HomeworkList = () => {
-  return <><CreateHomework /><HomeworkListContent /></>;
+  return (
+    <>
+      <CreateHomework />
+      <HomeworkListContent />
+    </>
+  );
 };
 
 const HomeworkListContent = () => {

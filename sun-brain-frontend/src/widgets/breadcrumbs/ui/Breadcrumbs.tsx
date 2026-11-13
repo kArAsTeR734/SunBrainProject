@@ -1,6 +1,6 @@
 import { getSubjectTitle } from '@entities/catalog';
+import { useTopics } from '@entities/topic';
 import { useHomeworkTasks } from '@features/homework-tasks';
-import { useTopics } from '@features/topics';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { PATHS } from '@shared/routes';
 import React from 'react';

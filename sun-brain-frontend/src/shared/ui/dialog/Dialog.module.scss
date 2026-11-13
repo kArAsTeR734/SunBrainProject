@@ -1,0 +1,23 @@
+@use '@shared/styles/helpers' as *;
+
+.dialog {
+  box-sizing: border-box;
+  width: min(calc(100% - #{rem(32)}), #{rem(560)});
+  max-width: none;
+  max-height: calc(100dvh - #{rem(32)});
+  margin: auto;
+  padding: rem(28);
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: rem(20);
+  background: var(--color-light);
+  color: var(--text-color);
+  box-shadow: 0 rem(20) rem(60) rgb(20 20 20 / 18%);
+  &::backdrop {
+    background: rgb(20 20 20 / 50%);
+  }
+  @include mobile {
+    padding: rem(20);
+    border-radius: rem(16);
+  }
+}
