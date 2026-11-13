@@ -3,9 +3,14 @@ import { SubmitButton, useHomework } from '@features/homework-tasks';
 import { useFinishTestMutation } from '@features/test';
 import { DataFallback } from '@shared/ui';
 
+import { CreateHomework } from './CreateHomework';
 import styles from './HomeworkList.module.scss';
 
 export const HomeworkList = () => {
+  return <><CreateHomework /><HomeworkListContent /></>;
+};
+
+const HomeworkListContent = () => {
   const { data: homeworks, isFetching, isLoading, isError, refetch } = useHomework();
   const { isPending } = useFinishTestMutation();
   if (isLoading || isFetching) {
