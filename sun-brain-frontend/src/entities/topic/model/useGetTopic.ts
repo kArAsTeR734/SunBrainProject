@@ -5,5 +5,5 @@ export const useGetTopic = (topicId: string) => {
 
   if (!topics) return;
 
-  return topics.find((topic) => topic.number === Number(topicId));
+  return topics.find((topic) => topic.number === topicId);
 };
