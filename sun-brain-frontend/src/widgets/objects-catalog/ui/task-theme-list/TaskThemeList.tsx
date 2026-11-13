@@ -1,6 +1,6 @@
 import { getSubjectTitle } from '@entities/catalog';
 import { useTopics } from '@features/topics';
-import { DataFallback } from '@shared/ui';
+import { DataFallback, Loader } from '@shared/ui';
 import { useParams } from 'react-router-dom';
 
 import type { SubjectId } from '../../model/Subject';
@@ -12,7 +12,6 @@ export const TaskThemeList = () => {
   const {
     data: themes,
     isLoading,
-    isFetching,
     isError,
     refetch,
   } = useTopics(subjectId ?? '');
@@ -26,14 +25,8 @@ export const TaskThemeList = () => {
     );
   }
 
-  if (isLoading || isFetching) {
-    return (
-      <DataFallback
-        state="loading"
-        title="Загружаем темы..."
-        description="Это займет пару секунд."
-      />
-    );
+  if (isLoading) {
+    return <Loader />;
   }
 
   if (isError) {

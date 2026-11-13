@@ -169,8 +169,19 @@ model topics {
   study_recommendations study_recommendations[]
   tasks                 tasks[]
   subjects              subjects                @relation(fields: [subject_code], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "fk_topics_subjects_code")
+  catalog_topics        catalog_topics?
 
   @@index([subject_code], map: "idx_topics_subject_code")
+}
+
+model catalog_topics {
+  topic_id     Int    @id
+  subject_code String @db.VarChar(50)
+  position     Int
+  label        String @db.VarChar(20)
+  topics       topics @relation(fields: [topic_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([subject_code, position])
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
