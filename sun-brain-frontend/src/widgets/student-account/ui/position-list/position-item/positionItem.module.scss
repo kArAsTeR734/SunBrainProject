@@ -40,9 +40,9 @@
   .itemScore {
     flex-shrink: 0;
     margin: 0;
-    color: var(--color-success);
-    font-size: rem(14);
+    font-size: rem(15);
     font-weight: 600;
+    color: var(--color-success);
   }
 
   @include mobile {
@@ -55,6 +55,8 @@
     .itemScore {
       padding-left: rem(40);
     }
+    .itemInfo { flex-basis: calc(100% - #{rem(48)}); }
+    .itemScore { width: 100%; padding-left: rem(48); }
     .itemInfo { flex-basis: calc(100% - #{rem(48)}); }
     .itemScore { width: 100%; padding-left: rem(48); }
   }

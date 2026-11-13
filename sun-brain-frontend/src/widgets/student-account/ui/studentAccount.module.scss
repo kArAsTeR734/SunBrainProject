@@ -6,50 +6,65 @@
   .account {
     min-height: rem(520);
     max-width: 100%;
-    padding-block: fluid(48, 32) fluid(64, 40);
-  }
+    padding: fluid(50, 28) 0 fluid(36, 28);
 
-  .title {
-    font-size: fluid(36, 28);
-    line-height: 1.25;
-  }
+    .account {
+      min-height: rem(520);
+      max-width: 100%;
+      padding-block: fluid(48, 32) fluid(64, 40);
+    }
 
-  .description {
-    margin: var(--space-2) 0 var(--space-4);
-    color: var(--color-muted);
-  }
+    .title {
+      font-size: fluid(36, 28);
+      line-height: 1.25;
+    }
 
-  padding: fluid(50, 28) 0 fluid(36, 28);
+    .description {
+      margin: var(--space-2) 0 var(--space-4);
+      color: var(--color-muted);
+    }
 
-  .wrapper {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-  }
+    .wrapper {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
 
-  .wrapper {
-    display: flex;
-    align-items: flex-start;
-    gap: rem(24);
-    padding: fluid(24, 16);
-    background: #f3f6f3;
-    border-radius: rem(28);
-  }
+    .wrapper {
+      display: flex;
+      align-items: flex-start;
+      gap: rem(24);
+      padding: fluid(24, 16);
+      background: #f3f6f3;
+      border-radius: rem(28);
+    }
 
-  .specialInfo {
-    flex: 1;
-    min-width: 0;
-  }
+    .specialInfo {
+      flex: 1;
+      min-width: 0;
+      padding: fluid(24, 16);
+      background: #f3f6f3;
+      border-radius: rem(28);
+    }
 
-  .specialInfo {
-    display: flex;
-    flex-direction: column;
-    gap: rem(24);
-    flex: 1 1 auto;
-    min-width: 0;
-  }
+    .specialInfo {
+      display: flex;
+      flex-direction: column;
+      gap: rem(24);
+      flex: 1 1 auto;
+      min-width: 0;
+    }
 
-  @include tablet {
+    @include tablet {
+      min-height: auto;
+      .wrapper {
+        flex-direction: column;
+      }
+      .specialInfo {
+        width: 100%;
+      }
+    }
+
     .wrapper {
       flex-direction: column;
       @include tablet {
@@ -62,16 +77,26 @@
         }
       }
 
-      .specialInfo {
-        width: 100%;
-        @include mobile {
-          .wrapper {
-            padding: rem(12);
-            gap: rem(12);
-            border-radius: rem(20);
-          }
-          .specialInfo {
-            gap: rem(12);
+      @include mobile {
+        .wrapper {
+          padding: rem(12);
+          gap: rem(12);
+          border-radius: rem(20);
+        }
+        .specialInfo {
+          gap: rem(12);
+        }
+        .specialInfo {
+          width: 100%;
+          @include mobile {
+            .wrapper {
+              padding: rem(12);
+              gap: rem(12);
+              border-radius: rem(20);
+            }
+            .specialInfo {
+              gap: rem(12);
+            }
           }
         }
       }
