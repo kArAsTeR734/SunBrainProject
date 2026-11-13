@@ -1,5 +1,5 @@
 import { getSubjectTitle } from '@entities/catalog';
-import { useTopics } from '@features/topics';
+import { useTopics } from '@entities/topic';
 import { DataFallback, Loader } from '@shared/ui';
 import { useParams } from 'react-router-dom';
 

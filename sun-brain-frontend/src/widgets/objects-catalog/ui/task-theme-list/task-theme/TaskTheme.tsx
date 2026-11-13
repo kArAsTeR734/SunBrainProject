@@ -1,4 +1,4 @@
-import type { Topic } from '@features/topics';
+import type { Topic } from '@entities/topic';
 import { FC } from 'react';
 import { Link, useParams } from 'react-router-dom';
 

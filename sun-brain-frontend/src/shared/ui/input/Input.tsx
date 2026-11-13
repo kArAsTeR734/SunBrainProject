@@ -1,28 +1,36 @@
-import { FC } from 'react';
+import clsx from 'clsx';
+import { forwardRef, InputHTMLAttributes } from 'react';
 
 import styles from './input.module.scss';
 
-interface InputProps {
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> {
   id: string;
   label: string;
-  name: string;
-  placeholder: string;
-  type: 'text' | 'email' | 'password' | 'phone';
+  error?: string;
 }
 
-export const Input: FC<InputProps> = ({ id, label, name, placeholder, type }) => {
-  return (
-    <div className={styles.field}>
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ id, label, error, className, 'aria-describedby': describedBy, ...props }, ref) => (
+    <div className={clsx(styles.field, className)}>
       <label className={styles.label} htmlFor={id}>
         {label}
       </label>
       <input
-        type={type}
-        className={styles.input}
-        name={name}
+        {...props}
+        ref={ref}
         id={id}
-        placeholder={placeholder}
+        className={styles.input}
+        aria-invalid={error ? true : props['aria-invalid']}
+        aria-describedby={
+          [describedBy, error && `${id}-error`].filter(Boolean).join(' ') || undefined
+        }
       />
+      {error && (
+        <span id={`${id}-error`} className={styles.error} role="alert">
+          {error}
+        </span>
+      )}
     </div>
-  );
-};
+  ),
+);
+Input.displayName = 'Input';

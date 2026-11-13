@@ -1,4 +1,4 @@
-import { useTopics } from '@features/topics';
+import { useTopics } from '@entities/topic';
 import { Outlet, useParams } from 'react-router-dom';
 
 export const CatalogLayout = () => {
