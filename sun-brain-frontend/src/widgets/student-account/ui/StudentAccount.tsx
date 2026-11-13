@@ -12,6 +12,8 @@ export const StudentAccount = () => {
     <>
       <section className={styles.account}>
         <div className="container">
+          <h1 className={styles.title}>Личный кабинет</h1>
+          <p className={styles.description}>Ваш профиль и результаты подготовки.</p>
           {isAuth ? (
             <Suspense fallback={<UserAuthPlaceholder />}>
               <div className={styles.wrapper}>

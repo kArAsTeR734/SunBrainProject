@@ -3,6 +3,8 @@ import { TaskItem, TaskList } from '@features/task';
 import { Button, DataFallback } from '@shared/ui';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import styles from './CatalogTaskList.module.scss';
+
 export const CatalogTaskList = () => {
   const { themeId } = useParams();
   const navigate = useNavigate();
@@ -20,12 +22,7 @@ export const CatalogTaskList = () => {
   const catalogTasks = data?.pages.flatMap((page) => page.catalogTasks) ?? [];
 
   if (isLoading) {
-    return (
-      <DataFallback
-        state="loading"
-        title="Загружаем задания по теме..."
-      />
-    );
+    return <DataFallback state="loading" title="Загружаем задания по теме..." />;
   }
 
   if (isError && !catalogTasks.length) {
@@ -57,19 +54,21 @@ export const CatalogTaskList = () => {
           <TaskItem isHomeworkTask={false} key={task.id} task={task} />
         ))}
       </TaskList>
-      {isFetchNextPageError && (
-        <p role="alert">Не удалось загрузить следующие задания. Попробуйте ещё раз.</p>
-      )}
-      {hasNextPage && (
-        <Button disabled={isFetching} onClick={() => void fetchNextPage()}>
-          {isFetchingNextPage
-            ? 'Загружаем…'
-            : isFetchNextPageError
-              ? 'Повторить загрузку'
-              : 'Показать ещё'}
-        </Button>
-      )}
-      <p role="status">Загружено заданий: {catalogTasks.length}</p>
+      <div className={styles.pagination}>
+        {isFetchNextPageError && (
+          <p role="alert">Не удалось загрузить следующие задания. Попробуйте ещё раз.</p>
+        )}
+        {hasNextPage && (
+          <Button disabled={isFetching} onClick={() => void fetchNextPage()}>
+            {isFetchingNextPage
+              ? 'Загружаем…'
+              : isFetchNextPageError
+                ? 'Повторить загрузку'
+                : 'Показать ещё'}
+          </Button>
+        )}
+        <p role="status">Загружено заданий: {catalogTasks.length}</p>
+      </div>
     </>
   );
 };

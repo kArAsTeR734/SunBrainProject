@@ -1,37 +1,38 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
-.account {  
-  min-height: rem(520);
+.account {
+  flex: 1;
   max-width: 100%;
-  padding: fluid(50, 28) 0 fluid(36, 28) 0;
+  padding-block: fluid(48, 32) fluid(64, 40);
+}
 
+.title {
+  font-size: fluid(36, 28);
+  line-height: 1.25;
+}
+
+.description {
+  margin: var(--space-2) 0 var(--space-4);
+  color: var(--color-muted);
+}
+
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.specialInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+@include tablet {
   .wrapper {
-    background-color: #F7F7F7;
-    display: flex;
-    gap: rem(24);
-    padding: rem(24);
-    border-radius: rem(8);
+    flex-direction: column;
   }
 
   .specialInfo {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    min-width: 0;
-  }
-
-  @include tablet {
-    min-height: auto;
-
-    .wrapper {
-      flex-direction: column;
-    }
-  }
-
-  @include mobile {
-    .wrapper {
-      padding: rem(12);
-      gap: rem(12);
-    }
+    width: 100%;
   }
 }

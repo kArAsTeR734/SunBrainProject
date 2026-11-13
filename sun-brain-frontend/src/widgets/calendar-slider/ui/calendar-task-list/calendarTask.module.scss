@@ -1,70 +1,61 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
 .taskItem {
-  width: 100%;
   display: block;
+  width: 100%;
   min-width: 0;
-  text-align: left;
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  cursor: pointer;
   padding: 0;
-  transition: background 0.2s;
+  border: 1px solid var(--color-border);
+  border-radius: rem(12);
+  background: var(--color-light);
+  color: var(--text-color);
+  text-align: left;
+  transition-property: border-color, background-color;
+  overflow: hidden;
 
   &:hover {
-    background: #f9f9f9;
-    border-color: #FF8000;
-  }
-
-  &:active {
-    transform: scale(0.98);
+    border-color: #c4a18d;
+    background: var(--color-brand-soft);
   }
 }
 
 .taskWrapper {
-  padding: fluid(20, 14);
-  background-color: #fff;
-  border-top: 1px solid #FF8000;
-  transition: 0.2s linear;
-
-  &:hover {
-    box-shadow: 0 10px 20px rgba(255, 92, 0);
-  }
+  display: grid;
+  gap: rem(12);
+  padding: rem(16);
 }
 
 .taskSubject {
-  display: inline-block;
+  justify-self: start;
+  padding: rem(4) rem(8);
+  border-radius: rem(6);
+  background: var(--color-success-soft);
+  color: var(--color-success);
+  font-size: rem(11);
   font-weight: 600;
-  font-size: 12px;
-  line-height: 12px;
-  color: #FFFFFF;
-  background: #1C1C1C;
-  padding: 7px;
-  margin: 0 3px 3px 0;
+  line-height: 1.5;
 }
 
 .taskTitle {
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 20px;
-  color: #1C1C1C;
-  margin-top: rem(16);
+  color: var(--text-color);
+  font-family: var(--font-family-base);
+  font-size: rem(14);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.5;
 }
 
 .taskTheme {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  margin-top: 10px;
-  color: #808080;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: rem(13);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
 .taskDeadline {
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 20px;
-  color: #1C1C1C;
-  margin-top: 10px;
-  font-family: Montserrat, sans-serif;
+  color: var(--color-primary);
+  font-size: rem(12);
+  font-weight: 500;
+  line-height: 1.6;
 }

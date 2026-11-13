@@ -1,5 +1,6 @@
 import 'katex/dist/katex.min.css';
 
+import { Button } from '@shared/ui';
 import { MarkdownContent } from '@shared/ui/markdown-content';
 import { useState } from 'react';
 
@@ -18,11 +19,20 @@ export const TaskSolution = ({ solution }: TaskSolutionProps) => {
 
   return (
     <div className={styles.solution}>
-      <div className={styles.toggle} onClick={solutionToggle}>
+      <Button
+        className={styles.toggle}
+        variant="haveAccount"
+        onClick={solutionToggle}
+        aria-expanded={isOpen}
+      >
         {isOpen ? 'Скрыть решение' : 'Показать решение'}
-      </div>
+      </Button>
 
-      {isOpen && <MarkdownContent content={solution} />}
+      {isOpen && (
+        <div className={styles.content}>
+          <MarkdownContent content={solution} />
+        </div>
+      )}
     </div>
   );
 };

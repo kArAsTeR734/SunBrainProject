@@ -1,3 +1,5 @@
+@use '@shared/styles/helpers' as *;
+
 .page {
   display: flex;
   flex-direction: column;
@@ -5,7 +7,14 @@
   min-height: 100dvh;
 }
 
+.title {
+  margin-top: var(--space-4);
+  font-size: fluid(36, 28);
+  line-height: 1.25;
+}
+
 .content {
   min-width: 0;
   flex: 1 0 auto;
+  padding-inline: var(--container-padding-x);
 }

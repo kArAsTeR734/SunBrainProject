@@ -1,3 +1,4 @@
+import { Button } from '@shared/ui';
 import { MarkdownContent } from '@shared/ui/markdown-content';
 import React, { useState } from 'react';
 
@@ -24,11 +25,12 @@ export const TestTask: React.FC<TaskProps> = ({ id, question, onAnswerSubmit }) 
           onChange={(e) => setTextAnswer(e.target.value)}
           className={styles.textInput}
           placeholder="Введите ответ"
+          aria-label="Ваш ответ"
           rows={3}
         />
-        <button onClick={handleTextSubmit} className={styles.submitButton}>
+        <Button onClick={handleTextSubmit} className={styles.submitButton}>
           Подтвердить
-        </button>
+        </Button>
       </div>
     );
   };

@@ -1,6 +1,6 @@
 import type { CatalogTask, HomeworkTask } from '@entities/task';
 import { useInput } from '@shared/lib';
-import { Button } from '@shared/ui';
+import { Button, Input } from '@shared/ui';
 import { MarkdownContent } from '@shared/ui/markdown-content';
 import clsx from 'clsx';
 import React, { FC, useState } from 'react';
@@ -63,19 +63,18 @@ export const TaskItem: FC<TaskItemProps> = ({ task, isHomeworkTask }) => {
         <MarkdownContent content={taskContent} />
       </div>
       <div className={styles.actions}>
-        <div className={styles.answer}>
-          <input
-            className={clsx(styles.answerField, {
-              [styles.correct]: isChecked && isTaskComplete,
-              [styles.invalid]: isChecked && !isTaskComplete,
-            })}
-            type="text"
-            id="aswer-field"
-            placeholder="Ответ"
-            value={answer.value}
-            onChange={handleAnswerChange}
-          />
-        </div>
+        <Input
+          className={clsx(styles.answer, {
+            [styles.correct]: isChecked && isTaskComplete,
+            [styles.invalid]: isChecked && !isTaskComplete,
+          })}
+          type="text"
+          id={`answer-${task.id}`}
+          label="Ваш ответ"
+          placeholder="Введите ответ"
+          value={answer.value}
+          onChange={handleAnswerChange}
+        />
         <Button
           onClick={checkAnswerCorrect}
           className={styles.check}

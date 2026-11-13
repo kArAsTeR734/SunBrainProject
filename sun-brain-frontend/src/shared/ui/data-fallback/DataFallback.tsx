@@ -1,3 +1,4 @@
+import { Button } from '../button/Button';
 import styles from './DataFallback.module.scss';
 
 type DataFallbackState = 'loading' | 'error' | 'empty';
@@ -22,9 +23,9 @@ export const DataFallback = ({
       <p className={styles.title}>{title}</p>
       {description && <p className={styles.description}>{description}</p>}
       {onAction && (
-        <button className={styles.action} type="button" onClick={onAction}>
+        <Button className={styles.action} onClick={onAction}>
           {actionLabel}
-        </button>
+        </Button>
       )}
     </div>
   );

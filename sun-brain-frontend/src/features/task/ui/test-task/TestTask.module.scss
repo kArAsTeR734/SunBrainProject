@@ -1,18 +1,18 @@
-@use "@shared/styles/helpers/index" as *;
+@use '@shared/styles/helpers/index' as *;
 
 .taskContainer {
-  background: #ffffff;
+  background: transparent;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  padding: fluid(24, 14);
-  margin-bottom: rem(20);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: none;
+  padding: 0;
+  margin-bottom: 0;
+
   min-width: 0;
 }
 
 .taskContainer:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+  transform: none;
+  box-shadow: none;
 }
 
 .taskHeader {
@@ -21,13 +21,13 @@
   align-items: center;
   margin-bottom: fluid(20, 16);
   padding-bottom: rem(15);
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .taskHeader h3 {
   margin: 0;
-  color: #2c3e50;
-  font-size: fluid(28, 20);
+  color: var(--text-color);
+  font-size: fluid(24, 20);
   font-weight: 600;
 }
 
@@ -48,14 +48,14 @@
 }
 
 .questionText {
-  font-size: fluid(22, 16);
+  font-size: rem(16);
   line-height: 1.6;
   color: #34495e;
   margin: 0;
   padding: 15px;
   background: #f8fafc;
   border-radius: 8px;
-  border-left: 4px solid #3498db;
+  border-left: 4px solid var(--color-primary);
 }
 
 .taskImage {
@@ -85,10 +85,10 @@
 .optionButton {
   padding: 16px 20px;
   background: white;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--color-border);
   border-radius: 10px;
   font-size: fluid(19, 16);
-  color: #333;
+  color: var(--text-color);
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
@@ -97,14 +97,14 @@
 }
 
 .optionButton:hover {
-  border-color: #3498db;
+  border-color: var(--color-primary);
   background: #f0f9ff;
   transform: translateY(-1px);
 }
 
 .optionButton.selected {
-  background: linear-gradient(135deg, #3498db, #2980b9);
-  border-color: #3498db;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+  border-color: var(--color-primary);
   color: white;
   font-weight: 500;
   box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
@@ -129,17 +129,18 @@
 .numberInput {
   flex: 1;
   padding: 14px 18px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--color-border);
   border-radius: 10px;
-  font-size: fluid(22, 16);
+  font-size: rem(16);
   transition: all 0.2s ease;
   background: white;
 }
 
 .numberInput:focus {
-  outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 3px var(--color-success-soft);
 }
 
 .numberInput::placeholder {
@@ -156,10 +157,11 @@
 .textInput {
   width: 100%;
   padding: 14px 18px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid var(--color-border);
   border-radius: 10px;
-  font-size: fluid(22, 16);
+  font-size: rem(16);
   font-family: inherit;
+  line-height: 1.6;
   transition: all 0.2s ease;
   background: white;
   resize: vertical;
@@ -167,18 +169,19 @@
 }
 
 .textInput:focus {
-  outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 3px var(--color-success-soft);
 }
 
 .submitButton {
   padding: rem(14) rem(28);
-  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  background: var(--color-primary);
   color: white;
   border: none;
   border-radius: 10px;
-  font-size: fluid(22, 16);
+  font-size: rem(16);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -188,7 +191,7 @@
 
 .submitButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
+  box-shadow: var(--shadow-card);
 }
 
 .submitButton:active {

@@ -1,29 +1,29 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
 .navigationContainer {
-  background: #ffffff;
+  background: var(--color-light);
   border-radius: 12px;
-  padding: fluid(20, 14);
+  padding: 0;
   height: fit-content;
   position: sticky;
   top: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
 }
 
 .navigationHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   margin-bottom: 20px;
   padding-bottom: 15px;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 1px solid var(--color-border);
   gap: rem(12);
 }
 
 .navigationHeader h3 {
   margin: 0;
-  color: #2c3e50;
-  font-size: fluid(24, 19);
+  color: var(--text-color);
+  font-size: rem(18);
   font-weight: 600;
 }
 
@@ -32,7 +32,7 @@
   color: var(--color-primary);
   padding: 6px 12px;
   border-radius: 20px;
-  font-size: fluid(20, 16);
+  font-size: rem(13);
   font-weight: 500;
 }
 
@@ -42,7 +42,7 @@
   gap: rem(10);
   margin-bottom: fluid(25, 18);
   padding: fluid(15, 10);
-  background: #f8fafc;
+  background: var(--color-background);
   border-radius: 10px;
 }
 
@@ -53,7 +53,7 @@
   height: auto;
   border: none;
   border-radius: 10px;
-  font-size: fluid(22, 16);
+  font-size: rem(16);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -64,21 +64,23 @@
 }
 
 .taskButton.unanswered {
-  background: #ffffff;
-  border: 2px solid #e0e0e0;
+  background: var(--color-light);
+  border: 1px solid var(--color-border);
   color: var(--color-muted);
 }
 
 .taskButton.answered {
-  background: #21794d;
+  background: var(--color-success);
   color: white;
-  box-shadow: 0 4px 8px rgba(46, 204, 113, 0.2);
+  box-shadow: none;
 }
 
 .taskButton.current {
   background: var(--color-primary);
   color: white;
-  box-shadow: inset 0 0 0 2px var(--color-light), 0 0 0 2px var(--color-primary);
+  box-shadow:
+    inset 0 0 0 2px var(--color-light),
+    0 0 0 2px var(--color-primary);
   border: none;
   z-index: 1;
 }
@@ -102,7 +104,7 @@
   padding: 12px 16px;
   border: none;
   border-radius: 8px;
-  font-size: fluid(21, 16);
+  font-size: rem(14);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -111,13 +113,13 @@
 }
 
 .prevButton {
-  background: #f8f9fa;
-  color: #495057;
-  border: 2px solid #e9ecef;
+  background: var(--color-light);
+  color: var(--text-color);
+  border: 1px solid var(--color-border);
 }
 
 .prevButton:hover:not(:disabled) {
-  background: #e9ecef;
+  background: var(--color-border);
   transform: translateY(-1px);
 }
 
@@ -133,7 +135,7 @@
 
 .nextButton:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+  box-shadow: var(--shadow-card);
 }
 
 .nextButton:disabled {
@@ -163,7 +165,7 @@
   flex-direction: column;
   gap: 10px;
   padding: 15px;
-  background: #f8fafc;
+  background: var(--color-background);
   border-radius: 10px;
 }
 
@@ -171,8 +173,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: fluid(18, 15);
-  color: #5d6d7e;
+  font-size: rem(13);
+  color: var(--color-muted);
 }
 
 .legendDot {
@@ -183,11 +185,11 @@
 }
 
 .legendDot.answered {
-  background: #21794d;
+  background: var(--color-success);
 }
 
 .legendDot.unanswered {
-  background: #e0e0e0;
+  background: var(--color-border);
 }
 
 .legendDot.current {
@@ -200,7 +202,7 @@
   }
 
   .navigationFooter {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .prevButton,

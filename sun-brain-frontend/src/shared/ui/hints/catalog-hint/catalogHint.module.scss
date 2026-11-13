@@ -1,53 +1,56 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
-.catalogHint{
+.catalogHint {
   display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
-  position: relative;
-  .img{
-    width: 64px;
-    height: 64px;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+
+  .img {
+    position: relative;
+    flex-shrink: 0;
+    width: rem(52);
+    height: rem(52);
+    color: var(--color-primary);
+
+    @include tablet {
+      width: rem(44);
+      height: rem(44);
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
   }
-  .number{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+  .number {
     position: absolute;
-    background-color: #0051FF;
-    width: 20px;
-    height: 20px;
-    top: -3px;
-    left: 53px;
+    top: rem(-4);
+    right: rem(-4);
+    display: grid;
+    place-items: center;
+    width: rem(18);
+    height: rem(18);
+    border: 2px solid var(--color-light);
     border-radius: 50%;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 22.89px;
-  }
-  .title{
-    padding-left: 26px;
-    color: rgb(122, 114, 114);
-    font-size: 16px;
-    font-weight: 500;
+    background: var(--color-primary);
+    color: var(--color-light);
+    font-size: rem(10);
+    font-weight: 600;
+    line-height: 1;
   }
 
-  @include mobile {
-    align-items: center;
-    margin-top: rem(24);
+  .title {
+    color: var(--color-muted);
+    font-size: rem(18);
+    line-height: 1.6;
 
-    .img {
-      width: rem(48);
-      height: rem(48);
+    @include tablet {
+      font-size: rem(16);
     }
 
-    .number {
-      top: rem(-4);
-      left: rem(38);
-    }
-
-    .title {
-      padding-left: rem(18);
+    @include mobile {
       font-size: rem(14);
     }
   }

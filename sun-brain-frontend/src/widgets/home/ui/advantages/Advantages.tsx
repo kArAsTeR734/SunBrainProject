@@ -5,9 +5,13 @@ export const Advantages = () => {
   return (
     <section className={styles.advantages}>
       <div className="container">
-        <div id="about" className={styles.title}>
-          О нас
-        </div>
+        <p className={styles.eyebrow} id="about">
+          УЧИТЬСЯ С SUNBRAIN
+        </p>
+        <h2 className={styles.title}>Всё для вашей подготовки</h2>
+        <p className={styles.description}>
+          Понятный маршрут от проверки знаний до самостоятельной практики.
+        </p>
         <CardList />
       </div>
     </section>

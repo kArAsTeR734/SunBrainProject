@@ -1,5 +1,5 @@
 import { useMySearchParams } from '@shared/lib';
-import { DataFallback } from '@shared/ui';
+import { Button, DataFallback } from '@shared/ui';
 
 import { useTestReview } from '../../api/useTestReview.ts';
 import styles from './TestResult.module.scss';
@@ -156,9 +156,9 @@ export const TestResults = ({
       </div>
 
       <div className={styles.resultsActions}>
-        <button className={styles.restartButton} onClick={onRestart} type="button">
+        <Button className={styles.restartButton} onClick={onRestart}>
           Пройти тест заново
-        </button>
+        </Button>
       </div>
     </section>
   );

@@ -1,9 +1,8 @@
-@use "@shared/styles/helpers" as *;
-
+@use '@shared/styles/helpers' as *;
 
 .header {
   position: relative;
-  padding-block: rem(12);
+  padding-block: rem(16);
   border-bottom: 1px solid var(--color-border);
   background: var(--color-light);
   z-index: 100;

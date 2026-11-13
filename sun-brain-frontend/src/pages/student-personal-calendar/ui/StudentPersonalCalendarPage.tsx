@@ -11,9 +11,8 @@ export const StudentCalendarPage = () => {
     <div className={styles.page}>
       <Header />
       <main className={styles.content}>
-        <div className="container">
-          <Breadcrumbs />
-        </div>
+        <Breadcrumbs />
+        <h1 className={styles.title}>Календарь занятий</h1>
         <CalendarSlider />
       </main>
       <Footer />

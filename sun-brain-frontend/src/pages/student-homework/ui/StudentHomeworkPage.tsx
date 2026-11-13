@@ -5,15 +5,17 @@ import { Outlet } from 'react-router-dom';
 import { Footer } from '@/widgets/footer';
 import { Header } from '@/widgets/header';
 
+import styles from './StudentHomeworkPage.module.scss';
+
 export const StudentHomeworkPage = () => {
   return (
     <>
       <Header />
-      <div className="container">
+      <main className={`container ${styles.content}`}>
         <Breadcrumbs />
         <CatalogHints />
         <Outlet />
-      </div>
+      </main>
       <Footer />
     </>
   );

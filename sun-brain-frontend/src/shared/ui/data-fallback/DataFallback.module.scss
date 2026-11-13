@@ -1,35 +1,28 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
 .dataFallback {
   width: 100%;
-  padding: fluid(20, 16);
-  border-radius: rem(10);
-  border: 1px solid #d8d8d8;
-  background-color: #fafafa;
-  margin-block: fluid(70, 36);
+  margin-block: var(--space-4);
+  padding: fluid(32, 24);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-light);
 }
 
 .title {
-  font-size: fluid(18, 16);
+  color: var(--text-color);
+  font-size: rem(17);
   font-weight: 600;
-  color: #1f1f1f;
-}
-
-.description {
-  margin-top: 8px;
-  color: #666666;
-  font-size: 15px;
   line-height: 1.5;
 }
 
+.description {
+  margin-top: rem(12);
+  color: var(--color-muted);
+  font-size: rem(15);
+  line-height: 1.65;
+}
+
 .action {
-  margin-top: 14px;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 8px;
-  border: none;
-  background-color: #ff8000;
-  color: #ffffff;
-  cursor: pointer;
-  max-width: 100%;
+  margin-top: var(--space-3);
 }

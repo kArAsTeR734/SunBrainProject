@@ -1,36 +1,38 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
-.footer{
+.footer {
   min-height: 100px;
-  padding: fluid(30, 24) 0 fluid(83, 42) 0;
-  background-color: var(--color-surface);
+  margin-top: auto;
+  padding-block: fluid(48, 32);
+  background-color: var(--color-light);
   border-top: 1px solid var(--color-border);
 
-  .wrapper{
+  .wrapper {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: rem(32);
   }
 
-  .header{
-    margin-top: 14px;
+  .header {
+    margin: 0 0 rem(8);
     color: var(--text-color);
-    font-size: fluid(24, 18);
+    font-size: fluid(19, 17);
     font-weight: 600;
     line-height: 1.35;
     text-align: left;
   }
 
-  .item{
+  .item {
     display: flex;
     flex-direction: column;
-    row-gap: 10px;
+    row-gap: rem(12);
   }
-  .link{
-    color: var(--text-color);
+  .link {
+    color: var(--color-muted);
+    font-size: rem(15);
     text-decoration: none;
     transition: 0.2s color ease;
-    &:hover{
+    &:hover {
       color: var(--color-primary);
     }
   }

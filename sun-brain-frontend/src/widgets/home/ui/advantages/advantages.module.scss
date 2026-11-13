@@ -1,14 +1,26 @@
-@use "@shared/styles/helpers" as *;
+@use '@shared/styles/helpers' as *;
 
-.advantages{
-  min-height: auto;
-  padding: fluid(24, 12) 0 fluid(110, 48) 0;
+.advantages {
+  padding-block: fluid(16, 8) fluid(88, 48);
+}
 
-  .title{
-    color: var(--text-color);
-    font-size: fluid(40, 28);
-    font-weight: 700;
-    line-height: 1.2;
-    text-align: center;
-  }
+.eyebrow {
+  scroll-margin-top: rem(32);
+  margin: 0 0 rem(12);
+  color: var(--color-primary);
+  font-size: rem(12);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.title {
+  font-size: fluid(36, 26);
+  line-height: 1.25;
+}
+
+.description {
+  max-width: 60ch;
+  margin: rem(16) 0 0;
+  color: var(--color-muted);
+  line-height: 1.65;
 }

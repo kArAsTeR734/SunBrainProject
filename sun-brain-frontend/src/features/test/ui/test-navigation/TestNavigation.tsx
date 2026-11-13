@@ -1,3 +1,4 @@
+import { Button } from '@shared/ui';
 import React from 'react';
 
 import type { TestTask } from '../../models/TestTask';
@@ -53,25 +54,26 @@ export const TestNavigation: React.FC<TaskNavigationProps> = ({
       </div>
 
       <div className={styles.navigationFooter}>
-        <button
+        <Button
           className={styles.prevButton}
+          variant="haveAccount"
           onClick={() => prevTaskId !== null && onTaskSelect(prevTaskId)}
           disabled={prevTaskId === null}
         >
           Назад
-        </button>
+        </Button>
 
-        <button
+        <Button
           className={styles.nextButton}
           onClick={() => nextTaskId !== null && onTaskSelect(nextTaskId)}
           disabled={nextTaskId === null}
         >
           Вперёд
-        </button>
+        </Button>
 
-        <button className={styles.finishButton} onClick={onFinish} disabled={isFinishing}>
+        <Button className={styles.finishButton} onClick={onFinish} disabled={isFinishing}>
           {isFinishing ? 'Завершение...' : 'Завершить тест'}
-        </button>
+        </Button>
       </div>
 
       <div className={styles.legend}>
