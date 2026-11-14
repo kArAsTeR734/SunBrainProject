@@ -141,7 +141,10 @@ class TaskService {
     }
 
     return {
-      catalogTasks: tasks.slice(0, limit),
+      catalogTasks: tasks.slice(0, limit).map((task) => ({
+        ...task,
+        content: this.normalizeTaskPresentation(task).content,
+      })),
       nextCursor: tasks.length > limit ? tasks[limit - 1].id : null,
     };
   }

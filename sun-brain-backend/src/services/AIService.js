@@ -1,11 +1,9 @@
-import { OpenAI } from 'openai';
-import {
-  normalizeSvg
-} from "../utils/task-content-utils.js";
-import { normalizeGeneratedTextBatch } from './task-text-normalizer-service.js';
+import { OpenAI } from "openai";
+import { normalizeSvg } from "../utils/task-content-utils.js";
+import { normalizeGeneratedTextBatch } from "./task-text-normalizer-service.js";
 
 const HOMEWORK_SYSTEM_PROMPT = `
-You generate math homework tasks for exam preparation.
+You generate homework tasks for exam preparation.
 Return strictly valid JSON and nothing else.
 
 Expected JSON format:
@@ -36,27 +34,28 @@ Rules:
 11. Do not generate vector tasks or use vector notation.
 `;
 
-const REQUIRED_DIFFICULTIES = ['easy', 'medium', 'hard'];
-const VECTOR_TASK_REGEX = /(?:\\vec|\\overrightarrow|\bvec[a-zа-яё]\b|вектор|векторы|координатн(?:ой|ая|ую)\s+плоскост)/i;
+const REQUIRED_DIFFICULTIES = ["easy", "medium", "hard"];
+const VECTOR_TASK_REGEX =
+  /(?:\\vec|\\overrightarrow|\bvec[a-zа-яё]\b|вектор|векторы|координатн(?:ой|ая|ую)\s+плоскост)/i;
 
 class AIService {
   constructor() {
-    this.modelName = process.env.DEEPSEEK_MODEL || 'deepseek-chat';
+    this.modelName = "gpt-6.1-terra";
     this.baseURL =
-      process.env.BASE_DEEPSEEK_URL ||
-      process.env.DEEPSEEK_BASE_URL ||
-      'https://api.deepseek.com/v1';
-    this.apiKey = process.env.DEEPSEEK_API_KEY;
+      process.env.SIMPLE_CLAW_BASE_URL ||
+      process.env.SIMPLE_CLAW_API_KEY ||
+      "https://api.deepseek.com/v1";
+    this.apiKey = process.env.SIMPLE_CLAW_API_KEY;
 
     this.client = new OpenAI({
-      apiKey: this.apiKey || 'missing-api-key',
-      baseURL: this.baseURL
+      apiKey: this.apiKey || "missing-api-key",
+      baseURL: this.baseURL,
     });
   }
 
   ensureConfigured() {
     if (!this.apiKey) {
-      throw new Error('DEEPSEEK_API_KEY is not configured');
+      throw new Error("DEEPSEEK_API_KEY is not configured");
     }
   }
 
@@ -67,20 +66,20 @@ class AIService {
       model: options.model || this.modelName,
       messages,
       temperature: options.temperature ?? 0.4,
-      max_tokens: options.maxTokens ?? 4096
+      max_tokens: options.maxTokens ?? 4096,
     });
 
-    return completion?.choices?.[0]?.message?.content || '';
+    return completion?.choices?.[0]?.message?.content || "";
   }
 
   async generateHomeworkByTaskNumber({
     subjectName,
     topicName,
     taskNumber,
-    tasksPerDifficulty = 5
+    tasksPerDifficulty = 5,
   }) {
     const chunks = [];
-    let title = '';
+    let title = "";
 
     for (const difficulty of REQUIRED_DIFFICULTIES) {
       const chunk = await this.generateHomeworkChunk({
@@ -88,7 +87,7 @@ class AIService {
         topicName,
         taskNumber,
         difficulty,
-        tasksCount: tasksPerDifficulty
+        tasksCount: tasksPerDifficulty,
       });
 
       if (!title && chunk.title) {
@@ -100,7 +99,7 @@ class AIService {
 
     return {
       title: title || `AI homework for task #${taskNumber}`,
-      tasks: chunks
+      tasks: chunks,
     };
   }
 
@@ -109,7 +108,7 @@ class AIService {
     topicName,
     taskNumber,
     difficulty,
-    tasksCount
+    tasksCount,
   }) {
     const userPrompt = `
 Subject: ${subjectName}
@@ -128,17 +127,21 @@ Each task must include a detailed solution and final answer.
       try {
         const retryHint = lastError
           ? `\n\nPrevious attempt failed with this backend parser error: ${lastError.message}\nReturn a corrected complete JSON object only.`
-          : '';
+          : "";
         const content = await this.chat(
           [
-            { role: 'system', content: HOMEWORK_SYSTEM_PROMPT.trim() },
-            { role: 'user', content: `${userPrompt.trim()}${retryHint}` }
+            { role: "system", content: HOMEWORK_SYSTEM_PROMPT.trim() },
+            { role: "user", content: `${userPrompt.trim()}${retryHint}` },
           ],
-          { temperature: attempt === 1 ? 0.7 : 0.3, maxTokens: 16000 }
+          { temperature: attempt === 1 ? 0.7 : 0.3, maxTokens: 16000 },
         );
 
         const parsed = this.parseJsonResponse(content);
-        return await this.normalizeHomeworkPayload(parsed, tasksCount, difficulty);
+        return await this.normalizeHomeworkPayload(
+          parsed,
+          tasksCount,
+          difficulty,
+        );
       } catch (error) {
         lastError = error;
       }
@@ -146,14 +149,14 @@ Each task must include a detailed solution and final answer.
 
     throw new Error(
       `Failed to generate AI homework (${difficulty}): ${
-        lastError?.message || 'Unknown error'
-      }`
+        lastError?.message || "Unknown error"
+      }`,
     );
   }
 
   parseJsonResponse(content) {
-    if (!content || typeof content !== 'string') {
-      throw new Error('AI returned empty response');
+    if (!content || typeof content !== "string") {
+      throw new Error("AI returned empty response");
     }
 
     const cleaned = this.stripJsonMarkdownFence(content.trim());
@@ -165,7 +168,7 @@ Each task must include a detailed solution and final answer.
     } catch (error) {
       try {
         return this.parseJsonWithBackslashRepair(
-          this.escapeInvalidJsonBackslashes(backslashSafeJson)
+          this.escapeInvalidJsonBackslashes(backslashSafeJson),
         );
       } catch (repairedError) {
         throw new Error(repairedError.message || error.message);
@@ -175,16 +178,16 @@ Each task must include a detailed solution and final answer.
 
   stripJsonMarkdownFence(content) {
     return content
-      .replace(/^```(?:json)?\s*/i, '')
-      .replace(/\s*```$/i, '')
+      .replace(/^```(?:json)?\s*/i, "")
+      .replace(/\s*```$/i, "")
       .trim();
   }
 
   extractJsonObject(content) {
-    const start = content.indexOf('{');
+    const start = content.indexOf("{");
 
     if (start === -1) {
-      throw new Error('AI did not return valid JSON');
+      throw new Error("AI did not return valid JSON");
     }
 
     let depth = 0;
@@ -200,7 +203,7 @@ Each task must include a detailed solution and final answer.
           continue;
         }
 
-        if (char === '\\') {
+        if (char === "\\") {
           escaped = true;
           continue;
         }
@@ -217,9 +220,9 @@ Each task must include a detailed solution and final answer.
         continue;
       }
 
-      if (char === '{') {
+      if (char === "{") {
         depth += 1;
-      } else if (char === '}') {
+      } else if (char === "}") {
         depth -= 1;
 
         if (depth === 0) {
@@ -228,11 +231,11 @@ Each task must include a detailed solution and final answer.
       }
     }
 
-    throw new Error('AI returned incomplete JSON');
+    throw new Error("AI returned incomplete JSON");
   }
 
   escapeInvalidJsonBackslashes(jsonValue) {
-    let result = '';
+    let result = "";
     let inString = false;
 
     for (let index = 0; index < jsonValue.length; index += 1) {
@@ -248,10 +251,10 @@ Each task must include a detailed solution and final answer.
         continue;
       }
 
-      if (inString && char === '\\') {
-        const nextChar = jsonValue[index + 1] || '';
+      if (inString && char === "\\") {
+        const nextChar = jsonValue[index + 1] || "";
         if (!/["\\/bfnrtu]/.test(nextChar)) {
-          result += '\\\\';
+          result += "\\\\";
           continue;
         }
       }
@@ -273,7 +276,7 @@ Each task must include a detailed solution and final answer.
         lastError = error;
         const position = this.getJsonErrorPosition(error);
 
-        if (position === null || !/escaped|escape/i.test(error.message || '')) {
+        if (position === null || !/escaped|escape/i.test(error.message || "")) {
           throw error;
         }
 
@@ -286,11 +289,11 @@ Each task must include a detailed solution and final answer.
       }
     }
 
-    throw lastError || new Error('AI did not return valid JSON');
+    throw lastError || new Error("AI did not return valid JSON");
   }
 
   getJsonErrorPosition(error) {
-    const match = String(error?.message || '').match(/position\s+(\d+)/i);
+    const match = String(error?.message || "").match(/position\s+(\d+)/i);
     if (!match) {
       return null;
     }
@@ -304,14 +307,14 @@ Each task must include a detailed solution and final answer.
     const min = Math.max(0, start - 12);
 
     for (let index = start; index >= min; index -= 1) {
-      if (value[index] === '\\') {
+      if (value[index] === "\\") {
         return index;
       }
     }
 
     const max = Math.min(value.length - 1, start + 12);
     for (let index = start + 1; index <= max; index += 1) {
-      if (value[index] === '\\') {
+      if (value[index] === "\\") {
         return index;
       }
     }
@@ -320,7 +323,7 @@ Each task must include a detailed solution and final answer.
   }
 
   escapeJsonStringBackslashes(jsonValue) {
-    let result = '';
+    let result = "";
     let inString = false;
 
     for (let index = 0; index < jsonValue.length; index += 1) {
@@ -336,45 +339,45 @@ Each task must include a detailed solution and final answer.
         continue;
       }
 
-      if (inString && char === '\\') {
-        const nextChar = jsonValue[index + 1] || '';
-        const unicodeEscape = nextChar === 'u' && /^[0-9a-fA-F]{4}/.test(
-          jsonValue.slice(index + 2, index + 6)
-        );
+      if (inString && char === "\\") {
+        const nextChar = jsonValue[index + 1] || "";
+        const unicodeEscape =
+          nextChar === "u" &&
+          /^[0-9a-fA-F]{4}/.test(jsonValue.slice(index + 2, index + 6));
 
         if (
           nextChar &&
           nextChar !== '"' &&
-          nextChar !== '\\' &&
-          nextChar !== '/' &&
+          nextChar !== "\\" &&
+          nextChar !== "/" &&
           !unicodeEscape
         ) {
-          result += '\\\\';
+          result += "\\\\";
           continue;
         }
 
         if (!nextChar) {
-          result += '\\\\';
+          result += "\\\\";
           continue;
         }
       }
 
       if (inString) {
         switch (char) {
-          case '\b':
-            result += '\\b';
+          case "\b":
+            result += "\\b";
             continue;
-          case '\f':
-            result += '\\\\f';
+          case "\f":
+            result += "\\\\f";
             continue;
-          case '\n':
-            result += '\\n';
+          case "\n":
+            result += "\\n";
             continue;
-          case '\r':
-            result += '\\r';
+          case "\r":
+            result += "\\r";
             continue;
-          case '\t':
-            result += '\\t';
+          case "\t":
+            result += "\\t";
             continue;
           default:
             break;
@@ -390,16 +393,24 @@ Each task must include a detailed solution and final answer.
   countBackslashesBefore(value, index) {
     let count = 0;
 
-    for (let cursor = index - 1; cursor >= 0 && value[cursor] === '\\'; cursor -= 1) {
+    for (
+      let cursor = index - 1;
+      cursor >= 0 && value[cursor] === "\\";
+      cursor -= 1
+    ) {
       count += 1;
     }
 
     return count;
   }
 
-  async normalizeHomeworkPayload(payload, tasksPerDifficulty, expectedDifficulty = null) {
-    if (!payload || typeof payload !== 'object') {
-      throw new Error('Invalid homework payload');
+  async normalizeHomeworkPayload(
+    payload,
+    tasksPerDifficulty,
+    expectedDifficulty = null,
+  ) {
+    if (!payload || typeof payload !== "object") {
+      throw new Error("Invalid homework payload");
     }
 
     const expectedTotal = expectedDifficulty
@@ -409,17 +420,19 @@ Each task must include a detailed solution and final answer.
 
     if (rawTasks.length !== expectedTotal) {
       throw new Error(
-        `AI returned ${rawTasks.length} tasks, expected ${expectedTotal}`
+        `AI returned ${rawTasks.length} tasks, expected ${expectedTotal}`,
       );
     }
 
     const textFields = [];
     for (const task of rawTasks) {
-      textFields.push(String(task?.statementLatex || task?.questionLatex || ''));
-      textFields.push(String(task?.solutionLatex || ''));
-      textFields.push(String(task?.answerLatex || task?.answer || ''));
+      textFields.push(
+        String(task?.statementLatex || task?.questionLatex || ""),
+      );
+      textFields.push(String(task?.solutionLatex || ""));
+      textFields.push(String(task?.answerLatex || task?.answer || ""));
     }
-    textFields.push(String(payload.title || ''));
+    textFields.push(String(payload.title || ""));
 
     const normalizedTextFields = await normalizeGeneratedTextBatch(textFields);
 
@@ -428,8 +441,10 @@ Each task must include a detailed solution and final answer.
       const fallbackDifficulty =
         expectedDifficulty ||
         REQUIRED_DIFFICULTIES[difficultyFallbackIndex] ||
-        'hard';
-      const rawDifficulty = String(task?.difficulty || '').trim().toLowerCase();
+        "hard";
+      const rawDifficulty = String(task?.difficulty || "")
+        .trim()
+        .toLowerCase();
       const normalizedDifficulty = expectedDifficulty
         ? expectedDifficulty
         : REQUIRED_DIFFICULTIES.includes(rawDifficulty)
@@ -437,20 +452,22 @@ Each task must include a detailed solution and final answer.
           : fallbackDifficulty;
 
       const textFieldIndex = index * 3;
-      const statementLatex = normalizedTextFields[textFieldIndex] || '';
-      const solutionLatex = normalizedTextFields[textFieldIndex + 1] || '';
-      const answerLatex = normalizedTextFields[textFieldIndex + 2] || '';
+      const statementLatex = normalizedTextFields[textFieldIndex] || "";
+      const solutionLatex = normalizedTextFields[textFieldIndex + 1] || "";
+      const answerLatex = normalizedTextFields[textFieldIndex + 2] || "";
       const imageSvg = normalizeSvg(task?.imageSvg);
 
       if (!statementLatex || !solutionLatex || !answerLatex) {
-        throw new Error('AI returned incomplete task data');
+        throw new Error("AI returned incomplete task data");
       }
 
       if (
         VECTOR_TASK_REGEX.test(statementLatex) ||
         VECTOR_TASK_REGEX.test(solutionLatex)
       ) {
-        throw new Error('AI returned vector task, but vector tasks are disabled');
+        throw new Error(
+          "AI returned vector task, but vector tasks are disabled",
+        );
       }
 
       return {
@@ -458,26 +475,28 @@ Each task must include a detailed solution and final answer.
         statementLatex,
         solutionLatex,
         answerLatex,
-        imageSvg
+        imageSvg,
       };
     });
 
     if (!expectedDifficulty) {
       for (const difficulty of REQUIRED_DIFFICULTIES) {
-        const count = tasks.filter(task => task.difficulty === difficulty).length;
+        const count = tasks.filter(
+          (task) => task.difficulty === difficulty,
+        ).length;
         if (count !== tasksPerDifficulty) {
           throw new Error(
-            `AI returned invalid difficulty distribution for "${difficulty}"`
+            `AI returned invalid difficulty distribution for "${difficulty}"`,
           );
         }
       }
     }
 
-    const title = normalizedTextFields[rawTasks.length * 3] || '';
+    const title = normalizedTextFields[rawTasks.length * 3] || "";
 
     return {
-      title: title || 'AI homework',
-      tasks
+      title: title || "AI homework",
+      tasks,
     };
   }
 }
