@@ -1,1 +1,6 @@
 /.agents/
+
+# Local environment configuration (including nested projects)
+.env
+.env.*
+*.env

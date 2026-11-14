@@ -111,6 +111,7 @@ model tasks {
   topics         topics?        @relation(fields: [topic_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   test_answers   test_answers[]
   test_tasks     test_tasks[]
+  ai_catalog_items ai_catalog_items[]
 
   @@index([topic_id, id], map: "idx_tasks_topic_id_id")
 }
@@ -170,6 +171,7 @@ model topics {
   tasks                 tasks[]
   subjects              subjects                @relation(fields: [subject_code], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "fk_topics_subjects_code")
   catalog_topics        catalog_topics?
+  ai_catalog_items      ai_catalog_items[]
 
   @@index([subject_code], map: "idx_topics_subject_code")
 }
@@ -182,6 +184,59 @@ model catalog_topics {
   topics       topics @relation(fields: [topic_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@unique([subject_code, position])
+}
+
+model ai_catalog_runs {
+  id                    String             @id @db.Uuid
+  subject_code          String             @default("emath") @db.VarChar(20)
+  review_before_publish Boolean            @default(false)
+  budget_rubles         Decimal            @db.Decimal(14, 6)
+  charged_rubles        Decimal            @default(0) @db.Decimal(14, 6)
+  status                String             @default("pending")
+  provider_evidence     Json?
+  created_at            DateTime           @default(now()) @db.Timestamptz(6)
+  items                 ai_catalog_items[]
+  calls                 ai_catalog_calls[]
+}
+
+model ai_catalog_items {
+  id             Int                @id @default(autoincrement())
+  run_id         String             @db.Uuid
+  topic_id       Int
+  topic_name     String
+  topic_number   Int?
+  difficulty     String
+  requires_image Boolean            @default(false)
+  status         String             @default("pending")
+  attempts       Int                @default(0)
+  candidate      Json?
+  verification   Json?
+  error          String?
+  task_id        Int?
+  run            ai_catalog_runs    @relation(fields: [run_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  topic          topics             @relation(fields: [topic_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  task           tasks?             @relation(fields: [task_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  calls          ai_catalog_calls[]
+
+  @@unique([run_id, topic_id, difficulty])
+  @@index([run_id, id], map: "ai_catalog_items_run")
+}
+
+model ai_catalog_calls {
+  id                   Int               @id @default(autoincrement())
+  run_id               String            @db.Uuid
+  item_id              Int?
+  purpose              String
+  reserved_rubles      Decimal           @db.Decimal(14, 6)
+  charged_rubles       Decimal           @db.Decimal(14, 6)
+  usage                Json?
+  provider_response_id String?
+  status               String            @default("reserved")
+  created_at           DateTime          @default(now()) @db.Timestamptz(6)
+  run                  ai_catalog_runs   @relation(fields: [run_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  item                 ai_catalog_items? @relation(fields: [item_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([run_id, id], map: "ai_catalog_calls_run")
 }
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.

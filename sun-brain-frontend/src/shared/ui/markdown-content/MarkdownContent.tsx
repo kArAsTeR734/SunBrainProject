@@ -3,7 +3,7 @@ import 'katex/dist/katex.min.css';
 import clsx from 'clsx';
 import katex from 'katex';
 import { memo } from 'react';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown, { defaultUrlTransform } from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 
@@ -16,7 +16,8 @@ interface MarkdownProps {
 export const MarkdownContent = memo(({ content }: MarkdownProps) => {
   const normalizeSolution = (text: string) => {
     return text
-      .replace(/\\n/g, '\n')
+      // A literal newline escape must not consume LaTeX commands such as \ne or \neq.
+      .replace(/\\n(?![A-Za-z])/g, '\n')
       .replace(/\r\n/g, '\n')
       .replace(/\n{3,}/g, '\n\n')
       .trim();
@@ -25,6 +26,13 @@ export const MarkdownContent = memo(({ content }: MarkdownProps) => {
   const solution = normalizeSolution(content);
   return (
     <ReactMarkdown
+      urlTransform={(url, key, node) =>
+        node.tagName === 'img' &&
+        key === 'src' &&
+        url.startsWith('data:image/svg+xml;utf8,')
+          ? url
+          : defaultUrlTransform(url)
+      }
       remarkPlugins={[remarkMath]}
       rehypePlugins={[rehypeKatex]}
       components={{
